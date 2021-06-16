@@ -1,6 +1,9 @@
+import { Router } from '@angular/router';
 import { User } from './../_models/user';
 import { AccountService } from './../_services/account.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +11,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  registerMode = false;
   model: any ={};
-
-
-  constructor(public accountService:AccountService) { }
+  constructor(
+    public accountService:AccountService, 
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.setCurrentUser();
@@ -25,18 +28,14 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.accountService.login(this.model).subscribe(response => {
-      console.log(response)
-
+      this.router.navigateByUrl('/')
     }, error => {
       console.log(error)
+      this.toastr.error(error)
     })
   }
 
   logout(){
     this.accountService.logout();
-  }
-
-  registerToggle(){
-    this.registerMode = !this.registerMode;
   }
 }

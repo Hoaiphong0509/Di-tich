@@ -1,3 +1,4 @@
+import { SharedModule } from './_modules/shared.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
@@ -9,8 +10,13 @@ import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component'
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { RegisterComponent } from './register/register.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { RelicCreateComponent } from './relics/relic-create/relic-create.component';
+import { RelicDetailComponent } from './relics/relic-detail/relic-detail.component';
+import { RelicListMemberComponent } from './relics/relic-list-member/relic-list-member.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -18,8 +24,12 @@ import { RegisterComponent } from './register/register.component';
     NavComponent,
     LoginComponent,
     HomeComponent,
-    SidebarComponent,
-    RegisterComponent
+    RegisterComponent,
+    MemberListComponent,
+    MemberDetailComponent,
+    RelicCreateComponent,
+    RelicDetailComponent,
+    RelicListMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +37,7 @@ import { RegisterComponent } from './register/register.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    BsDropdownModule.forRoot()
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

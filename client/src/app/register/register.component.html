@@ -1,4 +1,4 @@
-<div class="loginFrom" *ngIf="(accountService.currentUser$ | async) == null">
+<div class="loginFrom">
   <div id="formContent">
     <!-- title -->
     <div class="m-3">
@@ -23,7 +23,7 @@
     </form>
 
     <div id="formFooter">
-      <a class="underlineHover" (click)="cancel()">Đã có tài khoản</a>
+      <a routerLink='/login' class="underlineHover">Đã có tài khoản</a>
     </div>
 
   </div>
