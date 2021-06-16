@@ -1,0 +1,30 @@
+<div class="loginFrom" *ngIf="(accountService.currentUser$ | async) == null">
+  <div id="formContent">
+    <!-- title -->
+    <div class="m-3">
+        <h4>Đăng ký</h4>
+    </div>
+    <!-- Login Form -->
+    <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+      <input 
+        type="text" 
+        name="username" 
+        [(ngModel)]="model.username"
+        placeholder="Tài khoản">
+      <input 
+        type="password" 
+        name="password" 
+        [(ngModel)]="model.password"
+        placeholder="Mật khẩu">
+
+        <div class="form-group mt-4" style="align-items: center;">
+            <input type="submit" class="d-inline" value="Đăng ký">
+        </div>
+    </form>
+
+    <div id="formFooter">
+      <a class="underlineHover" (click)="cancel()">Đã có tài khoản</a>
+    </div>
+
+  </div>
+</div>

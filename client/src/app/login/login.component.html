@@ -1,0 +1,23 @@
+<div class="loginFrom" *ngIf="(accountService.currentUser$ | async) == null">
+  <div id="formContent">
+    <!-- Login Form -->
+    <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+      <input 
+        type="text" 
+        name="username" 
+        [(ngModel)]="model.username"
+        placeholder="Tài khoản">
+    <input 
+        type="password" 
+        name="password" 
+        [(ngModel)]="model.password"
+        placeholder="Mật khẩu">
+      <input type="submit" class="fadeIn fourth" value="Đăng nhập">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" (click)="registerToggle()">Tham gia với chúng tôi</a>
+    </div>
+  </div>
+</div>
