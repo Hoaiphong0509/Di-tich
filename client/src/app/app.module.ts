@@ -1,8 +1,8 @@
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { SharedModule } from './_modules/shared.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +16,9 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { RelicCreateComponent } from './relics/relic-create/relic-create.component';
 import { RelicDetailComponent } from './relics/relic-detail/relic-detail.component';
 import { RelicListMemberComponent } from './relics/relic-list-member/relic-list-member.component';
-import { ToastrModule } from 'ngx-toastr';
+import { TestErrorComponent } from './errors/test-error/test-error.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,10 @@ import { ToastrModule } from 'ngx-toastr';
     MemberDetailComponent,
     RelicCreateComponent,
     RelicDetailComponent,
-    RelicListMemberComponent
+    RelicListMemberComponent,
+    TestErrorComponent,
+    NotFoundComponent,
+    ServerErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,9 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

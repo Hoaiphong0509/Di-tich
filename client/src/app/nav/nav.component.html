@@ -10,7 +10,7 @@
           <a class="nav-link" routerLink='/members' routerLinkActive='active' >Thành viên</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive='active'>Disabled</a>
+          <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Test Error</a>
         </li>
         <li class="nav-item dropdown" dropdown *ngIf="(accountService.currentUser$ | async) as user">
             <a class="dropdown-toggle nav-link" routerLinkActive='active' dropdownToggle><i class="fa fa-user"></i></a>
