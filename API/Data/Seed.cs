@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
+using API.Extensions;
 
 namespace API.Data
 {
@@ -27,6 +28,12 @@ namespace API.Data
                 user.UserName = user.UserName.ToLower();
                 user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
                 user.PasswordSalt = hmac.Key;
+
+                var relics = user.Relics;
+                foreach(var relic in relics)
+                {
+                    relic.NameUnmark = relic.Name.ConvertToUnSign();
+                }
 
                 context.Users.Add(user);
             }
