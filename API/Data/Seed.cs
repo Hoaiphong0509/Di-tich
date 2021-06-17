@@ -12,14 +12,15 @@ namespace API.Data
     {
         public static async Task SeedData(DataContext context)
         {
-            if(await context.Users.AnyAsync()) return;
+            if (await context.Users.AnyAsync()) return;
 
             var userSeedData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
+            // var relicSeedData = await System.IO.File.ReadAllTextAsync("Data/RelicSeedData.json");
 
             var users = JsonSerializer.Deserialize<List<AppUser>>(userSeedData);
-            
+            // var relics = JsonSerializer.Deserialize<List<Relic>>(relicSeedData);
 
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 using var hmac = new HMACSHA512();
 
@@ -28,7 +29,7 @@ namespace API.Data
                 user.PasswordSalt = hmac.Key;
 
                 context.Users.Add(user);
-            } 
+            }
 
             await context.SaveChangesAsync();
         }

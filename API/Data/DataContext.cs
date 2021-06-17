@@ -10,6 +10,6 @@ namespace API.Data
         }
 
         public DbSet<AppUser> Users { get; set; }
-        public DbSet<Relic> Relics { get; set; }
+        // public DbSet<Relic> Relics { get; set; }
     }
 }

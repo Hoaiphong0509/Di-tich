@@ -1,7 +1,10 @@
 [
     {
         "UserName": "Lisa",
-        "Relic": [
+        "KnownAs": "lisa",
+        "Bio": "I am lisa",
+        "Address": "HCM Vietnam",
+        "Relics": [
             {
                 "Name": "CHÙA CHÂU HƯNG",
                 "Title": "Di tích cách mạng – danh lam thắng cảnh cấp Thành phố",
@@ -11,40 +14,18 @@
                     {
                         "Url": "https://randomuser.me/api/portraits/women/1.jpg",
                         "IsMain": true
-                    },
-                    {
-                        "Url": "https://randomuser.me/api/portraits/women/2.jpg",
-                        "IsMain": false
-                    }
-                ]
-            },
-            {
-                "Name": "ĐÌNH PHONG PHÚ",
-                "Title": "Di tích Lịch sử – Nghệ thuật cấp Quốc gia",
-                "Content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                "View": 1,
-                "Photos": [
-                    {
-                        "Url": "https://randomuser.me/api/portraits/women/3.jpg",
-                        "IsMain": true
-                    },
-                    {
-                        "Url": "https://randomuser.me/api/portraits/women/4.jpg",
-                        "IsMain": false
                     }
                 ]
             }
         ],
-        "Photos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/women/12.jpg",
-                "IsMain": true
-            }
-        ]
+        "Avatar": "https://randomuser.me/api/portraits/women/12.jpg"
     },
     {
         "UserName": "Bob",
-        "Relic": [
+        "KnownAs": "Bob",
+        "Bio": "I am Bob",
+        "Address": "HCM Vietnam",
+        "Relics": [
             {
                 "Name": "ĐÌNH LINH ĐÔNG",
                 "Title": "Di tích Kiến trúc Nghệ thuật cấp Quốc gia",
@@ -54,19 +35,10 @@
                     {
                         "Url": "https://randomuser.me/api/portraits/man/5.jpg",
                         "IsMain": true
-                    },
-                    {
-                        "Url": "https://randomuser.me/api/portraits/man/6.jpg",
-                        "IsMain": false
                     }
                 ]
             }
         ],
-        "Photos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/man/12.jpg",
-                "IsMain": true
-            }
-        ]
+        "Avatar": "https://randomuser.me/api/portraits/men/12.jpg"
     }
 ]

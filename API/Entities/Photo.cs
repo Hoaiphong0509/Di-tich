@@ -11,7 +11,5 @@ namespace API.Entities
         public string PublicId { get; set; }
         public Relic Relic { get; set; }
         public int RelicId { get; set; }
-        public AppUser AppUser { get; set; }
-        public int AppUserId { get; set; }
     }
 }
