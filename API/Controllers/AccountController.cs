@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Text;
 using System.Security.Cryptography;
@@ -46,7 +47,8 @@ namespace API.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                Avatar = user?.Avatar
             };
         }
 

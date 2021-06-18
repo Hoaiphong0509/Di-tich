@@ -42,6 +42,9 @@
           <textarea [(ngModel)]="member.bio" class="form-control p-4" name="bio" rows="8"></textarea>
         </form>
       </tab>
+      <tab heading="Thay đổi ảnh đại diện">
+        <app-avatar-editor [member]="member"></app-avatar-editor>
+      </tab>
       <tab heading='Bài viết'>
         <h1>Các bài viết</h1>
         <div class="">

@@ -1,0 +1,23 @@
+.img-thumbnail {
+    border: none;
+}
+
+.img-thumbnail img {
+    border: none;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+}
+
+.nv-flie-over {
+    border: dotted 3px red;
+}
+
+input[type=file]{
+    color: transparent;
+}
