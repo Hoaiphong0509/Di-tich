@@ -24,6 +24,11 @@
   transition-timing-function: ease-in-out;
 }
 
+.card-img-wrapper .card-img-top {
+  width: 150px;
+  height: 150px;
+}
+
 .member-icons {
   position: absolute;
   bottom: -30%;

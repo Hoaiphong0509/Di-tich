@@ -59,7 +59,6 @@ export class AvatarEditorComponent implements OnInit {
     }
 
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      console.log("item uploaded" + response);
       this.reload()
     };
   }
