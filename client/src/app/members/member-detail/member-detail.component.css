@@ -7,3 +7,9 @@
 .card-body {
     padding: 0 25px;
 }
+
+.card-footer {
+    margin-top: 1rem;
+    background: #fff;
+    border-top: none;
+}

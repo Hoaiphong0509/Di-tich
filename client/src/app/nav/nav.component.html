@@ -13,11 +13,11 @@
           <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Test Error</a>
         </li>
         <li class="nav-item dropdown" dropdown *ngIf="(accountService.currentUser$ | async) as user">
-            <a class="dropdown-toggle nav-link" routerLinkActive='active' dropdownToggle><i class="fa fa-user"></i></a>
+            <a class="dropdown-toggle nav-link" routerLinkActive='active' dropdownToggle>{{user.username}} <i class="fa fa-user"></i></a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
-              <a class="dropdown-item">Hồ sơ</a>
+              <a routerLink='member/edit' class="dropdown-item">Hồ sơ&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" (click)="logout()">Đăng xuất</a>
+              <a class="dropdown-item" (click)="logout()">Đăng xuất&nbsp;&nbsp;<i class="fa fa-sign-out"></i></a>
             </div>
         </li>
       </ng-container>

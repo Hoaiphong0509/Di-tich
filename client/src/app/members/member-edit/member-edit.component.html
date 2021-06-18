@@ -1,0 +1,95 @@
+<div class="row" *ngIf="member">
+  <div class="col-4">
+    <h1>Hồ sơ của bạn</h1>
+  </div>
+  <div class="col-8">
+    <div class="alert alert-info" *ngIf="editForm.dirty">
+      <p><strong>Information: </strong>Những thao tác bạn chưa lưu sẽ mất</p>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <img src="{{member.avatar || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top img-thumbnail">
+      <div class="card-body">
+        <div class="text-center">
+          <strong>Bút danh:</strong>
+          &nbsp;&nbsp;{{member.knownAs}}
+          <br>
+          <strong>Thành Phố:</strong>
+          &nbsp;&nbsp;{{member.address}}
+          <br>
+          <strong>Bài viết:</strong>
+          &nbsp;&nbsp;{{member.relics.length}}
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <button form="editForm" [disabled]="!editForm.dirty" type="submit" class="btn btn-success">Lưu thay đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-8">
+    <tabset class="member-tabset">
+      <tab heading='Thông tin chung'>
+        <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+          <div class="form-inline" style="margin-top: 2rem;">
+            <label for="knownAs"><strong>Bút danh:</strong></label>
+            <input [(ngModel)]="member.knownAs" type="text" name="knownAs" class="form-control mx-2">
+            <label for="knownAs"><strong>Địa chỉ:</strong></label>
+            <input [(ngModel)]="member.address" type="text" name="address" class="form-control mx-2">
+          </div>
+          <h1 class="mt-3">Giới thiệu: </h1>
+          <textarea [(ngModel)]="member.bio" class="form-control p-4" name="bio" rows="8"></textarea>
+        </form>
+      </tab>
+      <tab heading='Bài viết'>
+        <h1>Các bài viết</h1>
+        <div class="">
+          <table>
+            <tr>
+              <th>Tên di tích</th>
+              <th>Tiêu đề</th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let relic of member.relics">
+              <td style="width: 30%;">{{relic.name}}</td>
+              <td style="width: 30%;">{{relic.title}}</td>
+              <td>
+                <button class="btn btn-primary">
+                  <i class="fa fa-eye"></i>
+                </button>
+                &nbsp;
+                <button class="btn btn-primary">
+                  <i class="fa fa-pencil"></i>
+                </button>
+                &nbsp;
+                <button class="btn btn-primary">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </tab>
+      <tab heading='Thay Đổi thông tin tài khoản'>
+        <form #editAccountForm="ngForm" id="editAccountForm" (ngSubmit)="updateAccount()" autocomplete="off">
+          <div class="form-group" style="margin-top: 2rem;">
+            <label for="username"><strong>Tài khoản:</strong></label>
+            <input [(ngModel)]="account.username" type="text" name="username" class="form-control" style="width: 50%;">
+            <label for="password"><strong>Mật khẩu:</strong></label>
+            <input [(ngModel)]="account.password" type="password" name="password" class="form-control"
+              style="width: 50%;">
+              <ng-container>
+                <label for="confirmPassword"><strong>Mật khẩu xác nhận:</strong></label>
+                <input [(ngModel)]="account.confirmPassword" type="password"
+                  name="confirmPassword" class="form-control" style="width: 50%;">
+              </ng-container>
+          </div>
+          <div class="row">
+            <button class="btn btn-info btn-lg ml-3" [disabled]="!editAccountForm.dirty">Lưu</button>
+          </div>
+        </form>
+      </tab>
+    </tabset>
+  </div>
+</div>

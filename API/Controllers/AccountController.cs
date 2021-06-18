@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using API.DTOs;
 using Microsoft.EntityFrameworkCore;
 using API.Interfaces;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -15,8 +17,10 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IUserRepository _userRepository;
+        public AccountController(DataContext context, ITokenService tokenService, IUserRepository userRepository)
         {
+            _userRepository = userRepository;
             _tokenService = tokenService;
             _context = context;
         }
@@ -62,6 +66,31 @@ namespace API.Controllers
             };
 
             _context.Users.Add(user);
+
+            await _context.SaveChangesAsync();
+
+            return new UserDto
+            {
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
+        }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<ActionResult<UserDto>> UpdateAccount(AccountUpdateDto accountUpdateDto)
+        {
+            if (await UserExists(accountUpdateDto.Username))
+                return BadRequest("Tài khoản đã tồn tại");
+
+            using var hmac = new HMACSHA512();
+
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+
+            user.UserName = accountUpdateDto.Username;
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(accountUpdateDto.Password));
+            user.PasswordSalt = hmac.Key;
 
             await _context.SaveChangesAsync();
 
