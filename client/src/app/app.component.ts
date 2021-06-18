@@ -12,24 +12,13 @@ export class AppComponent implements OnInit{
   title = 'Di tích';
   users: any;
 
-  constructor(private http: HttpClient, private accountService: AccountService){}
-  
-  ngOnInit(): void {
-   this.getUsers()
-   this.setCurrentUser()
+  constructor(private http: HttpClient, private accountService: AccountService) { }
+  ngOnInit() {
+    this.setCurrentUser();
   }
-
-  setCurrentUser(){
-    const user: User = JSON.parse(localStorage.getItem('user')?? '{}')
+ 
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('user'));
     this.accountService.setCurrentUser(user);
   }
-
-  getUsers(){
-    this.http.get("https://localhost:5001/api/users").subscribe(response => {
-      this.users = response;
-    }, error => {
-      console.log(error)
-    });
-  }
-
 }

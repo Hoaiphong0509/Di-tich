@@ -7,7 +7,7 @@
           <a class="nav-link" routerLinkActive='active'>Tạo bài viết</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink='/members' routerLinkActive='active' >Thành viên</a>
+          <a class="nav-link" *ngIf="(accountService.currentUser$ | async)" routerLink='/members' routerLinkActive='active' >Thành viên</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Test Error</a>
