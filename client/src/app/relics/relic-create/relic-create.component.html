@@ -1,1 +1,30 @@
-<p>relic-create works!</p>
+<div class="container">
+    <div class="row" style="background-color: wheat;">
+        <div class="col-7">
+          <form [formGroup]='addRelicForm' id="abc"(ngSubmit)='addRelic()' autocomplete="off" style="text-align: center;">
+            <app-text-input [formControl]='addRelicForm.controls["name"]' name="name" [label]='"Tên di tích"'></app-text-input>
+            <app-text-input [formControl]='addRelicForm.controls["title"]'  name="title" [label]='"Thành tích"'></app-text-input>
+            <app-editor-input [formControl]='addRelicForm.controls["content"]' name="content" ></app-editor-input>
+            
+            <input [disabled]="addRelicForm.invalid" type="submit" class="btn btn-info float-right mt-4 mb-4" value="Thêm ảnh">
+          </form>
+
+          <!-- <form #addRelicFormtest="ngForm" id="abc"(ngSubmit)='addRelic()' autocomplete="off" style="text-align: center;">
+            <input [(ngModel)]="model.name" name="name" type="text">
+            
+            <input [disabled]="addRelicForm.invalid" type="submit" class="btn btn-info float-right mt-4 mb-4" value="Thêm ảnh">
+          </form> -->
+        </div>
+       
+
+        <div class="col-5" *ngIf="!addPhotoMode">
+            <img src="../../../assets/images/pic01.jpg" alt="pic01" style="width: 100%; height: 100%;">
+        </div>
+
+        <div class="col-5" *ngIf="addPhotoMode">
+            <h4>arnh</h4>
+          </div>
+      </div>  
+</div>
+
+<p>FOrm value: {{addRelicForm.value | json}}</p>

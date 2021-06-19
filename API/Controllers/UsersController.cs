@@ -36,9 +36,10 @@ namespace API.Controllers
         // =====================
         #region User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]PageParams pageParams)
         {
-            var users = await _userRepository.GetMembersAsync(userParams);
+            pageParams.CurrentUsername = User.GetUsername();
+            var users = await _userRepository.GetMembersAsync(pageParams);
 
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
@@ -49,6 +50,13 @@ namespace API.Controllers
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             return await _userRepository.GetMemberAsync(username);
+
+        }
+
+        [HttpGet("get-user-by-id/{id}")]
+        public async Task<ActionResult<AppUser>> GetUser(int id)
+        {
+            return await _userRepository.GetUserByIdAsync(id);
 
         }
 
@@ -138,7 +146,7 @@ namespace API.Controllers
         [HttpPost("add-photo-relic/{id}")]
         public async Task<ActionResult<PhotoDto>> AddPhotoRelic(int id, IFormFile file)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            // var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
             var relic = await _relicRepository.GetRelicByIdAsync(id);
 
             var result = await _photoService.AddPhotoAsync(file);

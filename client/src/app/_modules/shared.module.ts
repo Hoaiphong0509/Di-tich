@@ -4,6 +4,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { FileUploadModule } from 'ng2-file-upload';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { EditorModule } from "@tinymce/tinymce-angular";
 
 @NgModule({
   declarations: [],
@@ -15,12 +17,16 @@ import { FileUploadModule } from 'ng2-file-upload';
     }),
     TabsModule.forRoot(),
     FileUploadModule,
+    PaginationModule.forRoot(),
+    EditorModule
   ],
   exports: [
     BsDropdownModule,
     ToastrModule,
     TabsModule,
-    FileUploadModule
+    FileUploadModule,
+    PaginationModule,
+    EditorModule
   ]
 })
 export class SharedModule { }

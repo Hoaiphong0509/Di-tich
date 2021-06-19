@@ -11,7 +11,7 @@
       <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Mật khẩu xác nhận"'[type]='"password"'></app-text-input>
 
       <div class="form-group mt-4" style="align-items: center;">
-        <input type="submit" class="d-inline" value="Đăng ký">
+        <input [disabled]="registerForm.invalid" type="submit" class="d-inline" value="Đăng ký">
       </div>
     </form>
 

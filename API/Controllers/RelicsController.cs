@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
+using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +20,23 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelics()
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelics([FromQuery]PageParams pageParams)
         {
-            return Ok(await _relicRepository.GetRelicsAsync());
+            var relics = await _relicRepository.GetRelicsAsync(pageParams);
+
+            Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
+            
+            return Ok(relics);
         }
 
         [HttpGet("{name}")]
-        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsByName(string name)
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsByName([FromQuery]PageParams pageParams, string name)
         {
-            return Ok(await _relicRepository.GetRelicsByNameAsync(name));
+            var relics = await _relicRepository.GetRelicsByNameAsync(pageParams, name);
+
+            Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
+            
+            return Ok(relics);
         }
     }
 }

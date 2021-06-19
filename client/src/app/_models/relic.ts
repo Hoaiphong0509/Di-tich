@@ -9,5 +9,6 @@ export interface Relic {
     view: number;
     photoUrl: string;
     created: Date;
+    author: string;
     photos: Photo[];
 }

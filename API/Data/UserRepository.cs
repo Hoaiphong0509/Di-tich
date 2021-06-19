@@ -29,13 +29,16 @@ namespace API.Data
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams)
+        public async Task<PageList<MemberDto>> GetMembersAsync(PageParams pageParams)
         {
             var query = _context.Users
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-                .AsNoTracking();
+                .AsNoTracking()
+                .AsQueryable();
 
-            return await PageList<MemberDto>.CreateAsync(query, userParams.pageNumber, userParams.PageSize);
+            query = query.Where(u => u.Username != pageParams.CurrentUsername);
+
+            return await PageList<MemberDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
                 
         }
 

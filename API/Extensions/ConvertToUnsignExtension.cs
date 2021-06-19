@@ -1,7 +1,6 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
-
 namespace API.Extensions
 {
     public static class ConvertToUnsignExtension

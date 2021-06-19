@@ -11,6 +11,7 @@ namespace API.DTOs
         public string Content { get; set; }
         public int View { get; set; }
         public string PhotoUrl { get; set; }
+        public string Author { get; set; }
         public DateTime Created { get; set; }
         public ICollection<PhotoDto> Photos { get; set; }
     }

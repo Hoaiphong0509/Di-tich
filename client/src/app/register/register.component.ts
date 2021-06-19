@@ -10,7 +10,6 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  @Output() cancelRegister = new EventEmitter();
   registerForm: FormGroup;
   model: any ={};
 
@@ -49,17 +48,12 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    console.log(this.registerForm.value)
-    // this.accountService.register(this.model).subscribe(response => {
-    //   console.log(response);
-    //   this.router.navigateByUrl('/')
-    // }, error => {
-    //   console.log(error)
-    // })
+    this.accountService.register(this.model).subscribe(() => {
+      this.router.navigateByUrl('/')
+    }, error => {
+      console.log(error)
+    })
   }
 
-  // registerToggle(){
-  //   this.cancelRegister.emit(false);
-  // }
 
 }

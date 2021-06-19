@@ -26,6 +26,8 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AvatarEditorComponent } from './members/avatar-editor/avatar-editor.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { RelicListComponent } from './relics/relic-list/relic-list.component';
+import { EditorInputComponent } from './_forms/editor-input/editor-input.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
     MemberCardComponent,
     MemberEditComponent,
     AvatarEditorComponent,
-    TextInputComponent
+    TextInputComponent,
+    RelicListComponent,
+    EditorInputComponent
   ],
   imports: [
     BrowserModule,

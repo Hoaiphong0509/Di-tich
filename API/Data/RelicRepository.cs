@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -24,23 +21,25 @@ namespace API.Data
             _mapper = mapper;
             _context = context;
         }
-        public async Task<IEnumerable<RelicDto>> GetRelicsByNameAsync(string name)
+        public async Task<PageList<RelicDto>> GetRelicsByNameAsync(PageParams pageParams,string name)
         {
-            return await _context.Relics
+            var query = _context.Relics
                 .Where(x => x.Name.ToLower().Contains(name)
                 || x.NameUnmark.ToLower().Contains(name))
                 .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .AsNoTracking();
 
-
+            return await PageList<RelicDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
 
 
-        public async Task<IEnumerable<RelicDto>> GetRelicsAsync()
+        public async Task<PageList<RelicDto>> GetRelicsAsync(PageParams pageParams)
         {
-            return await _context.Relics
+            var query = _context.Relics
                 .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .AsNoTracking();
+
+            return await PageList<RelicDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
 
 

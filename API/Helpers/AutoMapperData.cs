@@ -12,31 +12,19 @@ namespace API.Helpers
         {
             CreateMap<AppUser, MemberDto>();
             CreateMap<Relic, RelicDto>()
-                .ForMember
-                (
-                    dest => dest.PhotoUrl, opt => opt.MapFrom
-                    (
-                        src => src.Photos.FirstOrDefault(x => x.IsMain == true).Url
-                    )
-                );
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(
+                    src => src.Photos.FirstOrDefault(x => x.IsMain == true).Url))
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(
+                    src => src.AppUser.KnownAs
+                ));
             CreateMap<Photo, PhotoDto>();
             CreateMap<MemberUpdateDto, AppUser>();
             CreateMap<RelicUpdateDto, Relic>()
-                .ForMember
-                (
-                    dest => dest.NameUnmark, opt => opt.MapFrom
-                    (
-                        src => src.Name.ConvertToUnSign()
-                    )
-                );
+                .ForMember(dest => dest.NameUnmark, opt => opt.MapFrom(
+                    src => src.Name.ConvertToUnSign()));
             CreateMap<RelicCreateDto, Relic>()
-                .ForMember
-                (
-                    dest => dest.NameUnmark, opt => opt.MapFrom
-                    (
-                        src => src.Name.ConvertToUnSign()
-                    )
-                );
+                .ForMember(dest => dest.NameUnmark, opt => opt.MapFrom(
+                    src => src.Name.ConvertToUnSign()));
         }
     }
 }

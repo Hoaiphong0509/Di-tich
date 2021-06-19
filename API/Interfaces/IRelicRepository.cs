@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 
 namespace API.Interfaces
 {
@@ -9,8 +10,8 @@ namespace API.Interfaces
     {
         void Update(Relic relic);
         Task<bool> SaveAllAsync();
-        Task<IEnumerable<RelicDto>> GetRelicsAsync();
-        Task<IEnumerable<RelicDto>> GetRelicsByNameAsync(string name);
+        Task<PageList<RelicDto>> GetRelicsAsync(PageParams pageParams);
+        Task<PageList<RelicDto>> GetRelicsByNameAsync(PageParams pageParams, string name);
         Task<Relic> GetRelicByIdAsync(int id);
         void CreateRelic(RelicCreateDto relicCreateDto);
         Task DeleteRelic(int id);

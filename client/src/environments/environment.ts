@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:5001/api/'
+  apiUrl: 'https://localhost:5001/api/',
+  apiTinyMCE: '7csh27co7j687nmi618ov5hxdrwfl6v4blupvbgbdtcxn9ct'
 };
 
 /*
