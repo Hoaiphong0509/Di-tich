@@ -17,20 +17,22 @@ namespace API.Data
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public RelicRepository(DataContext context, IMapper mapper)
+        private readonly IUserRepository _userRepository;
+        public RelicRepository(DataContext context, IMapper mapper, IUserRepository userRepository)
         {
+            _userRepository = userRepository;
             _mapper = mapper;
             _context = context;
         }
         public async Task<IEnumerable<RelicDto>> GetRelicsByNameAsync(string name)
         {
             return await _context.Relics
-                .Where(x => x.Name.ToLower().Contains(name) 
-                ||x.NameUnmark.ToLower().Contains(name))
+                .Where(x => x.Name.ToLower().Contains(name)
+                || x.NameUnmark.ToLower().Contains(name))
                 .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            
+
         }
 
 
@@ -50,6 +52,28 @@ namespace API.Data
         public void Update(Relic relic)
         {
             _context.Entry(relic).State = EntityState.Modified;
+        }
+
+        public void CreateRelic(RelicCreateDto relicCreateDto)
+        {
+            var relic = new Relic();
+
+            _mapper.Map(relicCreateDto, relic);
+
+            _context.Relics.Add(relic);
+        }
+
+        public async Task DeleteRelic(int id)
+        {
+            var relic = await _context.Relics.SingleOrDefaultAsync(r => r.Id == id);
+            _context.Relics.Remove(relic);
+        }
+
+        public async Task<Relic> GetRelicByIdAsync(int id)
+        {
+            return await _context.Relics
+                .Include(p => p.Photos)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }

@@ -21,6 +21,22 @@ namespace API.Helpers
                 );
             CreateMap<Photo, PhotoDto>();
             CreateMap<MemberUpdateDto, AppUser>();
+            CreateMap<RelicUpdateDto, Relic>()
+                .ForMember
+                (
+                    dest => dest.NameUnmark, opt => opt.MapFrom
+                    (
+                        src => src.Name.ConvertToUnSign()
+                    )
+                );
+            CreateMap<RelicCreateDto, Relic>()
+                .ForMember
+                (
+                    dest => dest.NameUnmark, opt => opt.MapFrom
+                    (
+                        src => src.Name.ConvertToUnSign()
+                    )
+                );
         }
     }
 }

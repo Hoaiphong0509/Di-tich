@@ -8,10 +8,5 @@ namespace API.Extensions
         {
             return user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
-
-        public static string GetRelicname(this ClaimsPrincipal relic)
-        {
-            return relic.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        }
     }
 }

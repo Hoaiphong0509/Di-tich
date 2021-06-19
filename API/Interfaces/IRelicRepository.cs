@@ -11,5 +11,8 @@ namespace API.Interfaces
         Task<bool> SaveAllAsync();
         Task<IEnumerable<RelicDto>> GetRelicsAsync();
         Task<IEnumerable<RelicDto>> GetRelicsByNameAsync(string name);
+        Task<Relic> GetRelicByIdAsync(int id);
+        void CreateRelic(RelicCreateDto relicCreateDto);
+        Task DeleteRelic(int id);
     }
 }
