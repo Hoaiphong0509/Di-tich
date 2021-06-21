@@ -1,3 +1,5 @@
+import { DetailComponent } from './detail/detail.component';
+import { RelicDetailComponent } from './relics/relic-detail/relic-detail.component';
 import { RelicCreateComponent } from './relics/relic-create/relic-create.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
@@ -24,10 +26,12 @@ const routes: Routes = [
       {path: 'members/:username', component: MemberDetailComponent},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
       {path: 'relics/create', component: RelicCreateComponent},
-      {path: 'relics/edit', component: MemberEditComponent},
+      {path: 'relics/:id', component: RelicDetailComponent},
       {path: 'errors', component: TestErrorComponent},
+    
     ]
   },
+  {path: 'detail/:id', component: DetailComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
   {path: 'login', component: LoginComponent},

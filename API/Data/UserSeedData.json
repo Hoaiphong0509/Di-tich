@@ -1,44 +1,309 @@
 [
     {
-        "UserName": "Lisa",
-        "KnownAs": "lisa",
-        "Bio": "I am lisa",
+        "UserName": "Hp",
+        "KnownAs": "Hoài Phong",
+        "Bio": "Hi!, Tôi là người đầu tiên của hệ thống",
         "Address": "HCM Vietnam",
+        "Avatar": "https://randomuser.me/api/portraits/men/12.jpg",
         "Relics": [
             {
                 "Name": "CHÙA CHÂU HƯNG",
                 "Title": "Di tích cách mạng – danh lam thắng cảnh cấp Thành phố",
-                "Content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                "Content": "<p><strong>Chùa Châu Hưng</strong>(tọa lạc tại số 37, đường Cây Keo, khu phố 1, phường Tam Phú, thành phố Thủ Đức, Thành phố Hồ Chí Minh) là cơ sở tôn giáo Phật giáo thuộc phái phật giáo Đại thừa (hệ phái Bắc tông), thờ cúng hội đồng chư phật (bao gồm cả tôn giáo và tính ngưỡng dân gian).</p><br><p><strong>Chùa Châu Hưng</strong> được tạo lập năm 1844 với kết cấu đơn sơ, qua nhiều lần trùng tu, sửa chữa, Chùa được xây dựng mới hoàn toàn vào năm 2006 đến năm 2009 thì hoàn thành; với diện tích xây dựng 365 m2 trên tổng diện tích 5.796 m2 đất.</p><br><p><strong>Chùa Châu Hưng</strong> có nhiều hiện vật thờ cúng có giá trị nghệ thuật cao và nghi thức cúng tế (phi vật thể) mang đậm bản sắc văn hóa dân tộc tính ngưỡng dân gian Việt Nam và là địa chỉ cách mạng nỗi tiếng của Thủ Đức.</p><br><p>Chùa có vị trí chiến lược do nằm trong vùng căn cứ Bình Phú, cánh Bắc Thủ Đức, thuộc vành đai an toàn của Sài Gòn. Thời kháng chiến chống Pháp (1946-1954) chùa là căn cứ cách mạng, tiếp tế, cung cấp tình hình địch và là địa điểm hội họp của cán bộ, chiến sĩ của ta</p><br><p>Thời kỳ chống Mỹ, chùa là nơi che dấu các chiến sĩ, cán bộ cách mạng (1963-1969), cán bộ chiến sĩ của ta được sử dụng căn gác nơi tiền điện của chùa làm nơi ẩn náu bí mật, các cán bộ dùng thang tre lên gác và trần nhà nới góc trái của tiền điện và sau khi lên thì được đóng kín lại một cách khéo léo, không thể phát hiện;</p><br><p>Những năm sau cho đến ngày giải phóng miền Nam 30/4 1975, <strong>chùa Châu Hưng</strong> cùng bà con nhân dân Bình Phú che dấu và nuôi cơm cho các chiến sĩ, cách mạng, làm nơi hội họp, cung cấp thông tin để quan ta năm bắt tình hình địch và xây dựng các chiến lược đến phá.</p><br><p><strong>Chùa Châu Hưng</strong> là di tích lịch sử - văn hóa danh lam thắng cảnh được xếp hạng di tích theo Quyết định số 3946/QĐ-UBND ngày18/8/2011 của UBND Thành phố Hồ Chí Minh.</p>",
                 "View": 1,
                 "Photos": [
                     {
-                        "Url": "https://randomuser.me/api/portraits/women/1.jpg",
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249456/chua-chau-hung_p7fqcm.jpg",
                         "IsMain": true
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249455/chuachauhung2_qkmirm.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249455/chuachauhung3_qjrer0.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249455/chuachauhung4_zs5pnh.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249456/chuachauhung5_q2azy0.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249456/chuachauhung6_czovtd.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249456/chuachauhung7_u9fzq8.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249456/chuachauhung8_y5klxx.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249456/chuachauhung9_uqv3x1.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249456/chuachauhung10_qo2xfs.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249457/chuachauhung12_ucynzc.png",
+                        "IsMain": false
+                    }
+                    ,
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249457/chuachauhung13_slzg2a.png",
+                        "IsMain": false
                     }
                 ]
-            }
-        ],
-        "Avatar": "https://randomuser.me/api/portraits/women/12.jpg"
-    },
-    {
-        "UserName": "Bob",
-        "KnownAs": "Bob",
-        "Bio": "I am Bob",
-        "Address": "HCM Vietnam",
-        "Relics": [
+            },
+            {
+                "Name": "ĐÌNH PHONG PHÚ",
+                "Title": "Di tích Lịch sử – Nghệ thuật cấp Quốc gia",
+                "Content": "<p><strong>Đình Phong Phú</strong> Tọa lạc tại Khu phố 3, phường Tăng Nhơn Phú B, thành phố Thủ Đức, Thành phố Hồ Chí Minh trên khu đất 4,2ha, được xây dựng từ cuối thế kỷ XIX, nhà lá, vách ván do Nhân dân làng Phong Phú lập nên để thờ Thần Thành Hoàng. Qua nhiều lần sửa chữa phá bỏ rồi xây dựng lại (1937, 1948, 1952, 1969, 1975) đình có quy mô như hiện nay.</p><br><p>Đình có hai lớp cổng: lớp cổng thứ nhất tạc bia Ông Hổ, lớp thứ hai kiến trúc kiểu “tam quan”. Sân đình có tượng Bạch mã, Thần nông, hòn non bộ và các miếu nhỏ thờ Ngũ Hành Nương Nương..</p><br><p>Phần bên trong được bố trí các phần chính: võ ca, chính điện, tiền điện, nhà túc, nhà bếp, nhà truyền thống và nhà rửa rau quả... Nóc đình và các bức hoành phi được trang trí các hoa văn liên quan đến các đề tài dân gian, mang bản sắc văn hóa đình Nam bộ như: long, lân, quy, phụng, bát tiên, cá hóa long..</p><br><p>Nét đặc trưng nhất của đình Phong Phú là thờ tượng tròn, không thờ bài vị như hầu hết các đình khác ở Thành phố Hồ Chí Minh. Đình Phong Phú gắn với nhiều sự kiện lịch sử quan trọng của Nhân dân làng Phong Phú và Sài Gòn - Gia định trong hai cuộc chiến tranh giải phóng dân tộc.</p><br><p>Thời kỳ kháng chiến chống Pháp (1945 - 1954) đình Phong Phú là nơi thành lập và luyện tập của lực lượng Thanh niên Tiền Phong của làng Phong Phú. Sau đó lực lượng này phát triển thành bộ đội địa phương Phân đội 44 do ông Nguyễn Văn Banh chỉ huy (thuộc đại đội 15 của Thái Văn Lung). Năm 1948, Nhân dân làng Phong Phú đã chuyển toàn bộ tượng thờ về chùa Thanh Long, đập bỏ đình theo chủ trương “tiêu khổ kháng chiến” để thực dân Pháp không biến đình thành đồn lính. Đến năm 1952, ngôi đình được xây dựng lại theo nguyện vọng của Nhân dân. Thời kỳ chống Mỹ cứu nước (1954 - 1975) đình Phong Phú là trụ sở liên lạc, tập kết của cán bộ cách mạng huyện Thủ Đức. Năm 1960, địch nghi ngờ Hội đình tiếp tế cho cách mạng nên đã bắt giam tất cả các cụ trong Hội đình và tra tấn dã man nhưng không khai thác được gì, một thời gian sau phải trả tự do cho các cụ. Ra tù các cụ lại tiếp tục đào hầm bí mật ngay trong đình để nuôi giấu cán bộ và vận động Nhân dân đóng góp cho cách mạng</p><br><p>Hằng năm lễ Kỳ Yên được diễn ra từ ngày 14 đến 16 tháng 11 âm lịch. Nếp sinh hoạt văn hóa này có từ rất lâu và hằng năm, cứ đến dịp lễ, hàng nghìn người dân nô nức đến đình. Mọi người thắp nén hương thành kính cầu an và tưởng nhớ đến những chiến sĩ cách mạng từng trú ngụ nơi này.</p><br><p>Đình Phong Phú được Bộ Văn hóa và Thông tin xếp hạng là di tích lịch sử nghệ thuật cấp quốc gia theo Quyết định số 57- VH/QĐ ký ngày 18/01/1993.</p>",
+                "View": 1,
+                "Photos": [
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249452/dinhphongphu1_n7gajw.jpg",
+                        "IsMain": true
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249452/dinhphongphu2_laurm4.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249452/dinhphongphu3_gsik2c.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249452/dinhphongphu4_ahyjdx.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249452/dinhphongphu5_dl9ymj.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249452/dinhphongphu6_po4g7i.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249453/dinhphongphu7_ntmm6z.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249453/dinhphongphu8_j3biyl.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249453/dinhphongphu9_lfe1eq.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249453/dinhphongphu10_kmudvw.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249453/dinhphongphu11_aih2oe.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249453/dinhphongphu12_sgxnu9.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249454/dinhphongphu13_k6hbd2.png",
+                        "IsMain": false
+                    }
+                ]
+            },
             {
                 "Name": "ĐÌNH LINH ĐÔNG",
                 "Title": "Di tích Kiến trúc Nghệ thuật cấp Quốc gia",
-                "Content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                "Content": "<p>Đình Tọa lạc tại số 28 , đường Chương Dương, phường Linh Chiểu , thành phố Thủ Đức, Thành phố Hồ Chí Minh nằm trên một gò đất cao, có diện tích 2479 . 1 m 2 . Đây là một công trình đặc sắc, có giá trị về lịch sử - văn hóa, kiến trúc nghệ thuật ; thể hiện sự gắn kết cộng đồng làng xã của cư dân Nam Bộ, đồng thời cũng thể hiện trí tuệ, sự tài hoa, khéo léo của các bậc nghệ nhân xưa .</p><br><p>Căn cứ theo Hán khắc ở cái nóc của Tiền điện đình Linh Đông có ghi rõ “Quí mùi niên, quí thu, cát đán tạo” có nghĩa là tạo ngày lành, cuối thu (tháng 9 ) năm Quí mùi (1823 ) ; có thể xác định đình Linh Đông được xây dựng vào đầu thế kỷ XIX .</p><br><p>Đình Linh Đông xây dựng theo dạng chữ Tam gồm ba nếp nhà : tiền điện, trung điện và chính điện, nhà khách và nhà bếp, phần còn lại là sân đình . Trong đó, nổi bật là kiến trúc tiền điện và chính điện . Tiền điện là nếp nhà năm gian, chính điện theo kiểu tứ trụ với tổng số lượng là 32 cột gỗ chống đỡ toàn bộ hệ thống mái ngói âm dương . Các bàn thờ trong chính điện được bài trí đăng đối nhau . Trung tâm là khám thờ Thần Thành Hoàng Bổn Cảnh ; phía trước là án thờ Hội Đồng ; bên phải là khám thờ Ngũ Thổ Thần Vị và khám thờ Tiền Hiền Chi Vị ; bên trái là khám thờ Ngũ Cốc Thần Vị và khám thờ Hậu Hiền Chi Vị . Đặc biệt đình còn lưu giữ sắc phong do vua Tự Đức ban cho Thần Thành Hoàng Bổn Cảnh thôn Linh Chiểu Đông, huyện An Nghĩa vào ngày 29 tháng 11 năm Tự Đức thứ 5 . Ngoài ra, đình còn lưu giữ nhiều hiện vật quý được làm bằng gỗ, chạm khắc tinh tế các đề tài như : long - lân - quy - phụng, hạc - rùa, hoa - lá - quả...</p><br><p>Hàng năm, đình Linh Đông tổ chức một ngày lễ lớn đó là lễ Kỳ Yên. Lễ Kỳ Yên diễn ra trong hai ngày 15 và 16 tháng 10 âm lịch với mục đích cầu cho quốc thái dân an, mưa thuận gió hòa, mùa vụ bội thu. Ngoài ra, đình còn tổ chức lễ giỗ Tiền hiền Tạ Dương Minh (tên húy là Huy, tên hiệu là Thủ Đức) vào ngày 19 tháng 6 âm lịch</p><br><p>Đình được Bộ Văn hóa, Thể thao và Du lịch xếp hạng di tích kiến trúc nghệ thuật cấp Quốc gia theo Quyết định số 3245/QĐ-BVHTTDL ngày 04 tháng 11 năm 2020</p>",
                 "View": 1,
                 "Photos": [
                     {
-                        "Url": "https://randomuser.me/api/portraits/man/5.jpg",
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong1_wkg4m8.jpg",
                         "IsMain": true
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong2_hn3zgc.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong3_qwto3u.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong4_uyeodn.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249460/dinhlinhdong5_sbtczs.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong6_axfjkh.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong7_ainsvu.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong8_fgmwhr.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong9_cabgkp.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249459/dinhlinhdong10_krlduv.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/dinhlinhdong11_tjf2e4.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249452/dinhlinhdong12_y0xq63.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249452/dinhlinhdong13_gzhrmu.png",
+                        "IsMain": false
+                    }
+                ]
+            },
+            {
+                "Name": "CHÙA HỘI SƠN",
+                "Title": "Di tích Kiến trúc - Nghệ thuật cấp Quốc gia",
+                "Content": "<p>Chùa Hội Sơn Tọa lạc tại số 1A1, đường Nguyễn Xiển, phường Long Bình, thành phố Thủ Đức,Thành phố Hồ Chí Minh, là ngôi chùa cổ do thiền sư Khánh Long khai lập và trụ trì vào cuối thế kỷ XVIII. Chùa nằm trên ngọn đồi, bên một dòng sông, là một thắng cảnh nổi tiếng đã được đưa vào sách “Gia Định thành thông chí” của Trịnh Hoài Đức.</p><br><p>Chùa Hội Sơn có kiến trúc mặt bằng hình chữ L ngược, mái ngói âm dương, vì kèo chịu lực bằng gỗ, cửa sổ, tường gạch, nền lót gạch tàu… Trục chính của chùa gồm hành lang, tiền điện, chính điện, tổ đường, giảng đường, sân thiên tỉnh, nhà túc, nhà hậu. Trục ngang, phía bên trái là tăng đường và nhà bếp.</p><br><p>Chùa Hội Sơn tọa lạc trên một di chỉ khảo cổ thuộc nền văn hóa sông Đồng Nai, có niên đại khoảng 3500 năm ở vào thời đại kim khí. Di chỉ này nằm ngay dưới khuôn viên 18.000 m2 ở trên một vùng phù sa cổ. Do quá trình xói mòn và chịu ảnh hưởng của các điều kiện thời tiết nên các hiện vật này đã dần lộ thiên. Theo thống kê được thì có khoảng 89 công cụ bằng đá và rất nhiều mảnh gốm có niên đại hàng ngàn năm. Hiện những hiện vật này đang được trưng bày tại nhà truyền thống Thủ Đức. Hiếm có ngôi chùa nào đem lại nhiều giá trị lịch sử như chùa Hội Sơn.</p><br><p>Chùa Hội Sơn đã được Bộ Văn hóa - Thông tin xếp hạng là di tích kiến trúc - nghệ thuật cấp quốc gia theo Quyết định số 43- VH/QĐ ngày 7 tháng 01 năm 1993.</p>",
+                "View": 1,
+                "Photos": [
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249457/chuahoison1_ref98e.jpg",
+                        "IsMain": true
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249457/chuahoison2_vva6qo.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249457/chuahoison3_vhwgrm.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249457/chuahoison4_zdhhwf.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/chuahoison5_hmcw0r.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249457/chuahoison6_uyxdce.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249457/chuahoison7_au7qiw.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/chuahoison8_rkad9w.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/chuahoison9_ircbt4.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/chuahoison10_dh1w3j.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/chuahoison11_tpmzzn.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/chuahoison12_rscd4a.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/chuahoison13_zcwwcj.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249458/chuahoison14_hjdp0n.png",
+                        "IsMain": false
+                    }
+                ]
+            },
+            {
+                "Name": "ĐÌNH XUÂN HIỆP",
+                "Title": "Di tích Kiến trúc - Nghệ thuật cấp Quốc gia",
+                "Content": "<p>Đình Xuân Hiệp Tọa lạc tại khu phố 2 , phường Linh Xuân, thành phố Thủ Đức, Thành phố Hồ Chí Minh , Đình thờ Thần thành hoàng bổn cảnh thôn Xuân Hiệp ; sắc phong do Vua Bảo Đại thứ chín (1934 ) ban “Khai nguyên Diệu hóa Chính đạo Đại vương Đôn ngưng Tôn thần” ngày 27 tháng 7 năm Bảo Đại thứ chín (1934 ) .</p><br><p>Đình được xây dựng trong khoảng thời gian từ năm 1818 - 1885; ban đầu đình có quy mô nhỏ, kiến trúc bằng tre, lá đơn sơ ; đến năm 1928 được xây dựng khang trang như hiện nay theo kiến trúc cổ ( 5 gian 2 chái) với diện tích xây dựng 765 m 2 trên tổng diện tích 2 .012 m 2 đất .</p><br><p>Đình Xuân Hiệp c ó nhiều hiện vật có giá trị nghệ thuật cao về kiến trúc xây dựng, hiện vật thờ cúng và nghi thức cúng tế (phi vật thể) mang đậm bản sắc văn hóa dân tộc tính ngưỡng dân gian Việt Nam .</p><br><p>Đình Xuân Hiệp có nhiều hiện vật có giá trị nghệ thuật cao về kiến trúc xây dựng, hiện vật thờ cúng và nghi thức cúng tế (phi vật thể) mang đậm bản sắc văn hóa dân tộc tính ngưỡng dân gian Việt Nam.</p><br><p>Hàng năm, đình Xuân Hiệp có lệ cúng chính là lễ Kỳ yên vào các ngày 15-16.11 âm lịch, có mời đoàn hát tham gia biểu diễn. Đây là lễ hội được tổ chức trang trọng nhất với mục đích cầu cho quốc thái dân an, mưa thuận gió hòa.</p><br><p>Ngoài lễ Kỳ yên, đình Xuân Hiệp còn tổ chức lễ cúng vào các dịp: lễ Khai sơn, Khai hạ, Hạ nêu (7.1 âm lịch), lễ Thượng nguyên (15.1 âm lịch), lễ Trung nguyên (15.7 âm lịch), lễ Bà Thủy Long (10.10 âm lịch), lễ Hạ nguyên (15.10 âm lịch). Lễ vật cúng trong các dịp lễ này cũng gồm có: hương, đèn, trà, quả, rượu, xôi, thịt. Riêng lễ cúng Bà Thủy có heo quay, đầu heo luộc, cặp vịt, giấy vàng bạc… với nghi thức lễ cổ truyền.</p><br><p>Đình Xuân Hiệp là di tích kiến trúc nghệ thuật cấp Quốc gia được xếp hạng di tích theo Quyết định số 101/2004/QĐ-BVHTT ngày 15/12/2004 của Bộ Văn hóa - Thông tin.</p>",
+                "View": 1,
+                "Photos": [
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249454/dinhxuanhiep_veqr4w.jpg",
+                        "IsMain": true
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249454/dinhxuanhiep1_jdite4.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249454/dinhxuanhiep2_f5wioe.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249454/dinhxuanhiep3_qhcfq2.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249454/dinhxuanhiep4_snjlop.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249454/dinhxuanhiep5_e6fl1l.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249454/dinhxuanhiep6_zjj1zk.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249455/dinhxuanhiep7_dwnwri.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249455/dinhxuanhiep8_ftmhtm.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249455/dinhxuanhiep9_ib7ocn.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249455/dinhxuanhiep10_vt7zbv.png",
+                        "IsMain": false
+                    },
+                    {
+                        "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624249455/dinhxuanhiep11_pnkuyn.png",
+                        "IsMain": false
                     }
                 ]
             }
-        ],
-        "Avatar": "https://randomuser.me/api/portraits/men/12.jpg"
+
+        ]
     }
 ]

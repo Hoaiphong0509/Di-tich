@@ -25,16 +25,19 @@
             </tab>
             <tab heading='Bài viết'>
                 <h1>Các bài viết</h1>
-                <div class="">
-                    <table>
+                <div class="relic-menu">
+                    <div class="triangle-right">
+                        text
+                    </div>
+                    <table class="table-relic">
                         <tr>
-                            <th>Tên di tích</th>
-                            <th>Tiêu đề</th>
+                            <th style="width: 30%">Tên di tích</th>
+                            <th style="width: 50%">Tiêu đề</th>
                             <th></th>
                         </tr>
                         <tr *ngFor="let relic of member.relics">
                             <td style="width: 30%;">{{relic.name}}</td>
-                            <td style="width: 30%;">{{relic.title}}</td>
+                            <td style="width: 50%;">{{relic.title}}</td>
                             <td>
                                 <button class="btn btn-primary">
                                     <i class="fa fa-eye"></i>

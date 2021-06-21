@@ -68,11 +68,22 @@ namespace API.Data
             _context.Relics.Remove(relic);
         }
 
+        public async Task<RelicDto> GetRelicDtoByIdAsync(int id)
+        {
+            var relic = await _context.Relics
+                .Include(p => p.Photos)
+                .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+
+            return relic;
+        }
+
         public async Task<Relic> GetRelicByIdAsync(int id)
         {
             return await _context.Relics
                 .Include(p => p.Photos)
-                .SingleOrDefaultAsync(x => x.Id == id);
+                .SingleOrDefaultAsync(x=>x.Id == id);
         }
     }
 }

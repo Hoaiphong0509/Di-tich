@@ -20,23 +20,31 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelics([FromQuery]PageParams pageParams)
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelics([FromQuery] PageParams pageParams)
         {
             var relics = await _relicRepository.GetRelicsAsync(pageParams);
 
             Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
-            
+
             return Ok(relics);
         }
 
         [HttpGet("{name}")]
-        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsByName([FromQuery]PageParams pageParams, string name)
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsByName([FromQuery] PageParams pageParams, string name)
         {
             var relics = await _relicRepository.GetRelicsByNameAsync(pageParams, name);
 
             Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
-            
+
             return Ok(relics);
+        }
+
+        [HttpGet("get-relic-by-id/{id}")]
+        public async Task<ActionResult<RelicDto>> GetRelicsById(int id)
+        {
+            var relics = await _relicRepository.GetRelicDtoByIdAsync(id);
+
+            return relics;
         }
     }
 }

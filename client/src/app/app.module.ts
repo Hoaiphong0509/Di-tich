@@ -28,6 +28,7 @@ import { AvatarEditorComponent } from './members/avatar-editor/avatar-editor.com
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { RelicListComponent } from './relics/relic-list/relic-list.component';
 import { EditorInputComponent } from './_forms/editor-input/editor-input.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { EditorInputComponent } from './_forms/editor-input/editor-input.compone
     AvatarEditorComponent,
     TextInputComponent,
     RelicListComponent,
-    EditorInputComponent
+    EditorInputComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

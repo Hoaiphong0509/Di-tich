@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Component, Input, OnInit, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
@@ -9,7 +10,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 export class EditorInputComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() type = 'text';
-
+  apiKey = environment.apiTinyMCE;
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this
   }

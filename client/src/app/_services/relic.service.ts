@@ -7,7 +7,7 @@ import { Relic } from './../_models/relic';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { PageParams } from '../_models/pageParams';
-import { of } from 'rxjs';
+import { of, BehaviorSubject, Subject, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +15,55 @@ import { of } from 'rxjs';
 export class RelicService {
   baseUrl = environment.apiUrl;
   relics: Relic[];
+
   relicCache = new Map();
   member: Member;
 
-  constructor(private http: HttpClient, private memberService: MemberService) {
+  private currentRelicSource = new ReplaySubject<Relic>(1)
+  currentRelic$ = this.currentRelicSource.asObservable()
 
+  constructor(private http: HttpClient, private memberService: MemberService) {
+    
+  }
+
+  setCurrentRelic(relic: Relic){
+    localStorage.setItem('relic', JSON.stringify(relic));
+    this.currentRelicSource.next(relic);
+  }
+
+  getRelicId(): number{
+    let relicId: number;
+
+    this.currentRelicSource.subscribe(response => {
+      relicId = response.id;
+    })
+    return relicId;
+  }
+
+  getCurrentRelic(){
+    const relic: Relic = JSON.parse(localStorage.getItem('relic'));
+    this.setCurrentRelic(relic);
+    return relic;
+  }
+
+  // getRelic(){
+  //   return this.http.get<Relic>(this.baseUrl + 'users/get-relic-by-id/' + this.getRelicId());
+  // }
+  
+  getRelic(relicId: number) {
+    const relic = [...this.relicCache.values()]
+      .reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((relic: Relic) => relic.id === relicId);
+    
+    if(relic){
+      return of(relic);
+    }
+    return this.http.get<Relic>(this.baseUrl + 'users/get-relic-by-id/' + relicId);
+  }
+
+  getRelicClient(relicId: number){
+    const id = this.getRelicId();
+    return this.http.get<Relic>(this.baseUrl + 'relics/get-relic-by-id/' + relicId);
   }
 
   getRelics(pageParams: PageParams){
@@ -38,6 +82,8 @@ export class RelicService {
     )
   }
 
+
+  
   private getPaginatedResult<T>(url, params) {
     const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
     return this.http.get<T>(url, { observe: 'response', params }).pipe(
@@ -61,9 +107,15 @@ export class RelicService {
   
   //#region relic
   createRelic(model: any){
-    return this.http.post<Relic>(this.baseUrl + 'users/add-relic', model);
+    return this.http.post<Relic>(this.baseUrl + 'users/add-relic', model).pipe(
+      map((relic: Relic) => {
+        if (relic) {
+          console.log("service: " + relic)
+          this.setCurrentRelic(relic);
+        }
+      })
+    )
   }
-
   deleteRelic(relicId: number){
     return this.http.delete(this.baseUrl + 'users/delete-relic/' + relicId);
   }

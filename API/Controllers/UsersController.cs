@@ -103,11 +103,12 @@ namespace API.Controllers
         // =====================
         #region Relic
 
-        [HttpGet("Get-relic/{id}", Name = "GetRelic")]
-        public async Task<Relic> GetRelic(int id)
+       [HttpGet("get-relic-by-id/{id}", Name = "GetRelic")]
+        public async Task<RelicDto> GetRelic(int id)
         {
-            return await _relicRepository.GetRelicByIdAsync(id);
+            return await _relicRepository.GetRelicDtoByIdAsync(id);
         }
+
 
         [HttpPost("add-relic")]
         public async Task<ActionResult> CreateRelic(RelicCreateDto relicCreateDto)
@@ -170,7 +171,6 @@ namespace API.Controllers
             {
                 return CreatedAtRoute("GetRelic", new { id = relic.Id }, _mapper.Map<PhotoDto>(photo));
             }
-
 
             return BadRequest("Lỗi tải ảnh!");
         }

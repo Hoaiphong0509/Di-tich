@@ -6,6 +6,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs'
 import { FileUploadModule } from 'ng2-file-upload';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { EditorModule } from "@tinymce/tinymce-angular";
+import { NgDompurifyModule} from '@tinkoff/ng-dompurify';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 @NgModule({
   declarations: [],
@@ -18,7 +20,9 @@ import { EditorModule } from "@tinymce/tinymce-angular";
     TabsModule.forRoot(),
     FileUploadModule,
     PaginationModule.forRoot(),
-    EditorModule
+    EditorModule,
+    NgDompurifyModule,
+    NgxGalleryModule
   ],
   exports: [
     BsDropdownModule,
@@ -26,7 +30,9 @@ import { EditorModule } from "@tinymce/tinymce-angular";
     TabsModule,
     FileUploadModule,
     PaginationModule,
-    EditorModule
+    EditorModule,
+    NgDompurifyModule,
+    NgxGalleryModule
   ]
 })
 export class SharedModule { }

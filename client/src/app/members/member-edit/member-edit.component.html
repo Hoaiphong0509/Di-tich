@@ -48,25 +48,25 @@
       <tab heading='Bài viết'>
         <h1>Các bài viết</h1>
         <div class="">
-          <table>
-            <tr>
+          <table class="table table-striped ">
+            <tr class="thead-dark">
               <th>Tên di tích</th>
               <th>Tiêu đề</th>
               <th></th>
             </tr>
             <tr *ngFor="let relic of member.relics">
               <td style="width: 30%;">{{relic.name}}</td>
-              <td style="width: 30%;">{{relic.title}}</td>
+              <td style="width: 40%;">{{relic.title}}</td>
               <td>
-                <button class="btn btn-primary">
+                <button class="btn btn-sm btn-primary">
                   <i class="fa fa-eye"></i>
                 </button>
                 &nbsp;
-                <button class="btn btn-primary">
+                <button class="btn btn-sm btn-info">
                   <i class="fa fa-pencil"></i>
                 </button>
                 &nbsp;
-                <button class="btn btn-primary">
+                <button class="btn btn-sm btn-danger">
                   <i class="fa fa-trash"></i>
                 </button>
               </td>

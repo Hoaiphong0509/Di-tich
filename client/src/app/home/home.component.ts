@@ -14,14 +14,18 @@ export class HomeComponent implements OnInit {
   pagination: Pagination;
   pageParams: PageParams = new PageParams();
 
-  constructor(private reliceService: RelicService) { }
+  constructor(private relicService: RelicService) { }
 
   ngOnInit(): void {
     this.loadRelics();
   }
 
+  setRelic(relic: Relic){
+    this.relicService.setCurrentRelic(relic)
+  }
+
   loadRelics(){
-    this.reliceService.getRelics(this.pageParams).subscribe(response => {
+    this.relicService.getRelics(this.pageParams).subscribe(response => {
       this.relics = response.result;
       this.pagination = response.pagination;
     })

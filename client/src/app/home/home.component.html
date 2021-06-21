@@ -1,35 +1,35 @@
 <div class="wrapper">
 
   <!-- Sidebar -->
-  <section id="sidebar" class="col-4">
+  <section id="sidebar">
 
     <!-- Intro -->
-    <section id="intro">
-      <a href="#" class="logo"><img src="../../assets/images/logo.jpg" alt="" /></a>
-      <header>
-        <h2>DI TÍCH THỦ ĐỨC</h2>
-      </header>
-    </section>
-    <!-- Posts List -->
-    <section class="mt-4">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62694.91569675053!2d106.71814509290262!3d10.854692766965595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d85e042bf04b%3A0xbb26baec1664394d!2zVGjhu6cgxJDhu6ljLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1624088438302!5m2!1svi!2s" width="100%" height="80%" style="border:1px solid #000;" allowfullscreen="" loading="lazy"></iframe>
-    </section>
-
-    <!-- About -->
-    <section class="blurb mt-4">
-      <h2>About</h2>
-      <p>Trên mảnh đất TP.Thủ Đức hiện đại ngày nay vẫn còn lưu giữ hệ thống các di sản văn hóa độc đáo, tiêu biểu của
-        TP.HCM và của cả nước.</p>
-      <ul class="actions">
-        <li><a href="#" class="button">Chi tiết</a></li>
-      </ul>
-    </section>
-
-    <!-- Footer -->
-    <section id="footer">
-      <p class="copyright">&copy; Nguyễn Hoài Phong - ĐH Tài Nguyên & Môi Trường TP. HCM - 07_ĐHCNTT1
-    </section>
-
+      <section id="intro" >
+        <a href="#" class="logo"><img src="../../assets/images/logo.jpg" alt="" /></a>
+        <header>
+          <h2>DI TÍCH THỦ ĐỨC</h2>
+        </header>
+      </section>
+      <!-- Posts List -->
+      <section class="mt-4">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62694.91569675053!2d106.71814509290262!3d10.854692766965595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d85e042bf04b%3A0xbb26baec1664394d!2zVGjhu6cgxJDhu6ljLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1624088438302!5m2!1svi!2s" width="100%" height="80%" style="border:1px solid #000;" allowfullscreen="" loading="lazy"></iframe>
+      </section>
+  
+      <!-- About -->
+      <section class="blurb mt-4">
+        <h2>About</h2>
+        <p>Trên mảnh đất TP.Thủ Đức hiện đại ngày nay vẫn còn lưu giữ hệ thống các di sản văn hóa độc đáo, tiêu biểu của
+          TP.HCM và của cả nước.</p>
+        <ul class="actions">
+          <li><a href="#" class="button">Chi tiết</a></li>
+        </ul>
+      </section>
+  
+      <!-- Footer -->
+      <section id="footer">
+        <p class="copyright">&copy; Nguyễn Hoài Phong - ĐH Tài Nguyên & Môi Trường TP. HCM - 07_ĐHCNTT1
+      </section>
+    
   </section>
 
   <!-- Main -->
@@ -39,7 +39,7 @@
     <article class="post" *ngFor="let relic of relics">
       <header>
         <div class="title">
-          <h2><a href="single.html">{{relic.name}}</a></h2>
+          <h2><a routerLink='/detail/{{relic.id}}'>{{relic.name}}</a></h2>
           <p>{{relic.title}}</p>
         </div>
         <div class="meta">
@@ -47,12 +47,12 @@
           <p class="author"><span class="name">{{relic.author}}</span></p>
         </div>
       </header>
-      <a href="single.html" class="image featured">
+      <a routerLink='/detail/{{relic.id}}' class="image featured">
         <img src="{{relic.photoUrl || './assets/images/pic01.jpg'}}" alt="{{relic.name}}" /></a>
-      <p>{{relic.content.substring(0, 256)}} ....</p>
+      <!-- <p [innerHTML]="relic.content | dompurify"></p> -->
       <footer>
-        <ul class="actions">
-          <li><a href="single.html" class="button large">Đọc thêm</a></li>
+        <ul class="actions mt-4">
+          <li><a routerLink='detail/{{relic.id}}' (click)="setRelic(relic)" class="button large">Xem</a></li>
         </ul>
         <ul class="stats">
           <li><i class="fa fa-eye"></i>{{relic.view}}</li>
