@@ -8,13 +8,14 @@ namespace API.Interfaces
 {
     public interface IRelicRepository
     {
-       void Update(Relic relic);
+        void Update(Relic relic);
         Task<bool> SaveAllAsync();
         Task<PageList<RelicDto>> GetRelicsAsync(PageParams pageParams);
         Task<PageList<RelicDto>> GetRelicsByNameAsync(PageParams pageParams, string name);
         Task<RelicDto> GetRelicDtoByIdAsync(int id);
         Task<Relic> GetRelicByIdAsync(int id);
-        void CreateRelic(RelicCreateDto relicCreateDto);
+        Task<int> CreateRelic(RelicCreateDto relicCreateDto);
+        Task<int> UpdateRelic(RelicUpdateDto relicUpdateDto);
         Task DeleteRelic(int id);
     }
 }

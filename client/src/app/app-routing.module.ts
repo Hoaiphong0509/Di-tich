@@ -1,3 +1,4 @@
+import { PreventUnsavedCreateRelicGuard } from './_guards/prevent-unsaved-create-relic.guard';
 import { DetailComponent } from './detail/detail.component';
 import { RelicDetailComponent } from './relics/relic-detail/relic-detail.component';
 import { RelicCreateComponent } from './relics/relic-create/relic-create.component';
@@ -14,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanDeactivate } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
+import { CreateRelicResolver } from './_resolvers/create-relic.resolver';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},

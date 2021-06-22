@@ -29,6 +29,8 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { RelicListComponent } from './relics/relic-list/relic-list.component';
 import { EditorInputComponent } from './_forms/editor-input/editor-input.component';
 import { DetailComponent } from './detail/detail.component';
+import { PhotoEditorComponent } from './relics/photo-editor/photo-editor.component';
+import { RelicEditComponent } from './relics/relic-edit/relic-edit.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { DetailComponent } from './detail/detail.component';
     TextInputComponent,
     RelicListComponent,
     EditorInputComponent,
-    DetailComponent
+    DetailComponent,
+    PhotoEditorComponent,
+    RelicEditComponent
   ],
   imports: [
     BrowserModule,

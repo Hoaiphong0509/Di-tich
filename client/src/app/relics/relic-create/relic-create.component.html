@@ -1,112 +1,42 @@
-<div class="container">
-  <div class="text-center">
-    <h1>Tạo bài viết</h1>
+<h1 class="text-center">THÊM BÀI VIẾT</h1>
+<div class="start-container" *ngIf="!addRelicMode">
+  <div class="law">
+    <h1 class="text-center">Nội quy</h1>
+    <p>Không đăng cái bài viết có nội dung phản cảm !</p>
+    <p>Không đăng cái bài viết có nội dung sai lệch sự thật về các di tích !</p>
+    <p>Không đăng cái bài viết có yếu tố chính trị,...</p>
+    <button type="button"(click)="startCreate()">+</button>
   </div>
-  <div class="area-create row" style="background-color: wheat;">
-    <div class="col-7">
-      <form [formGroup]='addRelicForm' (ngSubmit)='addRelic()' autocomplete="off" style="text-align: center;">
-        <app-text-input [formControl]='addRelicForm.controls["name"]' [label]='"Tên di tích"'></app-text-input>
-        <app-text-input [formControl]='addRelicForm.controls["title"]' [label]='"Thành tích"'></app-text-input>
-        <app-editor-input [formControl]='addRelicForm.controls["content"]'></app-editor-input>
-        <div class="form-inline float-right">
-          <input (click)="cancel()" type="button" class="btn btn-danger mr-3" value="Hủy">
-          <input [disabled]="addRelicForm.invalid" type="submit" class="btn btn-info mt-4 mb-4" value="Thêm ảnh">
-        </div>
-      </form>
-    </div>
-    
-    <div class="col-5" *ngIf="!addPhotoMode">
-      <img src="../../../assets/images/pic01.jpg" alt="pic01" style="width: 100%; height: 100%;">
-    </div>
 
-    <div class="col-5" *ngIf="addPhotoMode">
-      <div class="container-photo">
-        <div class="row" *ngIf="relic.photos.length > 0">
-          <div class="col-2" *ngFor="let photo of relic.photos">
-            <img src="{{photo.url || '../../../assets/images/pic01.jpg'}}" alt="{{photo.url}}" class="img-thumbnail p-1" [class.not-approved]="!photo.isApproved">
-            <div class="text-center img-text" *ngIf="!photo.isApproved">
-              <span class="text-danger">Awaiting approval</span>
-            </div>
-            <div class="text-center">
-              <button [disabled]="photo.isMain || !photo.isApproved" (click)="setMainPhoto(photo)"
-                [ngClass]='photo.isMain ? "btn-success active": "btn-outline-success"' class="btn btn-sm">
-                Main
-              </button>
-              <button [disabled]="photo.isMain" (click)="deletePhoto(photo.id)" class="btn btn-sm btn-danger">
-                <i class="fa fa-trash"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <div class="row mt-3">  
-          <div class="col-md-3">
-            <h3>Add Photos</h3>
-        
-            <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
-              [uploader]="uploader" class="card bg-faded p-3 text-center mb-3 my-drop-zone">
-              <i class="fa fa-upload fa-3x"></i>
-              Base drop zone
-            </div>
-        
-            Multiple
-            <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
-        
-            Single
-            <input type="file" ng2FileSelect [uploader]="uploader" />
-          </div>
-        
-          <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
-        
-            <h3>Upload queue</h3>
-            <p>Queue length: {{ uploader?.queue?.length }}</p>
-        
-            <table class="table">
-              <thead>
-                <tr>
-                  <th width="50%">Name</th>
-                  <th>Size</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of uploader.queue">
-                  <td><strong>{{ item?.file?.name }}</strong></td>
-                  <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-                </tr>
-              </tbody>
-            </table>
-        
-            <div>
-              <div>
-                Queue progress:
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-                </div>
-              </div>
-              <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
-                [disabled]="!uploader.getNotUploadedItems().length">
-                <span class="fa fa-upload"></span> Upload all
-              </button>
-              <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()"
-                [disabled]="!uploader.isUploading">
-                <span class="fa fa-ban"></span> Cancel all
-              </button>
-              <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
-                [disabled]="!uploader.queue.length">
-                <span class="fa fa-trash"></span> Remove all
-              </button>
-            </div>
-        
-          </div>
-        
-        </div>
-        
-      </div>
-    
-     
-    </div>
-  </div>
 </div>
 
-<p>FOrm value: {{addRelicForm.value | json}}</p>
-<p>Model value: {{model | json}}</p>
+
+<mat-drawer-container class="example-container" autosize *ngIf="addRelicMode">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <app-photo-editor *ngIf="addPhotoMode" [relic]='relic'></app-photo-editor>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <div class="area-content mt-3">
+      <mat-drawer-container>
+        <form class="form-create" *ngIf="!addPhotoMode" [formGroup]='addRelicForm' (ngSubmit)='addRelic()'
+          autocomplete="off" style="text-align: center;">
+          <app-text-input [formControl]='addRelicForm.controls["name"]' [label]='"Tên di tích"'></app-text-input>
+          <app-text-input [formControl]='addRelicForm.controls["title"]' [label]='"Thành tích"'></app-text-input>
+          <app-editor-input [formControl]='addRelicForm.controls["content"]' [label]='"Nội dung"'></app-editor-input>
+          <div class="form-inline float-right">
+            <input (click)="cancel()" type="button" class="btn btn-danger mr-3" value="Hủy" mat-button>
+            <input [disabled]="addRelicForm.invalid" type="submit" class="btn btn-info mt-4 mb-4" value="Thêm ảnh"
+              mat-button (click)="drawer.toggle()">
+            <button *ngIf="addPhotoMode" type="button" class="btn btn-inline btn-success" (click)="drawer.toggle()">
+              <i class="fa fa-arrows-h" aria-hidden="true"></i>
+            </button>
+          </div>
+        </form>
+      </mat-drawer-container>
+      <app-relic-edit *ngIf="addPhotoMode"></app-relic-edit>
+    </div>
+
+  </div>
+
+</mat-drawer-container>

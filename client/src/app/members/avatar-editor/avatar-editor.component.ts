@@ -1,3 +1,4 @@
+import { RelicCreateComponent } from './../../relics/relic-create/relic-create.component';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Member } from 'src/app/_models/member';
@@ -62,6 +63,8 @@ export class AvatarEditorComponent implements OnInit {
       this.reload()
     };
   }
+
+
 
   reload() {
     var currentUrl = this.router.url;

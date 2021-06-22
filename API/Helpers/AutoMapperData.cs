@@ -25,6 +25,7 @@ namespace API.Helpers
             CreateMap<RelicCreateDto, Relic>()
                 .ForMember(dest => dest.NameUnmark, opt => opt.MapFrom(
                     src => src.Name.ConvertToUnSign()));
+            CreateMap<RelicDto, Relic>();
         }
     }
 }

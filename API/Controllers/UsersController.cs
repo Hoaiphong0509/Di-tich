@@ -36,7 +36,7 @@ namespace API.Controllers
         // =====================
         #region User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]PageParams pageParams)
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] PageParams pageParams)
         {
             pageParams.CurrentUsername = User.GetUsername();
             var users = await _userRepository.GetMembersAsync(pageParams);
@@ -103,7 +103,7 @@ namespace API.Controllers
         // =====================
         #region Relic
 
-       [HttpGet("get-relic-by-id/{id}", Name = "GetRelic")]
+        [HttpGet("get-relic-by-id/{id}", Name = "GetRelic")]
         public async Task<RelicDto> GetRelic(int id)
         {
             return await _relicRepository.GetRelicDtoByIdAsync(id);
@@ -111,15 +111,21 @@ namespace API.Controllers
 
 
         [HttpPost("add-relic")]
-        public async Task<ActionResult> CreateRelic(RelicCreateDto relicCreateDto)
+        public async Task<ActionResult<RelicDto>> CreateRelic(RelicCreateDto relicCreateDto)
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
             relicCreateDto.AppUserId = user.Id;
-            _relicRepository.CreateRelic(relicCreateDto);
+            var relicId = await _relicRepository.CreateRelic(relicCreateDto);
 
-            if (await _relicRepository.SaveAllAsync()) return Ok();
-
-            return BadRequest("failed");
+            return new RelicDto
+            {
+                Id = relicId,
+                Name = relicCreateDto.Name,
+                Title = relicCreateDto.Title,
+                Content = relicCreateDto.Content,
+                Author = (user.KnownAs is null) ? user.UserName : user.KnownAs
+            };
+            // return BadRequest("failed");
         }
 
         [HttpDelete("delete-relic/{id}")]
@@ -130,18 +136,25 @@ namespace API.Controllers
             return BadRequest("Xóa di tích thất bại!");
         }
 
-        [HttpPut("edit-relic/{id}")]
-        public async Task<ActionResult> UpdateRelic(int id, [FromBody] RelicUpdateDto relicUpdateDto)
+        [HttpPut("edit-relic")]
+        public async Task<ActionResult<RelicDto>> UpdateRelic(RelicUpdateDto relicUpdateDto)
         {
-            var relic = await _relicRepository.GetRelicByIdAsync(id);
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            var relic = await _relicRepository.GetRelicByIdAsync(relicUpdateDto.Id);
 
             _mapper.Map(relicUpdateDto, relic);
 
-            _relicRepository.Update(relic);
+            var relicId = await _relicRepository.UpdateRelic(relicUpdateDto);
 
-            if (await _userRepository.SaveAllAsync()) return NoContent();
-
-            return BadRequest("Cập nhật thông tin thất bại!");
+            return new RelicDto
+            {
+                Id = relicId,
+                Name = relicUpdateDto.Name,
+                Title = relicUpdateDto.Title,
+                Content = relicUpdateDto.Content,
+                Author = (user.KnownAs is null) ? user.UserName : user.KnownAs
+            };
+            // return BadRequest("Cập nhật thông tin thất bại!");
         }
 
         [HttpPost("add-photo-relic/{id}")]
@@ -176,43 +189,43 @@ namespace API.Controllers
         }
 
         [HttpPut("set-main-photo")]
-        public async Task<ActionResult> SetMainPhoto([FromQuery]int relicId, [FromQuery]int photoId)
+        public async Task<ActionResult> SetMainPhoto([FromQuery] int relicId, [FromQuery] int photoId)
         {
             var relic = await _relicRepository.GetRelicByIdAsync(relicId);
 
             var photo = relic.Photos.FirstOrDefault(p => p.Id == photoId);
 
-            if(photo.IsMain) return BadRequest("Hình này hiện tại đang là ảnh bìa !");
+            if (photo.IsMain) return BadRequest("Hình này hiện tại đang là ảnh bìa !");
 
             var currentMain = relic.Photos.FirstOrDefault(p => p.IsMain);
-            if(currentMain != null) currentMain.IsMain = false;
+            if (currentMain != null) currentMain.IsMain = false;
             photo.IsMain = true;
 
-            if(await _userRepository.SaveAllAsync()) return NoContent();
+            if (await _userRepository.SaveAllAsync()) return NoContent();
 
             return BadRequest("Lỗi khi đang đặt ảnh làm ảnh chính!");
         }
 
         [HttpDelete("delete-photo")]
-        public async Task<ActionResult> DeletePhoto([FromQuery]int relicId, [FromQuery]int photoId)
+        public async Task<ActionResult> DeletePhoto([FromQuery] int relicId, [FromQuery] int photoId)
         {
             var relic = await _relicRepository.GetRelicByIdAsync(relicId);
 
             var photo = relic.Photos.FirstOrDefault(p => p.Id == photoId);
 
-            if(photo == null) return NotFound();
+            if (photo == null) return NotFound();
 
-            if(photo.IsMain) return BadRequest("Bạn không thể xóa ảnh chính của di tích!");
+            if (photo.IsMain) return BadRequest("Bạn không thể xóa ảnh chính của di tích!");
 
-            if(photo.PublicId != null)
+            if (photo.PublicId != null)
             {
                 var result = await _photoService.DeletePhotoAsync(photo.PublicId);
-                if(result.Error != null) return BadRequest(result.Error.Message);
+                if (result.Error != null) return BadRequest(result.Error.Message);
             }
 
             relic.Photos.Remove(photo);
 
-            if(await _relicRepository.SaveAllAsync()) return Ok();
+            if (await _relicRepository.SaveAllAsync()) return Ok();
 
             return BadRequest("LỖi khi đang xóa ảnh!");
         }

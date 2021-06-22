@@ -3,12 +3,11 @@ import { AccountService } from './../../_services/account.service';
 import { environment } from 'src/environments/environment';
 import { RelicService } from './../../_services/relic.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, NgForm, FormControl, FormBuilder } from '@angular/forms';
-import { FileUploader } from 'ng2-file-upload';
+import { Component, OnInit, Input, ElementRef, NgZone, Inject, PLATFORM_ID } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { Relic } from 'src/app/_models/relic';
-import { Photo } from 'src/app/_models/photo';
+
 
 @Component({
   selector: 'app-relic-create',
@@ -16,19 +15,21 @@ import { Photo } from 'src/app/_models/photo';
   styleUrls: ['./relic-create.component.css']
 })
 export class RelicCreateComponent implements OnInit {
+  @Input() autosize: boolean = true;
+  showFiller = false;
   addRelicForm: FormGroup;
+
   model: any = {};
+  addRelicMode = false;
   addPhotoMode = false;
+
   relic: Relic;
   relicId: number;
 
   user: User;
 
-  uploader: FileUploader;
-  hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   apiTinyMCE = environment.apiTinyMCE;
-
 
   constructor(
     private accountService: AccountService,
@@ -42,10 +43,14 @@ export class RelicCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    if (this.relic) {
-      console.log(this.relic)
-      this.initializeUploader();
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
     }
+    // this.configuracoesEditor = configuracaoPadraoEditor(false, false, '285px');
+    // this.reload()
   }
 
   initializeForm() {
@@ -54,66 +59,49 @@ export class RelicCreateComponent implements OnInit {
       title: ['', Validators.required],
       content: ['', Validators.required],
     })
-
-  }
-
-  fileOverBase(e: any) {
-    this.hasBaseDropZoneOver = e;
-  }
-
-  initializeUploader() {
-    this.uploader = new FileUploader({
-      url: this.baseUrl + 'add-photo-relic/' + this.relic.id,
-      authToken: 'Bearer ' + this.user.token,
-      isHTML5: true,
-      allowedFileType: ['image'],
-      removeAfterUpload: true,
-      autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024
-    });
-
-    this.uploader.onAfterAddingFile = (file) => {
-      file.withCredentials = false;
-    }
-
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
-      if (response) {
-        const photo: Photo = JSON.parse(response)
-        this.relic.photos.push(photo)
-        if (photo.isMain) {
-          this.relic.photoUrl = photo.url;
-        }
-      }
-    }
   }
 
   addRelic() {
     this.relicService.createRelic(this.addRelicForm.value).subscribe(response => {
       this.addPhotoMode = true;
-      // console.log(response)
+      this.relicService.setCurrentRelic(response)
+      this.relic = response;
     }, error => {
       console.log(error)
     })
   }
 
   cancel() {
-    // console.log(this.addRelicForm.touched)
-    console.log(this.relicService.getCurrentRelic().id)
     if (this.relicService.getCurrentRelic().id) {
       this.deleteRelic(this.relicService.getCurrentRelic().id)
       this.router.navigateByUrl('/');
     }
-
     this.router.navigateByUrl('/');
-
   }
 
   deleteRelic(relicId: number) {
     this.relicService.deleteRelic(relicId).subscribe(() => {
+      localStorage.removeItem('relic')
       this.router.navigateByUrl('/');
     }, error => {
       console.log(error)
     })
   }
 
+  startCreate(){
+    console.log(Object.values(this.addRelicMode))
+    console.log("truoc" + this.addRelicMode)
+    this.addRelicMode = !this.addPhotoMode;
+    console.log("sau" + this.addRelicMode)
+    if(this.addRelicMode){
+
+    }
+    // this.reload()
+  }
+
+  reload() {
+    var currentUrl = this.router.url;
+    var refreshUrl = currentUrl.indexOf('someRoute') > -1 ? '/someOtherRoute' : '/someRoute';
+    this.router.navigateByUrl(refreshUrl).then(() => this.router.navigateByUrl(currentUrl));
+  }
 }

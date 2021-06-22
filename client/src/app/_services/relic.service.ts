@@ -43,6 +43,7 @@ export class RelicService {
   getCurrentRelic(){
     const relic: Relic = JSON.parse(localStorage.getItem('relic'));
     this.setCurrentRelic(relic);
+    console.log(relic);
     return relic;
   }
 
@@ -107,15 +108,34 @@ export class RelicService {
   
   //#region relic
   createRelic(model: any){
+    
     return this.http.post<Relic>(this.baseUrl + 'users/add-relic', model).pipe(
       map((relic: Relic) => {
         if (relic) {
-          console.log("service: " + relic)
           this.setCurrentRelic(relic);
         }
+        return relic;
       })
     )
   }
+
+  editRelic(model: any){
+    model.id = this.getCurrentRelic().id;
+    console.log("goi sua: " + model)
+    return this.http.put<Relic>(this.baseUrl + 'users/edit-relic' , model).pipe(
+      map((relic: Relic) => {
+        if (relic) {
+          this.setCurrentRelic(relic);
+        }
+        return relic;
+      })
+    )
+  }
+
+  setMainPhoto(relicId?: number, photoId?: number){
+    return this.http.put(this.baseUrl + 'users/set-main-photo/?relicId=' + relicId + '&photoId=' + photoId, {})
+  }
+
   deleteRelic(relicId: number){
     return this.http.delete(this.baseUrl + 'users/delete-relic/' + relicId);
   }

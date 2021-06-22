@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using API.Entities;
-using Microsoft.AspNetCore.Http;
-
 namespace API.DTOs
 {
     public class RelicCreateDto

@@ -1,6 +1,75 @@
 .area-create {
-    height: 80vh;
+  margin-top: 3rem;
+  height: auto;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  position: relative;
 }
-app-editor-input{
+.start-container{
+  display: grid;
+  place-items: center;
+  position: relative;
+  margin: 0 auto;
+  width: auto;
+  height: 80vh;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.start-container .law {
+  margin: 0 auto;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.start-container button {
+  font-size: 4rem;
+  background: none;
+  outline: none;
+  border: none;
+  color: tomato;
+  padding: 1rem;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+}
+
+.start-container button:hover{
+  outline: 1px saddlebrown solid;
+  border: none;
+  color: tomato;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+}
+app-editor-input {
+  height: 500px;
+}
+.example-container {
+  margin: 0 auto;
+  width: auto;
+  height: 80vh;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.example-sidenav {
+  padding: 5px;
+}
+
+.example-sidenav app-photo-editor {
     height: 500px;
+    /* width: 55px; */
 }

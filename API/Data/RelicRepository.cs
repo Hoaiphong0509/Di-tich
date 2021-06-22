@@ -53,13 +53,15 @@ namespace API.Data
             _context.Entry(relic).State = EntityState.Modified;
         }
 
-        public void CreateRelic(RelicCreateDto relicCreateDto)
+        public async Task<int> CreateRelic(RelicCreateDto relicCreateDto)
         {
             var relic = new Relic();
 
             _mapper.Map(relicCreateDto, relic);
-
             _context.Relics.Add(relic);
+            await _context.SaveChangesAsync();
+
+            return relic.Id;
         }
 
         public async Task DeleteRelic(int id)
@@ -84,6 +86,17 @@ namespace API.Data
             return await _context.Relics
                 .Include(p => p.Photos)
                 .SingleOrDefaultAsync(x=>x.Id == id);
+        }
+
+        public async Task<int> UpdateRelic(RelicUpdateDto relicUpdateDto)
+        {
+             var relic = _context.Relics.SingleOrDefault(x => x.Id == relicUpdateDto.Id);
+             
+            _mapper.Map(relicUpdateDto, relic);
+
+            await _context.SaveChangesAsync();
+
+            return relic.Id;
         }
     }
 }

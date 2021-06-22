@@ -8,6 +8,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { NgDompurifyModule} from '@tinkoff/ng-dompurify';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     PaginationModule.forRoot(),
     EditorModule,
     NgDompurifyModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    MatSidenavModule
   ],
   exports: [
     BsDropdownModule,
@@ -32,7 +34,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     PaginationModule,
     EditorModule,
     NgDompurifyModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    MatSidenavModule
   ]
 })
 export class SharedModule { }
