@@ -1,7 +1,7 @@
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { RelicService } from './../../_services/relic.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Relic } from 'src/app/_models/relic';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -11,8 +11,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./relic-edit.component.css']
 })
 export class RelicEditComponent implements OnInit {
+  @Input() relic: Relic;
   editRelicForm: FormGroup;
-  relic: Relic;
+
 
   constructor(
     private relicService: RelicService,
@@ -26,15 +27,16 @@ export class RelicEditComponent implements OnInit {
   }
 
   cancel() {
-    if (this.relicService.getCurrentRelic().id) {
-      this.relicService.deleteRelic(this.relicService.getCurrentRelic().id)
+    const relic: Relic = JSON.parse(localStorage.getItem('relic'))
+    this.relicService.deleteRelic(relic.id).subscribe(() => {
+      localStorage.removeItem('relic')
       this.router.navigateByUrl('/');
-    }
-    this.router.navigateByUrl('/');
+    })
   }
 
   initializeForm() {
     this.editRelicForm = this.fb.group({
+      id: [this.relic.id, Validators.required],
       name: [this.relic.name, Validators.required],
       title: [this.relic.title, Validators.required],
       content: [this.relic.content, Validators.required],
@@ -45,11 +47,11 @@ export class RelicEditComponent implements OnInit {
     this.relicService.editRelic(this.editRelicForm.value).subscribe(response => {
       this.relicService.setCurrentRelic(response)
       this.relic = response;
+      this.router.navigateByUrl('/')
     }, error => {
       console.log(error)
     })
     this.relicService.setCurrentRelic(this.relic);
   }
-
 
 }

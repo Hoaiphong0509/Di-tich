@@ -51,6 +51,7 @@ namespace API.Data
         {
             return await _context.Users
                 .Include(p => p.Relics)
+                .Include(a => a.Avatar)
                 .SingleOrDefaultAsync(x => x.UserName == username);
         }
 

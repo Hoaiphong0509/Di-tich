@@ -11,8 +11,7 @@ namespace API.Entities
         public string Address { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public string Avatar { get; set; }
-        public int PublicId { get; set; }
+        public ICollection<Avatar> Avatar { get; set; }
         public ICollection<Relic> Relics { get; set; }
     }
 }

@@ -1,1 +1,66 @@
-@import url(../relics/relic-detail/relic-detail.component.css);
+.container {
+    margin: 0 auto;
+    width: 80%;
+    justify-content: center;
+    overflow: auto;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
+  .header {
+    display: block;
+    margin-bottom: 1.2rem;
+    display: flex;
+  }
+  
+  .header .title{
+      float: left;
+  }
+  
+  .relic-content {
+    overflow: hidden;
+    margin-bottom: 6rem;
+    width: auto;
+  }
+  
+  .flexbox-wrapper {
+    position: -webkit-sticky;
+    /* for Safari */
+    position: sticky;
+    align-self: flex-start;
+    display: flex;
+    overflow: auto;
+    /* height: 65vh; */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
+  .regular {
+    /* Not necessary -- for example only */
+    height: 600px;
+    width: 45%;
+  }
+  
+  .sticky {
+    /* border: 2px solid saddlebrown; */
+    
+    position: -webkit-sticky;
+    /* for Safari */
+    position: sticky;
+    top: 5%;
+    /* width: 0%; */
+    margin: 2rem;
+    align-self: flex-start;
+    /* <-- this is the fix */
+  }
+  
+  .sticky .images {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+
+  .sticky .author {
+    float: right;
+    width: 100%;
+    background-color: wheat;
+    /* text-align: right; */
+    margin: 3rem 0;
+  }

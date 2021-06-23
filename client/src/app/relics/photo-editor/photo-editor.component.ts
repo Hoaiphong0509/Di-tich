@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Relic } from './../../_models/relic';
 import { AccountService } from 'src/app/_services/account.service';
 import { User } from './../../_models/user';
 import { RelicService } from './../../_services/relic.service';
 import { FileUploader } from 'ng2-file-upload';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
 import { Photo } from 'src/app/_models/photo';
@@ -14,7 +14,7 @@ import { Photo } from 'src/app/_models/photo';
   templateUrl: './photo-editor.component.html',
   styleUrls: ['./photo-editor.component.css']
 })
-export class PhotoEditorComponent implements OnInit {
+export class PhotoEditorComponent implements OnInit, OnDestroy {
   @Input() relic: Relic;
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
@@ -24,7 +24,8 @@ export class PhotoEditorComponent implements OnInit {
 
   constructor(
     private relicService: RelicService,
-    private accountService: AccountService) {
+    private accountService: AccountService,
+    private router: Router) {
       this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
       this.relicService.currentRelic$.pipe(take(1)).subscribe(relic => {
         this.relic = relic
@@ -32,7 +33,20 @@ export class PhotoEditorComponent implements OnInit {
       });
   }
 
+  ngOnDestroy(): void {
+    if(localStorage.getItem('photos')){
+      localStorage.removeItem('photos')
+    }
+  }
+
   ngOnInit(): void {
+    if(!localStorage.getItem('photos')){
+      localStorage.setItem('photos', JSON.stringify(this.relic.photos))
+      this.relic.photos = JSON.parse(localStorage.getItem('relic'))
+    }
+    else {
+      this.relic = JSON.parse(localStorage.getItem('relic'))
+    }
     this.initializeUploader();
   }
 
@@ -57,10 +71,7 @@ export class PhotoEditorComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        console.log(response);
         const photo: Photo = JSON.parse(response);
-        console.log(photo)
-        console.log(this.relic)
         this.relic.photos.push(photo)
         if (photo.isMain) {
           this.relic.photoUrl = photo.url;
@@ -80,4 +91,11 @@ export class PhotoEditorComponent implements OnInit {
       })
     })
   }
+
+  deletePhoto(photoId: number){
+    this.relicService.deletePhoto(this.relic.id, photoId).subscribe(() => {
+      this.relic.photos = this.relic.photos.filter(x => x.id != photoId)
+    })
+  }
+
 }

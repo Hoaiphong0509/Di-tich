@@ -42,15 +42,14 @@ export class RelicCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initializeForm();
     if (!localStorage.getItem('foo')) { 
       localStorage.setItem('foo', 'no reload') 
       location.reload() 
     } else {
       localStorage.removeItem('foo') 
     }
-    // this.configuracoesEditor = configuracaoPadraoEditor(false, false, '285px');
-    // this.reload()
+    if(localStorage.getItem('relic')) localStorage.removeItem('relic')
+    this.initializeForm();
   }
 
   initializeForm() {
@@ -72,36 +71,32 @@ export class RelicCreateComponent implements OnInit {
   }
 
   cancel() {
-    if (this.relicService.getCurrentRelic().id) {
-      this.deleteRelic(this.relicService.getCurrentRelic().id)
-      this.router.navigateByUrl('/');
-    }
     this.router.navigateByUrl('/');
   }
 
-  deleteRelic(relicId: number) {
-    this.relicService.deleteRelic(relicId).subscribe(() => {
-      localStorage.removeItem('relic')
-      this.router.navigateByUrl('/');
-    }, error => {
-      console.log(error)
-    })
-  }
 
   startCreate(){
-    console.log(Object.values(this.addRelicMode))
-    console.log("truoc" + this.addRelicMode)
+    const relic = JSON.parse(localStorage.getItem('relic'))
     this.addRelicMode = !this.addPhotoMode;
-    console.log("sau" + this.addRelicMode)
-    if(this.addRelicMode){
+  }
 
+  editMode(): boolean{
+    const relic = JSON.parse(localStorage.getItem('relic'))
+    console.log(relic);
+    console.log(this.relic);
+    console.log(relic === this.relic)
+
+    if(relic === this.relic){
+      return true;
     }
-    // this.reload()
+    return false;
   }
 
-  reload() {
-    var currentUrl = this.router.url;
-    var refreshUrl = currentUrl.indexOf('someRoute') > -1 ? '/someOtherRoute' : '/someRoute';
-    this.router.navigateByUrl(refreshUrl).then(() => this.router.navigateByUrl(currentUrl));
-  }
+  //Tinh nag xem truoc
+  // view(){
+  //   const relic: Relic = JSON.parse(localStorage.getItem('relic'))
+  //   this.relicService.getRelic(relic.id).subscribe(() => {
+  //     this.router.navigateByUrl('relics/' + relic.id)
+  //   })
+  // }
 }

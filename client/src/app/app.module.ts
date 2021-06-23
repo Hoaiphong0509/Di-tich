@@ -26,11 +26,11 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AvatarEditorComponent } from './members/avatar-editor/avatar-editor.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
-import { RelicListComponent } from './relics/relic-list/relic-list.component';
 import { EditorInputComponent } from './_forms/editor-input/editor-input.component';
 import { DetailComponent } from './detail/detail.component';
 import { PhotoEditorComponent } from './relics/photo-editor/photo-editor.component';
 import { RelicEditComponent } from './relics/relic-edit/relic-edit.component';
+import { RelicEditMemberComponent } from './relics/relic-edit-member/relic-edit-member.component';
 
 @NgModule({
   declarations: [
@@ -51,11 +51,11 @@ import { RelicEditComponent } from './relics/relic-edit/relic-edit.component';
     MemberEditComponent,
     AvatarEditorComponent,
     TextInputComponent,
-    RelicListComponent,
     EditorInputComponent,
     DetailComponent,
     PhotoEditorComponent,
-    RelicEditComponent
+    RelicEditComponent,
+    RelicEditMemberComponent
   ],
   imports: [
     BrowserModule,

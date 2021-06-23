@@ -37,7 +37,7 @@ export class AvatarEditorComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'users/add-photo',
+      url: this.baseUrl + 'users/add-avatar',
       authToken: 'Bearer ' + this.user.token,
       isHTML5: true,
       allowedFileType: ['image'],
@@ -53,7 +53,7 @@ export class AvatarEditorComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const photo = JSON.parse(response);
-        this.member.avatar = photo;
+        this.member.avatarUrl = photo;
         this.accountService.setCurrentUser(this.user);
         this.reload();
       }
@@ -63,9 +63,7 @@ export class AvatarEditorComponent implements OnInit {
       this.reload()
     };
   }
-
-
-
+  
   reload() {
     var currentUrl = this.router.url;
     var refreshUrl = currentUrl.indexOf('someRoute') > -1 ? '/someOtherRoute' : '/someRoute';

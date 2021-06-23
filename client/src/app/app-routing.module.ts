@@ -1,4 +1,4 @@
-import { PreventUnsavedCreateRelicGuard } from './_guards/prevent-unsaved-create-relic.guard';
+import { RelicEditMemberComponent } from './relics/relic-edit-member/relic-edit-member.component';
 import { DetailComponent } from './detail/detail.component';
 import { RelicDetailComponent } from './relics/relic-detail/relic-detail.component';
 import { RelicCreateComponent } from './relics/relic-create/relic-create.component';
@@ -13,9 +13,8 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, CanDeactivate } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
-import { CreateRelicResolver } from './_resolvers/create-relic.resolver';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,6 +28,7 @@ const routes: Routes = [
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
       {path: 'relics/create', component: RelicCreateComponent},
       {path: 'relics/:id', component: RelicDetailComponent},
+      {path: 'relics/edit/:id', component: RelicEditMemberComponent},
       {path: 'errors', component: TestErrorComponent},
     
     ]

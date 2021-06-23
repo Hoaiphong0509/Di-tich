@@ -30,6 +30,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await _context.Users
+                .Include(u => u.Avatar)
                 .SingleOrDefaultAsync(u => u.UserName == loginDto.Username);
 
             if (user is null) return Unauthorized("Tài khoản không đúng!");
@@ -48,7 +49,7 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
-                Avatar = user?.Avatar
+                AvatarUrl = user.Avatar.FirstOrDefault(x => x.IsMain)?.Url,
             };
         }
 

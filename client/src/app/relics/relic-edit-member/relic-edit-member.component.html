@@ -1,0 +1,46 @@
+<h1 class="text-center">CHỈNH SỬA BÀI VIẾT</h1>
+<div class="start-container" *ngIf="!editRelicMode">
+  <div class="law">
+    <h1 class="text-center">Lưu ý khi chỉnh sửa nội dung</h1>
+    <p>Không sửa nội dung bài viết có nội dung phản cảm !</p>
+    <p>Không sửa nội dung viết có nội dung sai lệch sự thật về các di tích !</p>
+    <p>Không sửa nội dung viết có yếu tố chính trị,...</p>
+    <button type="button" (click)="startEdit()">+</button>
+  </div>
+
+</div>
+
+
+<mat-drawer-container class="example-container" *ngIf="editRelicMode">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="toggle text-center m-4">
+      <button type="button" class="btn btn-lg btn-success text-center" (click)="drawer.toggle()">
+        <i class="fa fa-arrows-h" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <app-photo-editor [relic]='relic'></app-photo-editor>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <div class="area-content mt-3">
+      <mat-drawer-container>
+        <form class="form-create" [formGroup]='editRelicForm' (ngSubmit)='editRelic()' autocomplete="off"
+          style="text-align: center; width: 670px !important;">
+          <app-text-input [formControl]='editRelicForm.controls["name"]' [label]='"Tên di tích"'></app-text-input>
+          <app-text-input [formControl]='editRelicForm.controls["title"]' [label]='"Thành tích"'></app-text-input>
+          <app-editor-input [formControl]='editRelicForm.controls["content"]' [label]='"Nội dung"'></app-editor-input>
+          <div class="form-inline float-right">
+            <input (click)="cancel()" type="button" class="btn btn-danger mr-3" value="Hủy" mat-button>
+            <input [disabled]="editRelicForm.invalid" type="submit" class="btn btn-info mt-4 mb-4" value="Hoàn tất">
+            <button type="button" class="btn btn-inline btn-success ml-3" (click)="drawer.toggle()">
+              <i class="fa fa-arrows-h" aria-hidden="true"></i>
+            </button>
+          </div>
+        </form>
+      </mat-drawer-container>
+    </div>
+
+  </div>
+
+</mat-drawer-container>

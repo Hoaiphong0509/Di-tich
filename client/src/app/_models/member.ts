@@ -5,6 +5,6 @@ export interface Member {
   knownAs: string
   bio: string
   address: string
-  avatar: string
+  avatarUrl: string
   relics: Relic[]
 }

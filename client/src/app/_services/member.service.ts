@@ -80,6 +80,10 @@ export class MemberService {
     );
   }
 
+  deteteAvatar(photo){
+
+  }
+
   //#endregion
 
 }

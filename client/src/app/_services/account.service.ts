@@ -46,6 +46,10 @@ export class AccountService {
     )
   }
 
+  deleteAvatar(){
+    
+  }
+
   setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentuserSource.next(user);

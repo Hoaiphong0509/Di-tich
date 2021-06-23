@@ -1,18 +1,23 @@
 <h1 class="text-center">THÊM BÀI VIẾT</h1>
 <div class="start-container" *ngIf="!addRelicMode">
   <div class="law">
-    <h1 class="text-center">Nội quy</h1>
-    <p>Không đăng cái bài viết có nội dung phản cảm !</p>
-    <p>Không đăng cái bài viết có nội dung sai lệch sự thật về các di tích !</p>
-    <p>Không đăng cái bài viết có yếu tố chính trị,...</p>
-    <button type="button"(click)="startCreate()">+</button>
+    <h1 class="text-center">Lưu ý khi viết bài</h1>
+    <p>Không đăng bài viết có nội dung phản cảm !</p>
+    <p>Không đăng bài viết có nội dung sai lệch sự thật về các di tích !</p>
+    <p>Không đăng bài viết có yếu tố chính trị,...</p>
+    <button type="button" (click)="startCreate()">+</button>
   </div>
 
 </div>
 
 
-<mat-drawer-container class="example-container" autosize *ngIf="addRelicMode">
+<mat-drawer-container class="example-container" *ngIf="addRelicMode">
   <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="toggle text-center m-4">
+      <button type="button" class="btn btn-lg btn-success text-center" (click)="drawer.toggle()">
+        <i class="fa fa-arrows-h" aria-hidden="true"></i>
+      </button>
+    </div>
     <app-photo-editor *ngIf="addPhotoMode" [relic]='relic'></app-photo-editor>
   </mat-drawer>
 
@@ -20,21 +25,21 @@
     <div class="area-content mt-3">
       <mat-drawer-container>
         <form class="form-create" *ngIf="!addPhotoMode" [formGroup]='addRelicForm' (ngSubmit)='addRelic()'
-          autocomplete="off" style="text-align: center;">
+          autocomplete="off" style="text-align: center; min-width: 680px !important;max-width: 680px !important;">
           <app-text-input [formControl]='addRelicForm.controls["name"]' [label]='"Tên di tích"'></app-text-input>
           <app-text-input [formControl]='addRelicForm.controls["title"]' [label]='"Thành tích"'></app-text-input>
           <app-editor-input [formControl]='addRelicForm.controls["content"]' [label]='"Nội dung"'></app-editor-input>
           <div class="form-inline float-right">
             <input (click)="cancel()" type="button" class="btn btn-danger mr-3" value="Hủy" mat-button>
-            <input [disabled]="addRelicForm.invalid" type="submit" class="btn btn-info mt-4 mb-4" value="Thêm ảnh"
+            <input [disabled]="addRelicForm.invalid" type="submit" class="btn btn-info mt-4 mb-4" value="Lưu và thêm ảnh"
               mat-button (click)="drawer.toggle()">
-            <button *ngIf="addPhotoMode" type="button" class="btn btn-inline btn-success" (click)="drawer.toggle()">
-              <i class="fa fa-arrows-h" aria-hidden="true"></i>
-            </button>
           </div>
         </form>
       </mat-drawer-container>
-      <app-relic-edit *ngIf="addPhotoMode"></app-relic-edit>
+      <app-relic-edit [relic]='relic' *ngIf="addPhotoMode"></app-relic-edit>
+      <button *ngIf="addPhotoMode" type="button" class="btn btn-inline btn-success mt-4" (click)="drawer.toggle()">
+        <i class="fa fa-arrows-h" aria-hidden="true"></i>
+      </button>
     </div>
 
   </div>

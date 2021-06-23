@@ -52,7 +52,7 @@
       <!-- <p [innerHTML]="relic.content | dompurify"></p> -->
       <footer>
         <ul class="actions mt-4">
-          <li><a routerLink='detail/{{relic.id}}' (click)="setRelic(relic)" class="button large">Xem</a></li>
+          <li><a routerLink='detail/{{relic.id}}' (click)="loadRelic(relic.id)" class="button large">Xem</a></li>
         </ul>
         <ul class="stats">
           <li><i class="fa fa-eye"></i>{{relic.view}}</li>

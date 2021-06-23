@@ -1,8 +1,21 @@
+
 img.img-thumbnail {
     margin: 25px;
     width: 85%;
-    height: 85%;
+    height: 300px;
+    object-fit: cover;
 }
+
+/* .container {
+    height: 1000px;
+    width: 100%;
+    background: rebeccapurple;
+}
+
+.card {
+    height: 100%;
+    background: wheat;
+} */
 
 .card-body {
     padding: 0 25px;

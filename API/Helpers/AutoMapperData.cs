@@ -10,15 +10,21 @@ namespace API.Helpers
     {
         public AutoMapperData()
         {
-            CreateMap<AppUser, MemberDto>();
+            CreateMap<AppUser, MemberDto>()
+                .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(
+                    src => src.Avatar.FirstOrDefault(x => x.IsMain).Url
+                ));
+            CreateMap<MemberUpdateDto, AppUser>();
+
+            CreateMap<Photo, PhotoDto>();
+            CreateMap<Avatar, AvatarDto>();
+
             CreateMap<Relic, RelicDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(
                     src => src.Photos.FirstOrDefault(x => x.IsMain == true).Url))
                 .ForMember(dest => dest.Author, opt => opt.MapFrom(
                     src => src.AppUser.KnownAs
                 ));
-            CreateMap<Photo, PhotoDto>();
-            CreateMap<MemberUpdateDto, AppUser>();
             CreateMap<RelicUpdateDto, Relic>()
                 .ForMember(dest => dest.NameUnmark, opt => opt.MapFrom(
                     src => src.Name.ConvertToUnSign()));
@@ -26,6 +32,8 @@ namespace API.Helpers
                 .ForMember(dest => dest.NameUnmark, opt => opt.MapFrom(
                     src => src.Name.ConvertToUnSign()));
             CreateMap<RelicDto, Relic>();
+           
+
         }
     }
 }

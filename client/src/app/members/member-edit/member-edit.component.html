@@ -9,7 +9,7 @@
   </div>
   <div class="col-4">
     <div class="card">
-      <img src="{{member.avatar || './assets/user.png'}}" alt="{{member.knownAs}}" class="card-img-top img-thumbnail">
+      <img src="{{member.avatarUrl || './assets/user.png'}}" alt="{{member.knownAs || member.username}}" class="card-img-top img-thumbnail">
       <div class="card-body">
         <div class="text-center">
           <strong>Bút danh:</strong>
@@ -46,33 +46,7 @@
         <app-avatar-editor [member]="member"></app-avatar-editor>
       </tab>
       <tab heading='Bài viết'>
-        <h1>Các bài viết</h1>
-        <div class="">
-          <table class="table table-striped ">
-            <tr class="thead-dark">
-              <th>Tên di tích</th>
-              <th>Tiêu đề</th>
-              <th></th>
-            </tr>
-            <tr *ngFor="let relic of member.relics">
-              <td style="width: 30%;">{{relic.name}}</td>
-              <td style="width: 40%;">{{relic.title}}</td>
-              <td>
-                <button class="btn btn-sm btn-primary">
-                  <i class="fa fa-eye"></i>
-                </button>
-                &nbsp;
-                <button class="btn btn-sm btn-info">
-                  <i class="fa fa-pencil"></i>
-                </button>
-                &nbsp;
-                <button class="btn btn-sm btn-danger">
-                  <i class="fa fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </table>
-        </div>
+        <app-relic-list-member [member]="member"></app-relic-list-member>
       </tab>
       <tab heading='Thay Đổi thông tin tài khoản'>
         <form #editAccountForm="ngForm" id="editAccountForm" (ngSubmit)="updateAccount()" autocomplete="off">

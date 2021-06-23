@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { PageParams } from './../_models/pageParams';
 import { Pagination } from './../_models/pagination';
 import { Relic } from './../_models/relic';
@@ -14,14 +15,17 @@ export class HomeComponent implements OnInit {
   pagination: Pagination;
   pageParams: PageParams = new PageParams();
 
-  constructor(private relicService: RelicService) { }
+  constructor(private relicService: RelicService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadRelics();
   }
 
-  setRelic(relic: Relic){
-    this.relicService.setCurrentRelic(relic)
+  loadRelic(relicid: number){
+    this.relicService.getRelic(relicid).subscribe(response => {
+      this.relicService.setCurrentRelic(response);
+      this.router.navigateByUrl('detail/'+relicid)
+    })
   }
 
   loadRelics(){

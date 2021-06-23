@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { PageParams } from '../_models/pageParams';
 import { of, BehaviorSubject, Subject, ReplaySubject } from 'rxjs';
+import { PageParamsMember } from '../_models/pageParamsMember';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,6 @@ export class RelicService {
   getCurrentRelic(){
     const relic: Relic = JSON.parse(localStorage.getItem('relic'));
     this.setCurrentRelic(relic);
-    console.log(relic);
     return relic;
   }
 
@@ -83,7 +83,21 @@ export class RelicService {
     )
   }
 
+  getRelicByUser(pageParamsMember: PageParamsMember){
+    var response = this.relicCache.get(Object.values(pageParamsMember).join('-'));
+    if(response){
+      return of(response);
+    }
 
+    let params = this.getPaginationMemberHeaders(pageParamsMember.pageNumber, pageParamsMember.pageSize, pageParamsMember.currentUsername);
+    
+    return this.getPaginatedResult<Relic[]>(this.baseUrl + 'users/get-relics-by-user', params).pipe(
+      map(response => {
+        this.relicCache.set(Object.values(pageParamsMember).join('-'), response);
+        return response;
+      })
+    )
+  }
   
   private getPaginatedResult<T>(url, params) {
     const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
@@ -105,6 +119,15 @@ export class RelicService {
 
     return params;
   }
+
+  private getPaginationMemberHeaders(pageNumber: number, pageSize: number, currentUsername: string) {
+    let params = new HttpParams();
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('currentUsername', currentUsername);
+
+    return params;
+  }
   
   //#region relic
   createRelic(model: any){
@@ -120,8 +143,6 @@ export class RelicService {
   }
 
   editRelic(model: any){
-    model.id = this.getCurrentRelic().id;
-    console.log("goi sua: " + model)
     return this.http.put<Relic>(this.baseUrl + 'users/edit-relic' , model).pipe(
       map((relic: Relic) => {
         if (relic) {
@@ -138,6 +159,10 @@ export class RelicService {
 
   deleteRelic(relicId: number){
     return this.http.delete(this.baseUrl + 'users/delete-relic/' + relicId);
+  }
+
+  deletePhoto(relicId: number, photoId: number){
+    return this.http.delete(this.baseUrl + 'users/delete-photo/?relicId=' + relicId + '&photoId=' + photoId)
   }
   //#endregion
 }

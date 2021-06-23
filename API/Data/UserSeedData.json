@@ -4,7 +4,13 @@
         "KnownAs": "Hoài Phong",
         "Bio": "Hi!, Tôi là người đầu tiên của hệ thống",
         "Address": "HCM Vietnam",
-        "Avatar": "https://randomuser.me/api/portraits/men/12.jpg",
+        "Avatar": [
+            {
+                "Url": "https://res.cloudinary.com/hoaiphong/image/upload/v1624330737/fzrdw0u95ioodwsszyml.jpg",
+                "PublicId": "fzrdw0u95ioodwsszyml",
+                "IsMain": true
+            }
+        ],
         "Relics": [
             {
                 "Name": "CHÙA CHÂU HƯNG",

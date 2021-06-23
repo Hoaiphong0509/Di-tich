@@ -1,15 +1,12 @@
-using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using API.Extensions;
 using API.Helpers;
@@ -74,26 +71,58 @@ namespace API.Controllers
             return BadRequest("Cập nhật thông tin thất bại!");
         }
 
-        [HttpPost("add-photo")]
-        public async Task<ActionResult> AddPhoto(IFormFile file)
+        [HttpPost("add-avatar")]
+        public async Task<ActionResult<AvatarDto>> AddAvatar(IFormFile file)
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            if(user is null) return BadRequest("Lỗi khi tải ảnh");
 
+             if (user.Avatar.Count >= 1)
+            {
+                foreach (var avt in user.Avatar)
+                {
+                    await DeleteAvatar(avt.Id);
+                }
+            }
             var result = await _photoService.AddPhotoAsync(file);
 
             if (result.Error != null) return BadRequest(result.Error.Message);
 
-            var avt = result.SecureUrl.AbsoluteUri;
+            var avatar = new Avatar
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId,
+                IsMain = true
+            };
 
-            user.Avatar = avt;
+            user.Avatar.Add(avatar);
 
             if (await _userRepository.SaveAllAsync())
-            {
-                // return CreatedAtRoute("GetUser", new {username = user.UserName});
-                return Ok();
-            }
+                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<AvatarDto>(avatar));
 
             return BadRequest("Lỗi tải ảnh!");
+        }
+
+        [HttpDelete("delete-avatar")]
+        public async Task<ActionResult> DeleteAvatar([FromQuery] int avatarId)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            var avt = user.Avatar.FirstOrDefault(p => p.Id == avatarId);
+
+            if (avt == null) return NotFound();
+
+            if (avt.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(avt.PublicId);
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            }
+
+            user.Avatar.Remove(avt);
+
+            if (await _userRepository.SaveAllAsync()) return Ok();
+
+            return BadRequest("LỖi khi đang xóa ảnh!");
         }
         #endregion
 
@@ -107,6 +136,16 @@ namespace API.Controllers
         public async Task<RelicDto> GetRelic(int id)
         {
             return await _relicRepository.GetRelicDtoByIdAsync(id);
+        }
+
+        [HttpGet("get-relics-by-user")]
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicByIdUser([FromQuery] PageParams pageParams)
+        {
+
+            var relics = await _relicRepository.GetRelicDtoByIdUserAsync(pageParams);
+            Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
+
+            return Ok(relics);
         }
 
 
@@ -131,6 +170,12 @@ namespace API.Controllers
         [HttpDelete("delete-relic/{id}")]
         public async Task<ActionResult> DeleteRelic(int id)
         {
+            var relic = await _relicRepository.GetRelicByIdAsync(id);
+
+            foreach (var photo in relic.Photos)
+            {
+                await DeleteAllPhoto(id, photo.Id);
+            }
             await _relicRepository.DeleteRelic(id);
             if (await _relicRepository.SaveAllAsync()) return Ok();
             return BadRequest("Xóa di tích thất bại!");
@@ -160,7 +205,6 @@ namespace API.Controllers
         [HttpPost("add-photo-relic/{id}")]
         public async Task<ActionResult<PhotoDto>> AddPhotoRelic(int id, IFormFile file)
         {
-            // var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
             var relic = await _relicRepository.GetRelicByIdAsync(id);
 
             var result = await _photoService.AddPhotoAsync(file);
@@ -215,7 +259,10 @@ namespace API.Controllers
 
             if (photo == null) return NotFound();
 
-            if (photo.IsMain) return BadRequest("Bạn không thể xóa ảnh chính của di tích!");
+            if (relic.Photos.Count > 1)
+            {
+                if (photo.IsMain) return BadRequest("Bạn không thể xóa ảnh chính của di tích!");
+            }
 
             if (photo.PublicId != null)
             {
@@ -228,6 +275,27 @@ namespace API.Controllers
             if (await _relicRepository.SaveAllAsync()) return Ok();
 
             return BadRequest("LỖi khi đang xóa ảnh!");
+        }
+
+        private async Task<ActionResult> DeleteAllPhoto([FromQuery] int relicId, [FromQuery] int photoId)
+        {
+            var relic = await _relicRepository.GetRelicByIdAsync(relicId);
+
+            var photo = relic.Photos.FirstOrDefault(p => p.Id == photoId);
+
+            if (photo == null) return NotFound();
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            }
+
+            relic.Photos.Remove(photo);
+
+            if (await _relicRepository.SaveAllAsync())
+                return Ok();
+            return BadRequest("Lỗi khi xóa tất cả ảnh!");
         }
 
         #endregion

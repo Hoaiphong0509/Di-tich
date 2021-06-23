@@ -1,5 +1,5 @@
 <form *ngIf="relic" [formGroup]='editRelicForm' (ngSubmit)='editRelic()' autocomplete="off"
-  style="text-align: center;">
+  style="text-align: center; width: 670px;" >
   <app-text-input [formControl]='editRelicForm.controls["name"]' [label]='"Tên di tích"'>
   </app-text-input>
   <app-text-input [formControl]='editRelicForm.controls["title"]' [label]='"Thành tích"'>
@@ -7,6 +7,6 @@
   <app-editor-input class="editor" [formControl]='editRelicForm.controls["content"]'></app-editor-input>
   <div class="form-inline float-right">
     <input (click)="cancel()" type="button" class="btn btn-danger mr-3" value="Hủy">
-    <input [disabled]="editRelicForm.invalid" type="submit" class="btn btn-info mt-4 mb-4" value="Lưu">
+    <input [disabled]="editRelicForm.invalid" type="submit" class="btn btn-info mt-4 mb-4" value="Hoàn tất">
   </div>
 </form>

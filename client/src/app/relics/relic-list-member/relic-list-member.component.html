@@ -1,1 +1,43 @@
-<p>relic-list-member works!</p>
+<ng-container *ngIf="relics">
+  <ng-container *ngIf="(relics.length != 0 )">
+    <h1>Các bài viết</h1>
+    <table class="table table-striped ">
+      <tr class="thead-dark">
+        <th>Tên di tích</th>
+        <th>Tiêu đề</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let relic of relics">
+        <td style="width: 30%;">{{relic.name}}</td>
+        <td style="width: 40%;">{{relic.title}}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="loadRelic(relic.id)">
+            <i class="fa fa-eye"></i>
+          </button>
+          &nbsp;
+          <button class="btn btn-sm btn-info" (click)="editRelic(relic.id)">
+            <i class="fa fa-pencil"></i>
+          </button>
+          &nbsp;
+          <button class="btn btn-sm btn-danger" (click)="deleteRelic(relic.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </table>
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center" *ngIf="pagination">
+      <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="(relics.length == 0 ) || pagination.totalItems == 0">
+    <div class="alert text-center">
+      <h1>Bạn chưa có bài viết nào</h1>
+      <h4>Tạo một bài viết tại đây</h4>
+      <button class="btn btn-success">+</button>
+    </div>
+  </ng-container>
+</ng-container>
