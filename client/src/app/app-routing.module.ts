@@ -1,6 +1,7 @@
+import { AdminGuard } from './_guards/admin.guard';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { RelicEditMemberComponent } from './relics/relic-edit-member/relic-edit-member.component';
 import { DetailComponent } from './detail/detail.component';
-import { RelicDetailComponent } from './relics/relic-detail/relic-detail.component';
 import { RelicCreateComponent } from './relics/relic-create/relic-create.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
@@ -13,7 +14,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
@@ -27,9 +28,9 @@ const routes: Routes = [
       {path: 'members/:username', component: MemberDetailComponent},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
       {path: 'relics/create', component: RelicCreateComponent},
-      {path: 'relics/:id', component: RelicDetailComponent},
       {path: 'relics/edit/:id', component: RelicEditMemberComponent},
       {path: 'errors', component: TestErrorComponent},
+      {path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]},
     
     ]
   },

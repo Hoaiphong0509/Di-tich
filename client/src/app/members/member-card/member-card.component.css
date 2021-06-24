@@ -1,3 +1,8 @@
+
+.card {
+  width: auto;
+  height: 200px;
+}
 .card-img-wrapper {
   overflow: hidden;
   position: relative;
@@ -12,6 +17,7 @@
   transition-duration: 500ms;
   transition-timing-function: ease-in-out;
   opacity: .8;
+  /* object-fit: cover; */
 }
 
 .card img {
@@ -22,6 +28,7 @@
   -o-transform: scale(1.0);
   transition-duration: 500ms;
   transition-timing-function: ease-in-out;
+  object-fit: cover;
 }
 
 .card-img-wrapper .card-img-top {

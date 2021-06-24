@@ -18,6 +18,10 @@ export class HomeComponent implements OnInit {
   constructor(private relicService: RelicService, private router: Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('relic') || localStorage.getItem('member')){
+      localStorage.removeItem('relic');
+      localStorage.removeItem('member');
+    }
     this.loadRelics();
   }
 

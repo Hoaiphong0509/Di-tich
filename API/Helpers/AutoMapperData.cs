@@ -14,6 +14,7 @@ namespace API.Helpers
                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(
                     src => src.Avatar.FirstOrDefault(x => x.IsMain).Url
                 ));
+            CreateMap<RegisterDto, AppUser>();
             CreateMap<MemberUpdateDto, AppUser>();
 
             CreateMap<Photo, PhotoDto>();
@@ -32,7 +33,7 @@ namespace API.Helpers
                 .ForMember(dest => dest.NameUnmark, opt => opt.MapFrom(
                     src => src.Name.ConvertToUnSign()));
             CreateMap<RelicDto, Relic>();
-           
+
 
         }
     }

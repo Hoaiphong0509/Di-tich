@@ -1,3 +1,4 @@
+import { UserParams } from './../../_models/userParams';
 import { PageParams } from './../../_models/pageParams';
 import { Pagination } from './../../_models/pagination';
 import { MemberService } from './../../_services/member.service';
@@ -12,23 +13,26 @@ import { Component, OnInit } from '@angular/core';
 export class MemberListComponent implements OnInit {
   members: Member[];
   pagination: Pagination;
-  pageParams: PageParams = new PageParams();
+  userParams: UserParams;
 
-  constructor(private memberService: MemberService) { }
+  constructor(private memberService: MemberService) {
+    this.userParams = this.memberService.getUserParams();
+  }
 
   ngOnInit(): void {
     this.loadMembers();
   }
 
-  loadMembers(){
-    this.memberService.getMembers(this.pageParams).subscribe(response => {
+  loadMembers() {
+    this.memberService.setUserParams(this.userParams);
+    this.memberService.getMembers(this.userParams).subscribe(response => {
       this.members = response.result;
       this.pagination = response.pagination;
     })
   }
 
-  pageChanged(event: any){
-    this.pageParams.pageNumber = event.page;
+  pageChanged(event: any) {
+    this.userParams.pageNumber = event.page;
     this.loadMembers();
   }
 }

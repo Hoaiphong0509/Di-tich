@@ -1,12 +1,15 @@
+import { Member } from 'src/app/_models/member';
+import { ConfirmService } from './../../_services/confirm.service';
+import { MemberService } from './../../_services/member.service';
+import { UserParams } from './../../_models/userParams';
 import { take } from 'rxjs/operators';
 import { AccountService } from './../../_services/account.service';
 import { Pagination } from './../../_models/pagination';
 import { Router } from '@angular/router';
 import { RelicService } from './../../_services/relic.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/_models/user';
 import { Relic } from 'src/app/_models/relic';
-import { PageParamsMember } from 'src/app/_models/pageParamsMember';
 
 @Component({
   selector: 'app-relic-list-member',
@@ -14,35 +17,39 @@ import { PageParamsMember } from 'src/app/_models/pageParamsMember';
   styleUrls: ['./relic-list-member.component.css']
 })
 export class RelicListMemberComponent implements OnInit {
-  pagination: Pagination;
-  pageParamsMember: PageParamsMember = new PageParamsMember();
+  @Input() relics : Relic[] = [];
+  @Input() pagination: Pagination;
+  userParams: UserParams;
+  member: Member;
   user: User;
-  relics: Relic[];
 
   constructor(
     private relicService: RelicService,
     private router: Router,
-    private accountService: AccountService) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user)
+    private accountService: AccountService,
+    private confirmService: ConfirmService) {
+      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+      if(localStorage.getItem('member')){
+        this.member = JSON.parse(localStorage.getItem('member'))
+      }
+      this.userParams = new UserParams(this.user);
   }
 
   ngOnInit(): void {
-    this.loadRelicsMySefl();
   }
 
   loadRelicsMySefl(){
-    this.pageParamsMember.currentUsername = this.user.username;
-    this.pageParamsMember.pageSize = 7;
-    this.relicService.getRelicByUser(this.pageParamsMember).subscribe(response => {
+    this.userParams.pageSize = 7;
+    this.relicService.getRelicByUser(this.userParams).subscribe(response => {
       this.relics = response.result;
       this.pagination = response.pagination;
     })
   }
 
-  loadRelic(relicId: number){
-    this.relicService.getRelic(relicId).subscribe(response => {
+  loadRelic(relicid: number){
+    this.relicService.getRelic(relicid).subscribe(response => {
       this.relicService.setCurrentRelic(response);
-      this.router.navigateByUrl('/relics/detail');
+      this.router.navigateByUrl('detail/'+relicid)
     })
   }
 
@@ -54,15 +61,19 @@ export class RelicListMemberComponent implements OnInit {
   }
 
   deleteRelic(relicId: number){
-    this.relicService.deleteRelic(relicId).subscribe(() => {
-      // this.relic = this.relic.filter(x => x.id != photoId)
-      this.relics = this.relics.filter(x => x.id != relicId);
+    this.confirmService.confirm('Bạn có muốn xóa bài viết này?', 'Thao tác này không thể hoàn tác').subscribe(result => {
+      if(result){
+        this.relicService.deleteRelic(relicId).subscribe(() => {
+          this.relics = this.relics.filter(x => x.id != relicId);
+        })
+      }
     })
   }
-
+  
   pageChanged(event: any){
-    this.pageParamsMember.pageNumber = event.page;
+    this.userParams.pageNumber = event.page;
     this.loadRelicsMySefl();
   }
+
 
 }

@@ -16,7 +16,6 @@ import { RegisterComponent } from './register/register.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { RelicCreateComponent } from './relics/relic-create/relic-create.component';
-import { RelicDetailComponent } from './relics/relic-detail/relic-detail.component';
 import { RelicListMemberComponent } from './relics/relic-list-member/relic-list-member.component';
 import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
@@ -31,6 +30,12 @@ import { DetailComponent } from './detail/detail.component';
 import { PhotoEditorComponent } from './relics/photo-editor/photo-editor.component';
 import { RelicEditComponent } from './relics/relic-edit/relic-edit.component';
 import { RelicEditMemberComponent } from './relics/relic-edit-member/relic-edit-member.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { RelicManagementComponent } from './admin/relic-management/relic-management.component';
+import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
+import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +47,6 @@ import { RelicEditMemberComponent } from './relics/relic-edit-member/relic-edit-
     MemberListComponent,
     MemberDetailComponent,
     RelicCreateComponent,
-    RelicDetailComponent,
     RelicListMemberComponent,
     TestErrorComponent,
     NotFoundComponent,
@@ -55,7 +59,13 @@ import { RelicEditMemberComponent } from './relics/relic-edit-member/relic-edit-
     DetailComponent,
     PhotoEditorComponent,
     RelicEditComponent,
-    RelicEditMemberComponent
+    RelicEditMemberComponent,
+    AdminPanelComponent,
+    HasRoleDirective,
+    UserManagementComponent,
+    RelicManagementComponent,
+    RolesModalComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

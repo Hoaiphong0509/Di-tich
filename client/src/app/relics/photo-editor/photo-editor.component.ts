@@ -40,13 +40,7 @@ export class PhotoEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if(!localStorage.getItem('photos')){
-      localStorage.setItem('photos', JSON.stringify(this.relic.photos))
-      this.relic.photos = JSON.parse(localStorage.getItem('relic'))
-    }
-    else {
-      this.relic = JSON.parse(localStorage.getItem('relic'))
-    }
+    this.relic = JSON.parse(localStorage.getItem('relic'))
     this.initializeUploader();
   }
 

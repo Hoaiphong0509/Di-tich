@@ -1,0 +1,15 @@
+<h1>Quản lý</h1>
+<div class="tab-panel">
+    <tabset class="member-tabset">
+        <tab heading='Thành viên' *appHasRole='["Admin"]'>
+            <div class="container">
+                <app-user-management></app-user-management>
+            </div>
+        </tab>
+        <tab heading='Bài viết' *appHasRole='["Admin", "Moderator"]'>
+            <div class="container">
+                <app-relic-management></app-relic-management>
+            </div>
+        </tab>
+    </tabset>
+</div>

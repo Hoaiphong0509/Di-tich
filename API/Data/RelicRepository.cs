@@ -14,10 +14,8 @@ namespace API.Data
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
-        public RelicRepository(DataContext context, IMapper mapper, IUserRepository userRepository)
+        public RelicRepository(DataContext context, IMapper mapper)
         {
-            _userRepository = userRepository;
             _mapper = mapper;
             _context = context;
         }
@@ -42,13 +40,6 @@ namespace API.Data
 
             return await PageList<RelicDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
-
-
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
         public void Update(Relic relic)
         {
             _context.Entry(relic).State = EntityState.Modified;

@@ -1,3 +1,4 @@
+import { UserParams } from './../_models/userParams';
 import { Member } from './../_models/member';
 import { MemberService } from './member.service';
 import { map } from 'rxjs/operators';
@@ -7,8 +8,7 @@ import { Relic } from './../_models/relic';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { PageParams } from '../_models/pageParams';
-import { of, BehaviorSubject, Subject, ReplaySubject } from 'rxjs';
-import { PageParamsMember } from '../_models/pageParamsMember';
+import { of, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -83,17 +83,17 @@ export class RelicService {
     )
   }
 
-  getRelicByUser(pageParamsMember: PageParamsMember){
-    var response = this.relicCache.get(Object.values(pageParamsMember).join('-'));
+  getRelicByUser(userParams: UserParams){
+    var response = this.relicCache.get(Object.values(userParams).join('-'));
     if(response){
       return of(response);
     }
 
-    let params = this.getPaginationMemberHeaders(pageParamsMember.pageNumber, pageParamsMember.pageSize, pageParamsMember.currentUsername);
+    let params = this.getPaginationMemberHeaders(userParams.pageNumber, userParams.pageSize, userParams.currentUsername);
     
     return this.getPaginatedResult<Relic[]>(this.baseUrl + 'users/get-relics-by-user', params).pipe(
       map(response => {
-        this.relicCache.set(Object.values(pageParamsMember).join('-'), response);
+        this.relicCache.set(Object.values(userParams).join('-'), response);
         return response;
       })
     )

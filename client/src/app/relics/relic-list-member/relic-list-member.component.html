@@ -1,5 +1,5 @@
-<ng-container *ngIf="relics">
-  <ng-container *ngIf="(relics.length != 0 )">
+<ng-container *ngIf="relics && pagination">
+  <ng-container>
     <h1>Các bài viết</h1>
     <table class="table table-striped ">
       <tr class="thead-dark">
@@ -15,29 +15,43 @@
             <i class="fa fa-eye"></i>
           </button>
           &nbsp;
-          <button class="btn btn-sm btn-info" (click)="editRelic(relic.id)">
-            <i class="fa fa-pencil"></i>
-          </button>
-          &nbsp;
-          <button class="btn btn-sm btn-danger" (click)="deleteRelic(relic.id)">
-            <i class="fa fa-trash"></i>
-          </button>
+          <ng-container *ngIf="user">
+            <ng-container *ngIf="member">
+              <ng-container *ngFor="let relicOfMember of relics">
+                <ng-container *ngIf="relic.id==relicOfMember.id">
+                  <button class="btn btn-sm btn-info" (click)="editRelic(relic.id)">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                  &nbsp;
+                  <button class="btn btn-sm btn-danger" (click)="deleteRelic(relic.id)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
         </td>
       </tr>
     </table>
     <!-- Pagination -->
-    <div class="d-flex justify-content-center" *ngIf="pagination">
+    <div class="d-flex justify-content-center" *ngIf="pagination.totalItems > 0">
       <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
         [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
         nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
       </pagination>
     </div>
   </ng-container>
-  <ng-container *ngIf="(relics.length == 0 ) || pagination.totalItems == 0">
+  <ng-container *ngIf="pagination.totalItems == 0 && !(member)">
     <div class="alert text-center">
-      <h1>Bạn chưa có bài viết nào</h1>
+      <h1>Bạn chưa có bài viết</h1>
       <h4>Tạo một bài viết tại đây</h4>
-      <button class="btn btn-success">+</button>
+      <button routerLink='/relics/create' class="btn btn-success">+</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="pagination.totalItems == 0 && member">
+    <div class="alert text-center">
+      <h1>Thành viên này chưa có bài viết</h1>
     </div>
   </ng-container>
 </ng-container>

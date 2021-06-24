@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'Di tích';
+  user: any;
 
   constructor(
     private http: HttpClient, 
@@ -22,8 +23,13 @@ export class AppComponent implements OnInit{
   }
  
   setCurrentUser() {
-    const user: User = JSON.parse(localStorage.getItem('user'));
-    this.accountService.setCurrentUser(user);
+    if(!localStorage.getItem('user')){
+      this.accountService.setCurrentUser(null);
+    } else {
+      const user: User = JSON.parse(localStorage.getItem('user'));
+      this.accountService.setCurrentUser(user);
+    }
+
   }
 
 

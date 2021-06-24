@@ -36,27 +36,22 @@ export class AccountService {
     )
   }
 
-  updateAccount(account: any) {
-    return this.http.put<User>(this.baseUrl + 'account', account).pipe(
-      map((user: User) => {
-        if (user) {
-          this.setCurrentUser(user);
-        }
-      })
-    )
-  }
-
-  deleteAvatar(){
-    
-  }
-
   setCurrentUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
-    this.currentuserSource.next(user);
+    if(user != null){
+      user.roles = [];
+      const roles = this.getDecodedToken(user.token).role;
+      Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
+      localStorage.setItem('user', JSON.stringify(user));
+      this.currentuserSource.next(user);
+    }
   }
 
   logout() {
     localStorage.removeItem('user');
     this.currentuserSource.next(undefined);
+  }
+
+  getDecodedToken(token){
+    return JSON.parse(atob(token.split('.')[1]));
   }
 }

@@ -39,7 +39,7 @@
     <article class="post" *ngFor="let relic of relics">
       <header>
         <div class="title">
-          <h2><a routerLink='/detail/{{relic.id}}'>{{relic.name}}</a></h2>
+          <h2><a (click)="loadRelic(relic.id)">{{relic.name}}</a></h2>
           <p>{{relic.title}}</p>
         </div>
         <div class="meta">
@@ -47,12 +47,12 @@
           <p class="author"><span class="name">{{relic.author}}</span></p>
         </div>
       </header>
-      <a routerLink='/detail/{{relic.id}}' class="image featured">
+      <a (click)="loadRelic(relic.id)" class="image featured">
         <img src="{{relic.photoUrl || './assets/images/pic01.jpg'}}" alt="{{relic.name}}" /></a>
       <!-- <p [innerHTML]="relic.content | dompurify"></p> -->
       <footer>
         <ul class="actions mt-4">
-          <li><a routerLink='detail/{{relic.id}}' (click)="loadRelic(relic.id)" class="button large">Xem</a></li>
+          <li><a (click)="loadRelic(relic.id)" class="button large">Xem</a></li>
         </ul>
         <ul class="stats">
           <li><i class="fa fa-eye"></i>{{relic.view}}</li>

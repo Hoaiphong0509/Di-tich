@@ -29,8 +29,8 @@
   </div>
 
   <div class="col-8">
-    <tabset class="member-tabset">
-      <tab heading='Thông tin chung'>
+    <tabset class="member-tabset" #memberTabs>
+      <tab heading='Thông tin chung' (selectTab)="onTabActivated($event)">
         <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
           <div class="form-inline" style="margin-top: 2rem;">
             <label for="knownAs"><strong>Bút danh:</strong></label>
@@ -42,24 +42,11 @@
           <textarea [(ngModel)]="member.bio" class="form-control p-4" name="bio" rows="8"></textarea>
         </form>
       </tab>
-      <tab heading="Thay đổi ảnh đại diện">
+      <tab heading='Thay đổi ảnh đại diện' (selectTab)="onTabActivated($event)">
         <app-avatar-editor [member]="member"></app-avatar-editor>
       </tab>
-      <tab heading='Bài viết'>
-        <app-relic-list-member [member]="member"></app-relic-list-member>
-      </tab>
-      <tab heading='Thay Đổi thông tin tài khoản'>
-        <form #editAccountForm="ngForm" id="editAccountForm" (ngSubmit)="updateAccount()" autocomplete="off">
-          <div class="form-group" style="margin-top: 2rem;">
-            <label for="username"><strong>Tên tài khoản mới:</strong></label>
-            <app-text-input [formControl]='loginForm.controls["username"]' [label]='"Tài khoản mới"'></app-text-input>
-            <label for="password"><strong>Mật khẩu mới:</strong></label>
-            <app-text-input [formControl]='loginForm.controls["password"]' [label]='"Mật khẩu mới"' [type]='"password"'></app-text-input>
-            <label for="password"><strong>Mật khẩu xác nhận:</strong></label>
-            <app-text-input [formControl]='loginForm.controls["confirmPassword"]' [label]='"Mật khẩu xác nhận"'[type]='"password"'></app-text-input>
-          </div>
-          <button class="btn btn-info btn-block" style="width: 85%;" [disabled]="!editAccountForm.dirty">Lưu</button>
-        </form>
+      <tab heading='Bài viết' (selectTab)="onTabActivated($event)">
+        <app-relic-list-member [relics]="relics" [pagination]="pagination"></app-relic-list-member>
       </tab>
     </tabset>
   </div>

@@ -1,50 +1,46 @@
 import { Router } from '@angular/router';
-import { MemberService } from './../_services/member.service';
-import { AccountService } from './../_services/account.service';
-import { User } from './../_models/user';
 import { take } from 'rxjs/operators';
 import { Relic } from './../_models/relic';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RelicService } from '../_services/relic.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
-import { Member } from '../_models/member';
+import { ConfirmService } from '../_services/confirm.service';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   relic: Relic;
-  user: User;
-  member: Member;
+  check: boolean = false;
 
   constructor(
     private relicService: RelicService,
-    private AccountService: AccountService,
-    private memberService: MemberService,
-    private router: Router) {
-    this.relicService.currentRelic$.pipe(take(1)).subscribe(relic => this.relic = relic)
-    this.AccountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-    if(this.user){
-      this.memberService.getMember(this.user.username).subscribe(member => this.member = member);
-    }
-
+    private router: Router,
+    private confirmService: ConfirmService) {
+    this.relicService.currentRelic$.pipe(take(1)).subscribe(relic => this.relic = relic);
   }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem('relic')
+  }
+
 
   ngOnInit(): void {
-    if(!localStorage.getItem('relic')){
-      this.router.navigateByUrl('/not-found')
-    }else{
-      this.relic = JSON.parse(localStorage.getItem('relic'))
-      this.loadRelic();
-      this.initgallery()
-    }
-
+    this.loadRelic();
+    this.initgallery()
   }
 
+  loadRelic() {
+    this.relicService.getRelicClient(this.relic.id).subscribe(response => {
+      this.relic = response;
+    }, error => {
+      console.log(error)
+    })
+  }
   //#region  loadrelic
   initgallery() {
     this.galleryOptions = [
@@ -76,24 +72,23 @@ export class DetailComponent implements OnInit {
     return imageUrls;
   }
 
-  loadRelic() {
-    this.relicService.getRelicClient(this.relic.id).subscribe(response => {
-      this.relic = response;
-    }, error => {
-      console.log(error)
-    })
-  }
+
+
   //#endregion
 
   //#region execute 
-  editRelic(relicId: number){
+  editRelic(relicId: number) {
     this.router.navigateByUrl('relics/edit/' + relicId)
   }
 
-  deleteRelic(relicId: number){
-    this.relicService.deleteRelic(relicId).subscribe(() => {
-      localStorage.removeItem('relic')
-      this.router.navigateByUrl('/');
+  deleteRelic(relicId: number) {
+    this.confirmService.confirm('Bạn có muốn xóa bài viết này?', 'Thao tác này không thể hoàn tác').subscribe(result => {
+      if (result) {
+        this.relicService.deleteRelic(relicId).subscribe(() => {
+          localStorage.removeItem('relic')
+          this.router.navigateByUrl('/');
+        })
+      }
     })
   }
   //#endregion

@@ -9,6 +9,7 @@ import { EditorModule } from "@tinymce/tinymce-angular";
 import { NgDompurifyModule} from '@tinkoff/ng-dompurify';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     EditorModule,
     NgDompurifyModule,
     NgxGalleryModule,
-    MatSidenavModule
+    MatSidenavModule,
+    ModalModule.forRoot()
   ],
   exports: [
     BsDropdownModule,
@@ -35,7 +37,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     EditorModule,
     NgDompurifyModule,
     NgxGalleryModule,
-    MatSidenavModule
+    MatSidenavModule,
+    ModalModule
   ]
 })
 export class SharedModule { }

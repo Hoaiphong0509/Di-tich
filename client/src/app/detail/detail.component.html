@@ -23,16 +23,6 @@
           <div class="author col-5">
             <h4><i class="fa fa-pencil"></i> {{relic.author}}</h4>
             <h5><i class="fa fa-calendar"></i> {{relic.created | date}}</h5>
-            <ng-container *ngIf="user">
-              <ng-container *ngIf="member">
-                <div class="btn-inline" *ngFor="let relicOfMember of member.relics">
-                  <ng-container *ngIf="relic.id==relicOfMember.id">
-                    <button class="btn btn-info" (click)="editRelic(relic.id)"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger" (click)="deleteRelic(relic.id)"><i class="fa fa-trash"></i></button>
-                  </ng-container>
-                </div>
-              </ng-container>
-            </ng-container>
           </div>
         </div>
       </div>

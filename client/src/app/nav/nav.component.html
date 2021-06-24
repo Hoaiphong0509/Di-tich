@@ -2,18 +2,21 @@
   <div class="container">
     <a class="navbar-brand p-3" routerLink='/'>Di tích Thủ Đức</a>
     <ul class="navbar-nav mr-auto p-3">
-      <ng-container>
+      <ng-container *ngIf="(accountService.currentUser$ | async)">
         <li class="nav-item">
-          <a class="nav-link" *ngIf="(accountService.currentUser$ | async)" routerLink='/relics/create' routerLinkActive='active'>Tạo bài viết</a>
+          <a class="nav-link" routerLink='/relics/create' routerLinkActive='active'>Tạo bài viết</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="(accountService.currentUser$ | async)" routerLink='/members' routerLinkActive='active' >Thành viên</a>
+          <a class="nav-link" routerLink='/members' routerLinkActive='active' >Thành viên</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="(accountService.currentUser$ | async)" routerLink='/errors' routerLinkActive='active'>Test Error</a>
+          <a class="nav-link" *appHasRole='["Admin", "Moderator"]' routerLink='/admin' routerLinkActive='active' >Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Test Error</a>
         </li>
         <li class="nav-item dropdown" dropdown *ngIf="(accountService.currentUser$ | async) as user">
-            <a class="dropdown-toggle nav-link" routerLinkActive='active' dropdownToggle>{{user.username | titlecase}} <i class="fa fa-user"></i></a>
+            <a class="dropdown-toggle nav-link" routerLinkActive='active' dropdownToggle>{{user.knownAs || user.username | titlecase}} <i class="fa fa-user"></i></a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
               <a routerLink='member/edit' class="dropdown-item">Hồ sơ&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
               <div class="dropdown-divider"></div>

@@ -11,18 +11,17 @@ namespace API.Controllers
 {
     public class RelicsController : BaseApiController
     {
-        private readonly IMapper _mapper;
-        private readonly IRelicRepository _relicRepository;
-        public RelicsController(IRelicRepository relicRepository, IMapper mapper)
+        private readonly IUnitOfWork _unitOfWork;
+        public RelicsController(IUnitOfWork unitOfWork)
         {
-            _relicRepository = relicRepository;
-            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelics([FromQuery] PageParams pageParams)
         {
-            var relics = await _relicRepository.GetRelicsAsync(pageParams);
+            var relics = await _unitOfWork.RelicRepository.GetRelicsAsync(pageParams);
 
             Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
 
@@ -32,7 +31,7 @@ namespace API.Controllers
         [HttpGet("{name}")]
         public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsByName([FromQuery] PageParams pageParams, string name)
         {
-            var relics = await _relicRepository.GetRelicsByNameAsync(pageParams, name);
+            var relics = await _unitOfWork.RelicRepository.GetRelicsByNameAsync(pageParams, name);
 
             Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
 
@@ -42,7 +41,7 @@ namespace API.Controllers
         [HttpGet("get-relic-by-id/{id}")]
         public async Task<ActionResult<RelicDto>> GetRelicsById(int id)
         {
-            var relics = await _relicRepository.GetRelicDtoByIdAsync(id);
+            var relics = await _unitOfWork.RelicRepository.GetRelicDtoByIdAsync(id);
 
             return relics;
         }

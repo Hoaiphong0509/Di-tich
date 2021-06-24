@@ -8,7 +8,11 @@
                 </button>
             </li>
             <li class="list-inline-item">
-                <button class="btn btn-primary">
+                <button 
+                    class="btn btn-primary" 
+                    routerLink='/members/{{member.username}}'
+                    (click)="setMemberUsername(member)"
+                    [queryParams]='{tab: 1}'>
                     <i class="fa fa-book"></i>
                 </button>
             </li>

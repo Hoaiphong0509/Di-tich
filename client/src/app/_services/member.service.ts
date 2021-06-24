@@ -1,11 +1,13 @@
-import { PageParams } from './../_models/pageParams';
+import { UserParams } from './../_models/userParams';
+import { User } from 'src/app/_models/user';
 import { PaginatedResult } from './../_models/pagination';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Member } from 'src/app/_models/member';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { of } from 'rxjs';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,22 +19,43 @@ export class MemberService {
   members: Member[] = [];
   memberCache = new Map();
 
+  user: User;
 
-  constructor(private http: HttpClient) { }
+  userParams: UserParams;
+
+  constructor(private http: HttpClient, private accountService: AccountService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+      this.user = user;
+      this.userParams = new UserParams(user);
+    })
+  }
+  
+  getUserParams(){
+    return this.userParams;
+  }
+
+  setUserParams(params: UserParams){
+    this.userParams = params;
+  }
+
+  resetUserParams(){
+    this.userParams = new UserParams(this.user);
+    return this.userParams
+  }
 
   //#region member
-  getMembers(pageParams: PageParams) {
-    var response  = this.memberCache.get(Object.values(pageParams).join('-'));
+  getMembers(userParams: UserParams) {
+    var response  = this.memberCache.get(Object.values(userParams).join('-'));
 
     if(response){
       return of(response)
     }
 
-    let params = this.getPaginationHeaders(pageParams.pageNumber, pageParams.pageSize);
+    let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
 
     return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params).pipe(
       map(response => {
-        this.memberCache.set(Object.values(pageParams).join('-'), response);
+        this.memberCache.set(Object.values(userParams).join('-'), response);
         return response;
       })
     );
@@ -55,7 +78,6 @@ export class MemberService {
     let params = new HttpParams();
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
-
     return params;
   }
 
@@ -78,10 +100,6 @@ export class MemberService {
         this.members[index] = member;
       })
     );
-  }
-
-  deteteAvatar(photo){
-
   }
 
   //#endregion
