@@ -1,3 +1,31 @@
-.dropdown-toggle, .dropdown-item {
-    cursor: pointer;
+.dropdown-toggle,
+.dropdown-item {
+  cursor: pointer;
+}
+
+.navbar {
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.navbar-brand {
+  color: aqua;
+  transition: .1s all ease-in-out;
+  -webkit-transition: .1s all ease-in-out;
+  -moz-transition: .1s all ease-in-out;
+  -ms-transition: .1s all ease-in-out;
+  -o-transition: .1s all ease-in-out;
+}
+
+.navbar-brand:hover {
+  font-weight: bold;
+  color: aqua;
+}
+
+.navbar ul li {
+  font-size: 18px;
+ 
+color: rgba(0,0,0,0.6);
+text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
 }

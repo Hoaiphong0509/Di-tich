@@ -4,7 +4,6 @@ using API.DTOs;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -31,7 +30,7 @@ namespace API.Controllers
         [HttpGet("{name}")]
         public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsByName([FromQuery] PageParams pageParams, string name)
         {
-            var relics = await _unitOfWork.RelicRepository.GetRelicsByNameAsync(pageParams, name);
+            var relics = await _unitOfWork.RelicRepository.GetRelicsByNameAsync(pageParams, name.ToLower().ConvertToUnSign());
 
             Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
 

@@ -47,10 +47,6 @@ export class RelicService {
     return relic;
   }
 
-  // getRelic(){
-  //   return this.http.get<Relic>(this.baseUrl + 'users/get-relic-by-id/' + this.getRelicId());
-  // }
-  
   getRelic(relicId: number) {
     const relic = [...this.relicCache.values()]
       .reduce((arr, elem) => arr.concat(elem.result), [])
@@ -83,6 +79,28 @@ export class RelicService {
     )
   }
 
+  getAllRelic(){
+    return this.http.get<Relic[]>(this.baseUrl + 'relics');
+  }
+
+  getRelicsByName(name: string){
+    var response = this.relicCache.get(Object.values(name));
+    if(response){
+      return of(response);
+    }
+
+    const paginatedResult: PaginatedResult<Relic[]> = new PaginatedResult<Relic[]>();
+    return this.http.get<Relic[]>(this.baseUrl + 'relics/' + name + '?pageNumber=1&pageSize=4', {observe: 'response'}).pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
+  }
+  
   getRelicByUser(userParams: UserParams){
     var response = this.relicCache.get(Object.values(userParams).join('-'));
     if(response){

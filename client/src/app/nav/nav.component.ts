@@ -1,20 +1,23 @@
+import { RelicService } from 'src/app/_services/relic.service';
 import { AccountService } from './../_services/account.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
+export interface User {
+  name: string;
+}
+
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit {
-  model: any = {};
 
-  constructor(public accountService: AccountService, private router: Router) {
 
-  }
+export class NavComponent {
 
-  ngOnInit(): void {
+  constructor(public accountService: AccountService, private router: Router, private relicService: RelicService) {
   }
 
   logout() {

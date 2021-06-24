@@ -7,33 +7,29 @@
           <a class="nav-link" routerLink='/relics/create' routerLinkActive='active'>Tạo bài viết</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink='/members' routerLinkActive='active' >Thành viên</a>
+          <a class="nav-link" routerLink='/members' routerLinkActive='active'>Thành viên</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *appHasRole='["Admin", "Moderator"]' routerLink='/admin' routerLinkActive='active' >Admin</a>
+          <a class="nav-link" *appHasRole='["Admin", "Moderator"]' routerLink='/admin'
+            routerLinkActive='active'>Admin</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Test Error</a>
         </li>
         <li class="nav-item dropdown" dropdown *ngIf="(accountService.currentUser$ | async) as user">
-            <a class="dropdown-toggle nav-link" routerLinkActive='active' dropdownToggle>{{user.knownAs || user.username | titlecase}} <i class="fa fa-user"></i></a>
-            <div class="dropdown-menu mt-3" *dropdownMenu>
-              <a routerLink='member/edit' class="dropdown-item">Hồ sơ&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" (click)="logout()">Đăng xuất&nbsp;&nbsp;<i class="fa fa-sign-out"></i></a>
-            </div>
+          <a class="dropdown-toggle nav-link" routerLinkActive='active'
+            dropdownToggle>{{user.knownAs || user.username | titlecase}} <i class="fa fa-user"></i></a>
+          <div class="dropdown-menu mt-3" *dropdownMenu>
+            <a routerLink='member/edit' class="dropdown-item">Hồ sơ&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()">Đăng xuất&nbsp;&nbsp;<i class="fa fa-sign-out"></i></a>
+          </div>
         </li>
       </ng-container>
-     
     </ul>
-    <form class="form-inline mt-2 mt-md-0">
-      <input class="form-control me-2" type="search" placeholder="Di tích...">
-      <button class="btn btn-outline-success my-2 ml-2" type="submit">
-        <i class="fa fa-search"></i>
-      </button>
-    </form>
     <div *ngIf="(accountService.currentUser$ | async)==null">
-        <a routerLink="/login" class="btn btn-outline-info ml-2 text-info"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+      <a routerLink="/login" class="btn btn-outline-info ml-2 text-info"><i class="fa fa-sign-in"
+          aria-hidden="true"></i></a>
     </div>
   </div>
 </nav>
