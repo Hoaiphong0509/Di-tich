@@ -1,6 +1,13 @@
 <ng-container *ngIf="relics && pagination">
   <ng-container>
     <h1>Các bài viết</h1>
+    <div class="searh mt-3 mb-3" *ngIf="pagination.totalItems > 0">
+      <form [formGroup]='searchForm' (ngSubmit)="search()" autocomplete="off">
+        <input class="search" type="text" placeholder="Di tích..." matInput formControlName="name" name="name">
+        <button type="submit" [disabled]="searchForm.invalid" class="btn btn-info"><i class="fa fa-search"></i></button>
+        <button type="button" (click)="refresh()" class="btn btn-info"><i class="fa fa-refresh"></i></button>
+      </form>
+    </div>
     <table class="table table-striped ">
       <tr class="thead-dark">
         <th>Tên di tích</th>
@@ -14,23 +21,6 @@
           <button class="btn btn-sm btn-primary" (click)="loadRelic(relic.id)">
             <i class="fa fa-eye"></i>
           </button>
-          &nbsp;
-          <ng-container *ngIf="user">
-            <ng-container *ngIf="member">
-              <ng-container *ngFor="let relicOfMember of relics">
-                <ng-container *ngIf="relic.id==relicOfMember.id">
-                  <button class="btn btn-sm btn-info" (click)="editRelic(relic.id)">
-                    <i class="fa fa-pencil"></i>
-                  </button>
-                  &nbsp;
-                  <button class="btn btn-sm btn-danger" (click)="deleteRelic(relic.id)">
-                    <i class="fa fa-trash"></i>
-                  </button>
-                </ng-container>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-
         </td>
       </tr>
     </table>
@@ -42,14 +32,7 @@
       </pagination>
     </div>
   </ng-container>
-  <ng-container *ngIf="pagination.totalItems == 0 && !(member)">
-    <div class="alert text-center">
-      <h1>Bạn chưa có bài viết</h1>
-      <h4>Tạo một bài viết tại đây</h4>
-      <button routerLink='/relics/create' class="btn btn-success">+</button>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="pagination.totalItems == 0 && member">
+  <ng-container *ngIf="pagination.totalItems == 0">
     <div class="alert text-center">
       <h1>Thành viên này chưa có bài viết</h1>
     </div>

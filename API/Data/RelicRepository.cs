@@ -70,7 +70,6 @@ namespace API.Data
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             var relicFormData = await _context.Relics
-                .Include(p => p.Photos)
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             relicFormData.View++;
@@ -105,6 +104,20 @@ namespace API.Data
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == pageParams.CurrentUsername);
             var query = _context.Relics
                 .Where(r => r.AppUserId == user.Id)
+                .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
+                .OrderByDescending(r => r.View)
+                .AsNoTracking();
+
+            return await PageList<RelicDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
+        }
+
+        public async Task<PageList<RelicDto>> GetRelicDtoByUsername(PageParams pageParams, string username, string name)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == username);
+             var query = _context.Relics
+                .Where(r => r.AppUserId == user.Id && 
+                    (r.Name.ToLower().Contains(name)
+                    || r.NameUnmark.ToLower().Contains(name)))
                 .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
                 .OrderByDescending(r => r.View)
                 .AsNoTracking();

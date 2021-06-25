@@ -35,6 +35,7 @@ const routes: Routes = [
     ]
   },
   {path: 'detail/:id', component: DetailComponent},
+  {path: 'detail/:name', component: DetailComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
   {path: 'login', component: LoginComponent},

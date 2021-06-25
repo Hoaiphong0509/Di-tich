@@ -4,6 +4,7 @@ using API.DTOs;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -31,6 +32,17 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsByName([FromQuery] PageParams pageParams, string name)
         {
             var relics = await _unitOfWork.RelicRepository.GetRelicsByNameAsync(pageParams, name.ToLower().ConvertToUnSign());
+
+            Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
+
+            return Ok(relics);
+        }
+
+        [Authorize]
+        [HttpGet("get-relic-by-username")]
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicByUsername([FromQuery] PageParams pageParams, string username, string name)
+        {
+            var relics = await _unitOfWork.RelicRepository.GetRelicDtoByUsername(pageParams, username.ToLower(), name.ToLower().ConvertToUnSign());
 
             Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
 

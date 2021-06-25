@@ -4,7 +4,7 @@
       <img src="../../../assets/images/pic01.jpg" alt="dang tai" class="img-thumbnail p-1">
     </div>
     <div *ngFor="let photo of relic.photos">
-      <img src="{{photo.url || '../../../assets/images/pic01.jpg'}}" alt="{{photo.url || 'dang tai'}}"
+      <img src="{{photo.url}}" alt="{{photo.url}}"
         class="img-thumbnail p-1">
       <div class="text-center">
         <button [disabled]="photo.isMain" (click)="setMainPhoto(photo)"

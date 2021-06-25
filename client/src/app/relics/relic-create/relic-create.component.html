@@ -37,7 +37,7 @@
         </form>
       </mat-drawer-container>
       <app-relic-edit [relic]='relic' *ngIf="addPhotoMode"></app-relic-edit>
-      <button *ngIf="addPhotoMode" type="button" class="btn btn-inline btn-success mt-4" (click)="drawer.toggle()">
+      <button class="toggle-edit-button" *ngIf="addPhotoMode" type="button" class="btn btn-inline btn-success mt-4" (click)="drawer.toggle()">
         <i class="fa fa-arrows-h" aria-hidden="true"></i>
       </button>
     </div>

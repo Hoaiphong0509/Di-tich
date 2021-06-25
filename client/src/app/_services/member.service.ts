@@ -1,3 +1,4 @@
+import { MemberParams } from 'src/app/_models/memberParams';
 import { UserParams } from './../_models/userParams';
 import { User } from 'src/app/_models/user';
 import { PaginatedResult } from './../_models/pagination';
@@ -22,6 +23,7 @@ export class MemberService {
   user: User;
 
   userParams: UserParams;
+  memberParams: MemberParams;
 
   constructor(private http: HttpClient, private accountService: AccountService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
@@ -42,6 +44,19 @@ export class MemberService {
     this.userParams = new UserParams(this.user);
     return this.userParams
   }
+
+  getMemberParams(){
+    return this.memberParams;
+  }
+
+  setMemberParams(params: MemberParams){
+    this.memberParams = params;
+  }
+
+  // resetMemberParams(){
+  //   this.userParams = new MemberParams(this.member);
+  //   return this.userParams
+  // }
 
   //#region member
   getMembers(userParams: UserParams) {

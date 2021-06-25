@@ -26,21 +26,18 @@ export class PhotoEditorComponent implements OnInit, OnDestroy {
     private relicService: RelicService,
     private accountService: AccountService,
     private router: Router) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-      this.relicService.currentRelic$.pipe(take(1)).subscribe(relic => {
-        this.relic = relic
-        this.relic.photos = [];
-      });
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+    this.relicService.currentRelic$.pipe(take(1)).subscribe(relic => this.relic = relic);
   }
 
   ngOnDestroy(): void {
-    if(localStorage.getItem('photos')){
+    if (localStorage.getItem('photos')) {
       localStorage.removeItem('photos')
     }
   }
 
   ngOnInit(): void {
-    this.relic = JSON.parse(localStorage.getItem('relic'))
+    // this.relic = JSON.parse(localStorage.getItem('relic'))
     this.initializeUploader();
   }
 
@@ -65,6 +62,7 @@ export class PhotoEditorComponent implements OnInit, OnDestroy {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
+        console.log(response)
         const photo: Photo = JSON.parse(response);
         this.relic.photos.push(photo)
         if (photo.isMain) {
@@ -75,18 +73,17 @@ export class PhotoEditorComponent implements OnInit, OnDestroy {
     }
   }
 
-  setMainPhoto(photo: Photo){
+  setMainPhoto(photo: Photo) {
     this.relicService.setMainPhoto(this.relic.id, photo.id).subscribe(() => {
       this.relic.photoUrl = photo.url;
       this.relicService.setCurrentRelic(this.relic);
       this.relic.photos.forEach(p => {
-        if(p.isMain) p.isMain = false;
-        if(p.id === photo.id) p.isMain = true;
+        if (p.isMain) p.isMain = false;
+        if (p.id === photo.id) p.isMain = true;
       })
     })
   }
-
-  deletePhoto(photoId: number){
+  deletePhoto(photoId: number) {
     this.relicService.deletePhoto(this.relic.id, photoId).subscribe(() => {
       this.relic.photos = this.relic.photos.filter(x => x.id != photoId)
     })

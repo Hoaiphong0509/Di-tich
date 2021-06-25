@@ -1,1 +1,5 @@
 @import url('../relic-edit-member/relic-edit-member.component.css');
+
+.toggle-edit-button {
+    float: right;
+}

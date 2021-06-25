@@ -36,6 +36,7 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { RelicManagementComponent } from './admin/relic-management/relic-management.component';
 import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
 import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.component';
+import { MemberRelicsListComponent } from './members/member-relics-list/member-relics-list.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.
     UserManagementComponent,
     RelicManagementComponent,
     RolesModalComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    MemberRelicsListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { MemberParams } from 'src/app/_models/memberParams';
 import { UserParams } from './../_models/userParams';
 import { Member } from './../_models/member';
 import { MemberService } from './member.service';
@@ -9,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { PageParams } from '../_models/pageParams';
 import { of, ReplaySubject } from 'rxjs';
+import { RelicParams } from '../_models/relicParams';
 
 @Injectable({
   providedIn: 'root'
@@ -20,25 +22,30 @@ export class RelicService {
   relicCache = new Map();
   member: Member;
 
+  relicParams: RelicParams;
+
   private currentRelicSource = new ReplaySubject<Relic>(1)
   currentRelic$ = this.currentRelicSource.asObservable()
 
   constructor(private http: HttpClient, private memberService: MemberService) {
-    
   }
+
+  getRelicParams(){
+    return this.relicParams;
+  }
+
+  setRelicParams(params: RelicParams){
+    this.relicParams = params;
+  }
+
+  // resetRelicParams(){
+  //   this.relicParams = new RelicParams(this.relic);
+  //   return this.relicParams
+  // }
 
   setCurrentRelic(relic: Relic){
     localStorage.setItem('relic', JSON.stringify(relic));
     this.currentRelicSource.next(relic);
-  }
-
-  getRelicId(): number{
-    let relicId: number;
-
-    this.currentRelicSource.subscribe(response => {
-      relicId = response.id;
-    })
-    return relicId;
   }
 
   getCurrentRelic(){
@@ -59,7 +66,6 @@ export class RelicService {
   }
 
   getRelicClient(relicId: number){
-    const id = this.getRelicId();
     return this.http.get<Relic>(this.baseUrl + 'relics/get-relic-by-id/' + relicId);
   }
 
@@ -101,6 +107,25 @@ export class RelicService {
     );
   }
   
+  getRelicsByUsername(username: string, name: string){
+    var response = this.relicCache.get(Object.values(username));
+    if(response){
+      return of(response);
+    }
+
+    const paginatedResult: PaginatedResult<Relic[]> = new PaginatedResult<Relic[]>();
+    return this.http.get<Relic[]>(this.baseUrl + 'relics/get-relic-by-username/?username=' + username +'&name=' + name + '&pageNumber=1&pageSize=7', {observe: 'response'}).pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
+  }
+
+
   getRelicByUser(userParams: UserParams){
     var response = this.relicCache.get(Object.values(userParams).join('-'));
     if(response){
@@ -112,6 +137,22 @@ export class RelicService {
     return this.getPaginatedResult<Relic[]>(this.baseUrl + 'users/get-relics-by-user', params).pipe(
       map(response => {
         this.relicCache.set(Object.values(userParams).join('-'), response);
+        return response;
+      })
+    )
+  }
+
+  getRelicByMember(memberParams: MemberParams){
+    var response = this.relicCache.get(Object.values(memberParams).join('-'));
+    if(response){
+      return of(response);
+    }
+
+    let params = this.getPaginationMemberHeaders(memberParams.pageNumber, memberParams.pageSize, memberParams.currentUsername);
+    
+    return this.getPaginatedResult<Relic[]>(this.baseUrl + 'users/get-relics-by-user', params).pipe(
+      map(response => {
+        this.relicCache.set(Object.values(memberParams).join('-'), response);
         return response;
       })
     )

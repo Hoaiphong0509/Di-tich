@@ -48,7 +48,6 @@ export class RelicCreateComponent implements OnInit {
     } else {
       localStorage.removeItem('foo') 
     }
-    if(localStorage.getItem('relic')) localStorage.removeItem('relic')
     this.initializeForm();
   }
 
@@ -65,6 +64,8 @@ export class RelicCreateComponent implements OnInit {
       this.addPhotoMode = true;
       this.relicService.setCurrentRelic(response)
       this.relic = response;
+      this.relic.photos = [];
+      console.log(this.relic)
     }, error => {
       console.log(error)
     })
@@ -76,8 +77,7 @@ export class RelicCreateComponent implements OnInit {
 
 
   startCreate(){
-    const relic = JSON.parse(localStorage.getItem('relic'))
-    this.addRelicMode = !this.addPhotoMode;
+    this.addRelicMode = !this.addRelicMode;
   }
 
   editMode(): boolean{
@@ -91,12 +91,4 @@ export class RelicCreateComponent implements OnInit {
     }
     return false;
   }
-
-  //Tinh nag xem truoc
-  // view(){
-  //   const relic: Relic = JSON.parse(localStorage.getItem('relic'))
-  //   this.relicService.getRelic(relic.id).subscribe(() => {
-  //     this.router.navigateByUrl('relics/' + relic.id)
-  //   })
-  // }
 }

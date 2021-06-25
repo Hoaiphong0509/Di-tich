@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Pagination } from './../../_models/pagination';
 import { RelicService } from 'src/app/_services/relic.service';
 import { ToastrService } from 'ngx-toastr';
@@ -5,7 +6,7 @@ import { AccountService } from './../../_services/account.service';
 import { MemberService } from './../../_services/member.service';
 import { User } from './../../_models/user';
 import { Member } from 'src/app/_models/member';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
@@ -62,15 +63,7 @@ export class MemberEditComponent implements OnInit {
   onTabActivated(data: TabDirective) {
     this.activeTab = data;
     if (this.activeTab.heading === 'Bài viết' && this.relics != null) {
-      this.relics.forEach(element => {
-        console.log(element.name)
-      });
-        this.userParams.pageSize = 7;
-        this.relicService.getRelicByUser(this.userParams).subscribe(response => {
-        this.relics = response.result;
-        this.pagination = response.pagination;
-      })
-      // this.loadRelicsMySefl();
+      this.loadRelicsMySefl();
     }
   }
 

@@ -11,6 +11,7 @@ namespace API.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string NameUnmark { get; set ; }
+        public bool IsApproved { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public int View { get; set; }

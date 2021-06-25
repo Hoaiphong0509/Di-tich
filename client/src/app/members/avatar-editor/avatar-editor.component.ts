@@ -52,6 +52,7 @@ export class AvatarEditorComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
+        console.log(response)
         const photo = JSON.parse(response);
         this.member.avatarUrl = photo;
         this.accountService.setCurrentUser(this.user);

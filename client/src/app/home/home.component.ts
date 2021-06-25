@@ -1,3 +1,4 @@
+import { RelicParams } from './../_models/relicParams';
 import { Router } from '@angular/router';
 import { PageParams } from './../_models/pageParams';
 import { Pagination } from './../_models/pagination';
@@ -17,9 +18,9 @@ export class HomeComponent implements OnInit {
   relics: Relic[];
   pagination: Pagination;
   pageParams: PageParams = new PageParams();
+  relicParams: RelicParams;
 
   searchForm: FormGroup;
-  model: any;
   myControl = new FormControl();
   options: string[] = this.getNameRelics();
   filteredOptions: Observable<string[]>;
@@ -27,9 +28,8 @@ export class HomeComponent implements OnInit {
   constructor(private relicService: RelicService, private router: Router) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('relic') || localStorage.getItem('member')) {
+    if (localStorage.getItem('relic')) {
       localStorage.removeItem('relic');
-      localStorage.removeItem('member');
     }
 
 
@@ -45,12 +45,15 @@ export class HomeComponent implements OnInit {
 
   }
 
-  loadRelic(relicid: number) {
-    this.relicService.getRelic(relicid).subscribe(response => {
-      this.relicService.setCurrentRelic(response);
-      this.router.navigateByUrl('detail/' + relicid)
-    })
-  }
+  // loadRelic(relicid: number) {
+   
+  //   this.relicService.getRelic(relicid).subscribe(response => {
+  //     this.relicParams = new RelicParams(response);
+  //     this.relicService.setRelicParams(this.relicParams);
+  //     // this.relicService.setCurrentRelic(response);
+  //     this.router.navigateByUrl('detail/' + relicid)
+  //   })
+  // }
 
   loadRelics() {
     this.relicService.getRelics(this.pageParams).subscribe(response => {
@@ -87,12 +90,10 @@ export class HomeComponent implements OnInit {
     return name;
   }
 
-
   search() {
     this.relicService.getRelicsByName(this.searchForm.value.name).subscribe(response => {
       this.relics = response.result;
       this.pagination = response.pagination;
-      console.log(this.relics)
     });
   }
 }

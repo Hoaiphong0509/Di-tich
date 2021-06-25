@@ -17,13 +17,15 @@ import { MemberParams } from 'src/app/_models/memberParams';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit, OnDestroy {
-  @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent;
+  @ViewChild('memberTabs') memberTabs: TabsetComponent
   member: Member;
   pagination: Pagination;
-  memberParmas: MemberParams;
+
   relics: Relic[] = [];
   user: User;
 
+
+  memberParmas: MemberParams;
 
   activeTab: TabDirective;
 
@@ -33,9 +35,9 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     private relicService: RelicService,
     private router: Router,
     private accountService: AccountService) {
-    this.member = JSON.parse(localStorage.getItem('member'));
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-    this.memberParmas = new MemberParams(this.member);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.memberParmas = this.memberService.getMemberParams()
   }
 
   ngOnDestroy(): void {
@@ -43,25 +45,18 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadMember()
+    this.route.data.subscribe(data => {
+      this.member = data.member;
+    });
 
-    this.route.queryParams.subscribe(parmas => {
-      parmas.tab ? this.selectTab(parmas.tab) : this.selectTab(0);
-    })
-
+    this.loadMember();
   }
 
   loadMember() {
-    this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
-      this.member = member;
-    })
-  }
-
-  loadRelic(relicid: number){
-    this.relicService.getRelic(relicid).subscribe(response => {
-      this.relicService.setCurrentRelic(response);
-      this.router.navigateByUrl('detail/'+relicid)
-    })
+    this.memberService.getMember(this.route.snapshot.paramMap.get('username'))
+      .subscribe(member => {
+        this.member = member;
+      })
   }
 
   onTabActivated(data: TabDirective) {

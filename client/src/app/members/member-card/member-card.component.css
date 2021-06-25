@@ -1,60 +1,84 @@
 
 .card {
-  width: auto;
-  height: 200px;
-}
-.card-img-wrapper {
-  overflow: hidden;
+  display: flex;
+  height: 280px;
+  width: 200px;
+  background-color: #17141d;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+/*   margin-left: -50px; */
+  transition: 0.4s ease-out;
   position: relative;
-}
-
-.card:hover img {
-  transform: scale(1.2, 1.2);
-  -webkit-transform: scale(1.2, 1.2);
-  -moz-transform: scale(1.2, 1.2);
-  -ms-transform: scale(1.2, 1.2);
-  -o-transform: scale(1.2, 1.2);
-  transition-duration: 500ms;
-  transition-timing-function: ease-in-out;
-  opacity: .8;
-  /* object-fit: cover; */
+  left: 0px;
 }
 
 .card img {
-  transform: scale(1.0);
-  -webkit-transform: scale(1.0);
-  -moz-transform: scale(1.0);
-  -ms-transform: scale(1.0);
-  -o-transform: scale(1.0);
-  transition-duration: 500ms;
-  transition-timing-function: ease-in-out;
+  height: 50%;
   object-fit: cover;
+  border-radius: 10px;
 }
 
-.card-img-wrapper .card-img-top {
-  width: 150px;
-  height: 150px;
+
+.card:hover {
+  transform: translateY(-20px);
+  transition: 0.4s ease-out;
 }
 
-.member-icons {
+.card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.4s ease-out;
+}
+
+.title {
+  color: white;
+  font-weight: 300;
   position: absolute;
-  bottom: -30%;
-  left: 0;
-  right: 0;
-  margin-right: auto;
-  margin-left: auto;
-  opacity: 0;
+  left: 20px;
+  top: 15px;
 }
 
-.card-img-wrapper:hover .member-icons {
-    bottom: 0;
-    opacity: 1;
+.bar {
+  position: absolute;
+  top: 100px;
+  left: -10px;
+  height: 5px;
+  width: 150px;
 }
 
-.animate {
-    transition: all .3s ease-in-out;
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -ms-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
+.emptybar {
+  background-color: #2e3033;
+  width: 100%;
+  height: 100%;
+}
+
+.filledbar {
+  position: absolute;
+  top: 0px;
+  z-index: 3;
+  width: 0px;
+  height: 100%;
+  background: rgb(0,154,217);
+  background: linear-gradient(90deg, rgba(0,154,217,1) 0%, rgba(217,147,0,1) 65%, rgba(255,186,0,1) 100%);
+  transition: 0.6s ease-out;
+}
+
+.card:hover .filledbar {
+  width: 120px;
+  transition: 0.4s ease-out;
+  -webkit-transition: 0.4s ease-out;
+  -moz-transition: 0.4s ease-out;
+  -ms-transition: 0.4s ease-out;
+  -o-transition: 0.4s ease-out;
+}
+
+.circle {
+  position: absolute;
+  top: 150px;
+  left: calc(50% - 60px);
+}
+
+.circle .infor {
+  z-index: 999;
+  color: #fff;
 }

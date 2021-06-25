@@ -45,8 +45,10 @@ namespace API.Controllers
         [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            return await _unitOfWork.UserRepository.GetMemberAsync(username);
-
+            var currentUsername = User.GetUsername();
+             return await _unitOfWork.UserRepository.GetMemberAsync(username,
+                isCurrentUser: currentUsername == username
+            );
         }
 
         [HttpGet("get-user-by-id/{id}")]
@@ -97,7 +99,12 @@ namespace API.Controllers
             user.Avatar.Add(avatar);
 
             if (await _unitOfWork.Complete())
-                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<AvatarDto>(avatar));
+                return new AvatarDto 
+                {
+                    Id = avatar.Id,
+                    Url = avatar.Url,
+                    IsMain = avatar.IsMain
+                };
 
             return BadRequest("Lỗi tải ảnh!");
         }
@@ -215,7 +222,7 @@ namespace API.Controllers
                 PublicId = result.PublicId
             };
 
-            if (relic.Photos.Count == 0 || relic.Photos == null)
+            if (relic.Photos.Count == 0 || relic.Photos is null)
             {
                 photo.IsMain = true;
             }
@@ -224,11 +231,17 @@ namespace API.Controllers
 
             if (await _unitOfWork.Complete())
             {
-                return CreatedAtRoute("GetRelic", new { id = relic.Id }, _mapper.Map<PhotoDto>(photo));
+                return  new PhotoDto 
+                {
+                    Id = photo.Id,
+                    Url = photo.Url,
+                    IsMain = photo.IsMain
+                };
             }
 
             return BadRequest("Lỗi tải ảnh!");
         }
+
 
         [HttpPut("set-main-photo")]
         public async Task<ActionResult> SetMainPhoto([FromQuery] int relicId, [FromQuery] int photoId)
