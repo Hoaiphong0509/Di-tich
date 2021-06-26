@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,56 @@ namespace API.Controllers
     public class AdminController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
-        public AdminController(UserManager<AppUser> userManager)
+        private readonly IUnitOfWork _unitOfWork;
+        public AdminController(UserManager<AppUser> userManager, IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
 
+        }
+
+        [Authorize(Policy = "ModeratorRelicRole")]
+        [HttpGet("relics-to-moderate")]
+        public async Task<ActionResult> GetRelicForModeration()
+        {
+            var relics = await
+                _unitOfWork.RelicRepository.GetUnapprovedRelics();
+            return Ok(relics);
+        }
+
+        [Authorize(Policy = "ModeratorRelicRole")]
+        [HttpGet("relics-to-reject")]
+        public async Task<ActionResult> GetRelicReject()
+        {
+            var relics = await _unitOfWork.RelicRepository.GetRejectRelics();
+            return Ok(relics);
+        }
+
+
+        [Authorize(Policy = "ModeratorRelicRole")]
+        [HttpPost("approve-relic/{relicId}")]
+        public async Task<ActionResult> ApproveRelic(int relicId)
+        {
+            var relic = await _unitOfWork.RelicRepository.GetRelicById(relicId);
+            if (relic == null) return NotFound("Không tìm thấy bài viết!");
+            
+            relic.IsApproved = true;
+            relic.IsReject = false;
+            await _unitOfWork.Complete(); 
+            return Ok();
+        }
+
+        [Authorize(Policy = "ModeratorRelicRole")]
+        [HttpPost("reject-relic/{relicId}")]
+        public async Task<ActionResult> RejectRelic(int relicId)
+        {
+            var relic = await _unitOfWork.RelicRepository.GetRelicById(relicId);
+            if (relic == null) return NotFound("Không tìm thấy bài viết!");
+            
+            relic.IsApproved = false;
+            relic.IsReject = true;
+            await _unitOfWork.Complete(); 
+            return Ok();
         }
 
         [Authorize(Policy = "RequiredAdminRole")]
@@ -46,7 +93,7 @@ namespace API.Controllers
 
             var user = await _userManager.FindByNameAsync(username);
 
-            if(user is null) return NotFound("Không tìm thấy tài khoản này!");
+            if (user is null) return NotFound("Không tìm thấy tài khoản này!");
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
@@ -61,11 +108,5 @@ namespace API.Controllers
             return Ok(await _userManager.GetRolesAsync(user));
         }
 
-        [Authorize(Policy = "ModeratorRelicRole")]
-        [HttpGet("relic-to-moderate")]
-        public ActionResult GetRelicForModeration()
-        {
-            return Ok("Vung admin va moderator");
-        }
     }
 }

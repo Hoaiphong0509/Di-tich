@@ -1,1 +1,17 @@
-<p>relic-management works!</p>
+<div class="row">
+  <table class="table">
+      <tr>
+          <th style="width: 30%">Bài viết</th>
+          <th style="width: 30%">Tác giả</th>
+          <th style="width: 30%"></th>
+      </tr>
+      <tr *ngFor='let relic of relics'>
+          <td>{{relic.name}}</td>
+          <td>{{relic.author}}</td>
+          <td>
+            <button class='btn btn-sm btn-success mr-1' (click)='approveRelic(relic.id)'>Phê duyệt</button>
+            <button class='btn btn-sm btn-danger mr-1' (click)='rejectRelic(relic.id)'>Từ chối</button>
+          </td>
+      </tr>
+  </table>
+</div>

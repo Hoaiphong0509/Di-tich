@@ -147,7 +147,6 @@ namespace API.Controllers
         [HttpGet("get-relics-by-user")]
         public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicByIdUser([FromQuery] PageParams pageParams)
         {
-
             var relics = await _unitOfWork.RelicRepository.GetRelicDtoByIdUserAsync(pageParams);
             Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
 
@@ -168,9 +167,9 @@ namespace API.Controllers
                 Name = relicCreateDto.Name,
                 Title = relicCreateDto.Title,
                 Content = relicCreateDto.Content,
+                IsApproved = false,
                 Author = (user.KnownAs is null) ? user.UserName : user.KnownAs
             };
-            // return BadRequest("failed");
         }
 
         [HttpDelete("delete-relic/{id}")]
@@ -203,6 +202,8 @@ namespace API.Controllers
                 Name = relicUpdateDto.Name,
                 Title = relicUpdateDto.Title,
                 Content = relicUpdateDto.Content,
+                IsApproved = false,
+                IsReject = false,
                 Author = (user.KnownAs is null) ? user.UserName : user.KnownAs
             };
         }

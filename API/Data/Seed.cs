@@ -43,6 +43,7 @@ namespace API.Data
                 foreach (var relic in user.Relics)
                 {
                     relic.NameUnmark = relic.Name.ConvertToUnSign();
+                    relic.IsReject = false;
                 }
 
                 await userManager.CreateAsync(user, "Pa$$w0rd");

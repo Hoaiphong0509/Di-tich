@@ -1,0 +1,47 @@
+<ng-container *ngIf="relics && pagination">
+    <ng-container>
+      <h1>Các bài viết</h1>
+      <div class="search mt-3 mb-3">
+        <form [formGroup]='searchForm' (ngSubmit)="search()" autocomplete="off">
+          <input class="search" type="text" placeholder="Di tích..." formControlName="name" name="name">
+          <button type="submit" [disabled]="searchForm.invalid" class="btn btn-info"><i class="fa fa-search"></i></button>
+          <button type="button" (click)="refresh()" class="btn btn-info"><i class="fa fa-refresh"></i></button>
+        </form>
+      </div>
+      <table class="table table-striped ">
+        <tr class="thead-dark">
+          <th>Tên di tích</th>
+          <th>Tiêu đề</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let relic of relics">
+          <ng-container *ngIf="relic.isReject == true">
+            <td style="width: 30%;">{{relic.name}}</td>
+            <td style="width: 40%;">{{relic.title}}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" (click)="loadRelic(relic.id)">
+                <i class="fa fa-eye"></i>
+              </button>
+              &nbsp;
+              <button class="btn btn-sm btn-info" (click)="editRelic(relic.id)">
+                <i class="fa fa-pencil"></i>
+              </button>
+              &nbsp;
+              <button class="btn btn-sm btn-danger" (click)="deleteRelic(relic.id)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </ng-container>
+          
+        </tr>
+      </table>
+      <!-- Pagination -->
+      <div class="d-flex justify-content-center" *ngIf="pagination.totalItems > 0">
+        <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+          [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+      </div>
+    </ng-container>
+  </ng-container>
+  

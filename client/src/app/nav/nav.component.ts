@@ -3,7 +3,6 @@ import { AccountService } from './../_services/account.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { Member } from '../_models/member';
 import { MemberService } from '../_services/member.service';
 
 @Component({
@@ -25,10 +24,11 @@ export class NavComponent {
     this.router.navigateByUrl('/');
   }
 
-  loadMember() {
-    this.memberService.getMember(this.user.username).subscribe(() => {
-      this.router.navigateByUrl("member/edit")
-    })
-  }
+  // loadMember() {
+  //   this.memberService.getMember(this.user.username).subscribe((response) => {
+  //     console.log(response)
+  //     this.router.navigateByUrl("member/edit")
+  //   })
+  // }
 
 }

@@ -1,5 +1,5 @@
+import { Pagination } from 'src/app/_models/pagination';
 import { ActivatedRoute } from '@angular/router';
-import { Pagination } from './../../_models/pagination';
 import { RelicService } from 'src/app/_services/relic.service';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from './../../_services/account.service';
@@ -24,6 +24,7 @@ export class MemberEditComponent implements OnInit {
   member: Member;
   user: User;
   account: any = {};
+  totalRelic: number = 0;
 
   userParams: UserParams;
   relics: Relic[] = [];
@@ -47,6 +48,12 @@ export class MemberEditComponent implements OnInit {
   loadMember() {
     this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member;
+      this.member.relics.forEach(relic => {
+        if(relic.isApproved){
+          this.totalRelic++;
+        }
+      });
+
     })
   }
 
@@ -62,17 +69,21 @@ export class MemberEditComponent implements OnInit {
 
   onTabActivated(data: TabDirective) {
     this.activeTab = data;
-    if (this.activeTab.heading === 'Bài viết' && this.relics != null) {
+    if ((this.activeTab.heading === 'Bài viết' 
+        || this.activeTab.heading === 'Chờ duyệt' 
+        || this.activeTab.heading === 'Bài viết bị từ chối') 
+        && this.relics != null) {
       this.loadRelicsMySefl();
     }
   }
 
   loadRelicsMySefl() {
-    this.userParams.pageSize = 7;
+    this.userParams.pageSize = 2;
     this.relicService.getRelicByUser(this.userParams).subscribe(response => {
       this.relics = response.result;
       this.pagination = response.pagination;
     })
+    this.relics = this.member.relics;
   }
 
   selectTab(tabId: number){

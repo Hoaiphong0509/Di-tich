@@ -85,8 +85,24 @@ export class RelicService {
     )
   }
 
+  getApprovedRelics(pageParams: PageParams){
+    var response = this.relicCache.get(Object.values(pageParams).join('-'));
+    if(response){
+      return of(response);
+    }
+
+    let params = this.getPaginationHeaders(pageParams.pageNumber, pageParams.pageSize);
+    
+    return this.getPaginatedResult<Relic[]>(this.baseUrl + 'relics/get-relic-approved', params).pipe(
+      map(response => {
+        this.relicCache.set(Object.values(pageParams).join('-'), response);
+        return response;
+      })
+    )
+  }
+
   getAllRelic(){
-    return this.http.get<Relic[]>(this.baseUrl + 'relics');
+    return this.http.get<Relic[]>(this.baseUrl + 'relics/get-relic-approved');
   }
 
   getRelicsByName(name: string){
@@ -114,7 +130,7 @@ export class RelicService {
     }
 
     const paginatedResult: PaginatedResult<Relic[]> = new PaginatedResult<Relic[]>();
-    return this.http.get<Relic[]>(this.baseUrl + 'relics/get-relic-by-username/?username=' + username +'&name=' + name + '&pageNumber=1&pageSize=7', {observe: 'response'}).pipe(
+    return this.http.get<Relic[]>(this.baseUrl + 'relics/get-relic-by-username-name/?username=' + username +'&name=' + name + '&pageNumber=1&pageSize=7', {observe: 'response'}).pipe(
       map(response => {
         paginatedResult.result = response.body;
         if (response.headers.get('Pagination') !== null) {

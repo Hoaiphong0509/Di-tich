@@ -8,6 +8,8 @@ export interface Relic {
     content: string;
     view: number;
     photoUrl: string;
+    isApproved: boolean;
+    isReject: boolean;
     created: Date;
     author: string;
     photos: Photo[];

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -74,7 +75,7 @@ namespace API.Data
 
             relicFormData.View++;
             Update(relicFormData);
-            
+
             await _context.SaveChangesAsync();
 
             return relic;
@@ -94,6 +95,9 @@ namespace API.Data
 
             _mapper.Map(relicUpdateDto, relic);
 
+            relic.IsApproved = false;
+            relic.IsReject = false;
+
             await _context.SaveChangesAsync();
 
             return relic.Id;
@@ -101,7 +105,7 @@ namespace API.Data
 
         public async Task<PageList<RelicDto>> GetRelicDtoByIdUserAsync(PageParams pageParams)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == pageParams.CurrentUsername);
+           var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == pageParams.CurrentUsername);
             var query = _context.Relics
                 .Where(r => r.AppUserId == user.Id)
                 .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
@@ -111,18 +115,83 @@ namespace API.Data
             return await PageList<RelicDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
 
-        public async Task<PageList<RelicDto>> GetRelicDtoByUsername(PageParams pageParams, string username, string name)
+        public async Task<PageList<RelicDto>> GetRelicDtoByUsernameAndName(PageParams pageParams, string username, string name)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == username);
-             var query = _context.Relics
-                .Where(r => r.AppUserId == user.Id && 
-                    (r.Name.ToLower().Contains(name)
-                    || r.NameUnmark.ToLower().Contains(name)))
+            var query = _context.Relics
+               .Where(r => r.AppUserId == user.Id &&
+                   (r.Name.ToLower().Contains(name)
+                   || r.NameUnmark.ToLower().Contains(name)))
+               .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
+               .OrderByDescending(r => r.View)
+               .AsNoTracking();
+
+            return await PageList<RelicDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
+        }
+
+         public async Task<PageList<RelicDto>> GetApprovedRelics(PageParams pageParams)
+        {
+            var query = _context.Relics
+                .Where(r => r.IsApproved && r.IsReject == false)
                 .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
                 .OrderByDescending(r => r.View)
                 .AsNoTracking();
 
             return await PageList<RelicDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
+
+        public async Task<IEnumerable<RelicForApprovalDto>> GetUnapprovedRelics()
+        {
+            return await _context.Relics
+                 .IgnoreQueryFilters()
+                 .Where(p => p.IsApproved == false && p.IsReject == false)
+                 .Select(u => new RelicForApprovalDto
+                 {
+                     Id = u.Id,
+                     Name = u.Name,
+                     Author = (u.AppUser.KnownAs == null) ? u.AppUser.UserName : u.AppUser.KnownAs,
+                     IsApproved = u.IsApproved,
+                     IsReject = u.IsReject
+                 }).ToListAsync();
+        }
+
+        public async Task<PageList<RelicDto>> GetUnapprovedRelicsByUsername(PageParams pageParams)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == pageParams.CurrentUsername);
+            var query = _context.Relics
+               .Where(r => r.AppUserId == user.Id)
+               .ProjectTo<RelicDto>(_mapper.ConfigurationProvider)
+               .AsNoTracking();
+
+            return await PageList<RelicDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
+        }
+
+        public async Task<IEnumerable<RelicForApprovalDto>> GetRejectRelics()
+        {
+            return await _context.Relics
+                 .IgnoreQueryFilters()
+                 .Where(p => p.IsApproved == false && p.IsReject == true)
+                 .Select(u => new RelicForApprovalDto
+                 {
+                     Id = u.Id,
+                     Name = u.Name,
+                     Author = (u.AppUser.KnownAs == null) ? u.AppUser.UserName : u.AppUser.KnownAs,
+                     IsApproved = u.IsApproved,
+                     IsReject = u.IsReject
+                 }).ToListAsync();
+        }
+
+        public async Task<Relic> GetRelicById(int id)
+        {
+            return await _context.Relics
+                    .IgnoreQueryFilters()
+                    .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public void RemoveRelic(Relic relic)
+        {
+            _context.Relics.Remove(relic);
+        }
+
     }
 }

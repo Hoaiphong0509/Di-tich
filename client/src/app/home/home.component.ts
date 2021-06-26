@@ -45,18 +45,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  // loadRelic(relicid: number) {
-   
-  //   this.relicService.getRelic(relicid).subscribe(response => {
-  //     this.relicParams = new RelicParams(response);
-  //     this.relicService.setRelicParams(this.relicParams);
-  //     // this.relicService.setCurrentRelic(response);
-  //     this.router.navigateByUrl('detail/' + relicid)
-  //   })
-  // }
-
   loadRelics() {
-    this.relicService.getRelics(this.pageParams).subscribe(response => {
+    this.relicService.getApprovedRelics(this.pageParams).subscribe(response => {
       this.relics = response.result;
       this.pagination = response.pagination;
     })

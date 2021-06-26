@@ -13,6 +13,7 @@ namespace API.DTOs
         public string PhotoUrl { get; set; }
         public string Author { get; set; }
         public bool IsApproved { get; set; }
+        public bool IsReject { get; set; }
         public DateTime Created { get; set; }
         public ICollection<PhotoDto> Photos { get; set; }
     }

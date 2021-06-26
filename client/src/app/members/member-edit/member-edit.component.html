@@ -19,7 +19,7 @@
           &nbsp;&nbsp;{{member.address}}
           <br>
           <strong>Bài viết:</strong>
-          &nbsp;&nbsp;{{member.relics.length}}
+          &nbsp;&nbsp;{{totalRelic}}
         </div>
       </div>
       <div class="card-footer text-center">
@@ -46,7 +46,13 @@
         <app-avatar-editor [member]="member"></app-avatar-editor>
       </tab>
       <tab heading='Bài viết' (selectTab)="onTabActivated($event)">
-        <app-member-relics-list [relics]="relics" [pagination]="pagination"></app-member-relics-list>
+        <app-member-relics-list [relics]="member.relics" [pagination]="pagination"></app-member-relics-list>
+      </tab>
+      <tab heading='Chờ duyệt' (selectTab)="onTabActivated($event)">
+        <app-member-relics-list-unapproved [relics]="member.relics" [pagination]="pagination"></app-member-relics-list-unapproved>
+      </tab>
+      <tab heading='Bài viết bị từ chối' (selectTab)="onTabActivated($event)">
+        <app-member-relics-list-reject [relics]="member.relics" [pagination]="pagination"></app-member-relics-list-reject>
       </tab>
     </tabset>
   </div>

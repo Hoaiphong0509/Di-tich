@@ -37,6 +37,8 @@ import { RelicManagementComponent } from './admin/relic-management/relic-managem
 import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
 import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.component';
 import { MemberRelicsListComponent } from './members/member-relics-list/member-relics-list.component';
+import { MemberRelicsListUnapprovedComponent } from './members/member-relics-list-unapproved/member-relics-list-unapproved.component';
+import { MemberRelicsListRejectComponent } from './members/member-relics-list-reject/member-relics-list-reject.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { MemberRelicsListComponent } from './members/member-relics-list/member-r
     RelicManagementComponent,
     RolesModalComponent,
     ConfirmDialogComponent,
-    MemberRelicsListComponent
+    MemberRelicsListComponent,
+    MemberRelicsListUnapprovedComponent,
+    MemberRelicsListRejectComponent
   ],
   imports: [
     BrowserModule,

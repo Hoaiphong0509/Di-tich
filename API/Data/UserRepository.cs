@@ -28,8 +28,8 @@ namespace API.Data
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
 
-            if(isCurrentUser) query = query.IgnoreQueryFilters();
-            
+            if (isCurrentUser) query = query.IgnoreQueryFilters();
+
             return await query.FirstOrDefaultAsync();
         }
 
@@ -43,12 +43,22 @@ namespace API.Data
             query = query.Where(u => u.Username != pageParams.CurrentUsername);
 
             return await PageList<MemberDto>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
-                
+
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
+        }
+
+        public async Task<AppUser> GetUserByRelicId(int relicId)
+        {
+            return await _context.Users
+                .Include(p => p.Relics)
+                .ThenInclude(r => r.Photos)
+                .IgnoreQueryFilters()
+                .Where(p => p.Relics.Any(p => p.Id == relicId))
+                .FirstOrDefaultAsync();
         }
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)

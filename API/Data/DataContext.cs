@@ -30,6 +30,11 @@ namespace API.Data
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
+
+            
+            // builder.Entity<Relic>()
+            //     .HasQueryFilter(p => p.IsReject)
+            //     .HasQueryFilter(p => p.IsApproved);
         }
     }
 }

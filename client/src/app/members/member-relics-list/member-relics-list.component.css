@@ -1,11 +1,3 @@
-.alert button {
-    font-size: 40px;
-    width: 70px;
-    height: 70px;
-    /* line-height: 70px; */
-}
-
-
 input[type="submit"],
 input[type="reset"],
 input[type="button"],

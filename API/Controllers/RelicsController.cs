@@ -28,6 +28,16 @@ namespace API.Controllers
             return Ok(relics);
         }
 
+        [HttpGet("get-relic-approved")]
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsApproved([FromQuery] PageParams pageParams)
+        {
+            var relics = await _unitOfWork.RelicRepository.GetApprovedRelics(pageParams);
+
+            Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
+
+            return Ok(relics);
+        }
+
         [HttpGet("{name}")]
         public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicsByName([FromQuery] PageParams pageParams, string name)
         {
@@ -40,9 +50,20 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet("get-relic-by-username")]
-        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicByUsername([FromQuery] PageParams pageParams, string username, string name)
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicByUsername([FromQuery] PageParams pageParams)
         {
-            var relics = await _unitOfWork.RelicRepository.GetRelicDtoByUsername(pageParams, username.ToLower(), name.ToLower().ConvertToUnSign());
+            var relics = await _unitOfWork.RelicRepository.GetUnapprovedRelicsByUsername(pageParams);
+
+            Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
+
+            return Ok(relics);
+        }
+
+        [Authorize]
+        [HttpGet("get-relic-by-username-name")]
+        public async Task<ActionResult<IEnumerable<RelicDto>>> GetRelicByUsernameAndName([FromQuery] PageParams pageParams, string username, string name)
+        {
+            var relics = await _unitOfWork.RelicRepository.GetRelicDtoByUsernameAndName(pageParams, username.ToLower(), name.ToLower().ConvertToUnSign());
 
             Response.AddPaginationHeader(relics.CurrentPage, relics.PageSize, relics.TotalCount, relics.TotalPages);
 
