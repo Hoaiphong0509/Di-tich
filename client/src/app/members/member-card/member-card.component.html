@@ -1,8 +1,8 @@
-<ng-container class="m-5">
+<ng-container class="p-6">
     <a (click)="loadMember()" routerLink="/members/{{member.username}}">
         <div class="card">
             <h3 class="title">{{member.knownAs || member.username}}</h3>
-            <img src="{{member.avatarUrl || '../../../../../assets/user.png'}}" alt="">
+            <img src="{{member.avatarUrl || '../../../../../assets/user.png'}}" alt="{{member.knownAs || member.username}}">
             <div class="circle">
                 <div class="infor">
                     <p class="">{{member.address}}</p>

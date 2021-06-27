@@ -39,6 +39,7 @@ import { ConfirmDialogComponent } from './_modals/confirm-dialog/confirm-dialog.
 import { MemberRelicsListComponent } from './members/member-relics-list/member-relics-list.component';
 import { MemberRelicsListUnapprovedComponent } from './members/member-relics-list-unapproved/member-relics-list-unapproved.component';
 import { MemberRelicsListRejectComponent } from './members/member-relics-list-reject/member-relics-list-reject.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { MemberRelicsListRejectComponent } from './members/member-relics-list-re
     ConfirmDialogComponent,
     MemberRelicsListComponent,
     MemberRelicsListUnapprovedComponent,
-    MemberRelicsListRejectComponent
+    MemberRelicsListRejectComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

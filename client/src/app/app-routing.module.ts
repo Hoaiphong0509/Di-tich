@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path: 'server-error', component: ServerErrorComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent, pathMatch: 'full'},
 ];
 

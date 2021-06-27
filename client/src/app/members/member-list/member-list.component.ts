@@ -3,7 +3,6 @@ import { Pagination } from './../../_models/pagination';
 import { MemberService } from './../../_services/member.service';
 import { Member } from 'src/app/_models/member';
 import { Component, OnInit } from '@angular/core';
-import { MemberParams } from 'src/app/_models/memberParams';
 
 @Component({
   selector: 'app-member-list',
@@ -25,6 +24,7 @@ export class MemberListComponent implements OnInit {
   }
 
   loadMembers() {
+    this.userParams.pageSize = 20;
     this.memberService.setUserParams(this.userParams);
     this.memberService.getMembers(this.userParams).subscribe(response => {
       this.members = response.result;

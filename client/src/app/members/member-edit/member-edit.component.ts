@@ -1,12 +1,11 @@
 import { Pagination } from 'src/app/_models/pagination';
-import { ActivatedRoute } from '@angular/router';
 import { RelicService } from 'src/app/_services/relic.service';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from './../../_services/account.service';
 import { MemberService } from './../../_services/member.service';
 import { User } from './../../_models/user';
 import { Member } from 'src/app/_models/member';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';

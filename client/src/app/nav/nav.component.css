@@ -1,15 +1,18 @@
+@import url('../../assets/css/_variable.css');
+
 .dropdown-toggle,
 .dropdown-item {
   cursor: pointer;
 }
 
 .navbar {
-  z-index: 1;
+  z-index: 999;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .navbar-brand {
-  color: aqua;
+  color: var(--white);
+  border: none;
   transition: .1s all ease-in-out;
   -webkit-transition: .1s all ease-in-out;
   -moz-transition: .1s all ease-in-out;
@@ -18,8 +21,7 @@
 }
 
 .navbar-brand:hover {
-  font-weight: bold;
-  color: aqua;
+  color: #A6EBE7;
 }
 
 .navbar ul li {
@@ -28,4 +30,17 @@
 color: rgba(0,0,0,0.6);
 text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
                  0px -5px 35px rgba(255,255,255,0.3);
+}
+
+
+.btn-login {
+  border: 1px solid var(--white);
+  background-color: var(--dark-low);
+  color: var(--white);
+}
+
+.btn-login:hover {
+  border: 1px solid #A6EBE7;
+  background-color: var(--dark-low);
+  color: #A6EBE7;
 }

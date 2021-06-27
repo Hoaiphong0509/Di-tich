@@ -1,0 +1,54 @@
+.wrapper {
+    width: 60%;
+    margin: 0 auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: auto;
+    padding: 3rem;
+}
+
+.wrapper .about {
+    text-align: center;
+}
+
+.wrapper .about h1 {
+    font-family: monospace;
+}
+
+.wrapper .about p {
+    margin: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.wrapper .author {
+    text-align: center;
+}
+
+.wrapper .author h1 {
+    font-family: monospace;
+}
+
+.wrapper .author .content img {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+}
+
+.wrapper .author .social a{
+    margin: 10px;
+    font-size: 20px;
+    color: #5fbae9;
+}
+
+.wrapper .author .social a:nth-child(1):hover{
+    color: blue;
+}
+
+.wrapper .author .social a:nth-child(2):hover{
+    color: indianred;
+}

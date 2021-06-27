@@ -22,7 +22,7 @@
       <p>Trên mảnh đất TP.Thủ Đức hiện đại ngày nay vẫn còn lưu giữ hệ thống các di sản văn hóa độc đáo, tiêu biểu của
         TP.HCM và của cả nước.</p>
       <ul class="actions">
-        <li><a href="#" class="button">Chi tiết</a></li>
+        <li><a routerLink='about/' class="button">Chi tiết</a></li>
       </ul>
     </section>
 
@@ -83,10 +83,18 @@
 
     <!-- Pagination -->
     <div class="d-flex justify-content-center" *ngIf="pagination">
-      <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
-        [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
-        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      <pagination class="pagination" 
+          [boundaryLinks]="true" 
+          [totalItems]="pagination.totalItems" 
+          [itemsPerPage]="pagination.itemsPerPage"
+          [(ngModel)]="pagination.currentPage" 
+          (pageChanged)="pageChanged($event)" 
+          previousText="&lsaquo;"
+          nextText="&rsaquo;" 
+          firstText="&laquo;" 
+          lastText="&raquo;">
       </pagination>
+
     </div>
 
 

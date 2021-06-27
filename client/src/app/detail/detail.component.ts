@@ -1,4 +1,3 @@
-import { RelicParams } from './../_models/relicParams';
 import { ActivatedRoute } from '@angular/router';
 import { Relic } from './../_models/relic';
 import { Component, OnInit } from '@angular/core';
@@ -26,8 +25,9 @@ export class DetailComponent implements OnInit {
   }
 
   loadRelic() {
-    this.relicService.getRelic(this.route.snapshot.params['id']).subscribe(relic => {
+    this.relicService.getRelicClient(this.route.snapshot.params['id']).subscribe(relic => {
       this.relic = relic;
+      console.log(this.relic)
       this.initgallery()
     })
   }

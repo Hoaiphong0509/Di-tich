@@ -13,9 +13,6 @@
           <a class="nav-link" *appHasRole='["Admin", "Moderator"]' routerLink='/admin'
             routerLinkActive='active'>Admin</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Test Error</a>
-        </li>
         <li class="nav-item dropdown" dropdown *ngIf="(accountService.currentUser$ | async) as user">
           <a class="dropdown-toggle nav-link" routerLinkActive='active'
             dropdownToggle>{{user.knownAs || user.username | titlecase}} <i class="fa fa-user"></i></a>
@@ -28,7 +25,7 @@
       </ng-container>
     </ul>
     <div *ngIf="(accountService.currentUser$ | async)==null">
-      <a routerLink="/login" class="btn btn-outline-info ml-2 text-info"><i class="fa fa-sign-in"
+      <a routerLink="/login" class="btn btn-login ml-2"><i class="fa fa-sign-in"
           aria-hidden="true"></i></a>
     </div>
   </div>

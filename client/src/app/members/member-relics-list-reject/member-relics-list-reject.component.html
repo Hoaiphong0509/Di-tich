@@ -4,8 +4,8 @@
       <div class="search mt-3 mb-3">
         <form [formGroup]='searchForm' (ngSubmit)="search()" autocomplete="off">
           <input class="search" type="text" placeholder="Di tích..." formControlName="name" name="name">
-          <button type="submit" [disabled]="searchForm.invalid" class="btn btn-info"><i class="fa fa-search"></i></button>
-          <button type="button" (click)="refresh()" class="btn btn-info"><i class="fa fa-refresh"></i></button>
+          <button type="submit" [disabled]="searchForm.invalid" class="btn btn-search"><i class="fa fa-search"></i></button>
+          <button type="button" (click)="refresh()" class="btn btn-refresh"><i class="fa fa-refresh"></i></button>
         </form>
       </div>
       <table class="table table-striped ">
