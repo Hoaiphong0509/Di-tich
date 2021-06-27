@@ -1,6 +1,4 @@
-import { UserParams } from 'src/app/_models/userParams';
 import { Member } from 'src/app/_models/member';
-import { ConfirmService } from './../../_services/confirm.service';
 import { take } from 'rxjs/operators';
 import { AccountService } from './../../_services/account.service';
 import { Pagination } from './../../_models/pagination';
@@ -22,8 +20,6 @@ export class RelicListMemberComponent implements OnInit, OnDestroy {
   @Input() relics : Relic[] = [];
   @Input() pagination: Pagination;
   memberParams: MemberParams;
-  userParams: UserParams;
-  member: Member;
   user: User;
 
   searchForm: FormGroup;
@@ -32,14 +28,9 @@ export class RelicListMemberComponent implements OnInit, OnDestroy {
     private relicService: RelicService,
     private router: Router,
     private accountService: AccountService,
-    private confirmService: ConfirmService,
     private memberService: MemberService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-      if(localStorage.getItem('member')){
-        this.member = JSON.parse(localStorage.getItem('member'))
-      }
-      // this.memberParams = new MemberParams(this.member);
-      this.userParams = this.memberService.getUserParams();
+      this.memberParams = this.memberService.getMemberParams();
   }
   ngOnDestroy(): void {
     localStorage.removeItem('member')
@@ -56,7 +47,8 @@ export class RelicListMemberComponent implements OnInit, OnDestroy {
   }
 
   search(){
-    this.relicService.getRelicsByUsername(this.member.username, this.searchForm.value.name).subscribe(response => {
+    this.relicService.getRelicsByUsername(this.memberParams.currentUsername, this.searchForm.value.name).subscribe(response => {
+      console.log(response)
       this.relics = response.result;
       this.pagination = response.pagination;
     });
@@ -67,8 +59,8 @@ export class RelicListMemberComponent implements OnInit, OnDestroy {
   }
 
   loadRelicsMember(){
-    this.userParams.pageSize = 7;
-    this.relicService.getRelicByMember(this.userParams).subscribe(response => {
+    this.memberParams.pageSize = 7;
+    this.relicService.getRelicByMember(this.memberParams).subscribe(response => {
       this.relics = response.result;
       console.log(response.result)
       this.pagination = response.pagination;
@@ -83,7 +75,7 @@ export class RelicListMemberComponent implements OnInit, OnDestroy {
   }
   
   pageChanged(event: any){
-    this.userParams.pageNumber = event.page;
+    this.memberParams.pageNumber = event.page;
     this.loadRelicsMember();
   }
 

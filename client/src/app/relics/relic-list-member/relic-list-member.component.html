@@ -1,9 +1,9 @@
 <ng-container *ngIf="relics && pagination">
   <ng-container>
     <h1>Các bài viết</h1>
-    <div class="searh mt-3 mb-3" *ngIf="pagination.totalItems > 0">
+    <div class="search mt-3 mb-3">
       <form [formGroup]='searchForm' (ngSubmit)="search()" autocomplete="off">
-        <input class="search" type="text" placeholder="Di tích..." matInput formControlName="name" name="name">
+        <input class="search" type="text" placeholder="Di tích..." formControlName="name" name="name">
         <button type="submit" [disabled]="searchForm.invalid" class="btn btn-info"><i class="fa fa-search"></i></button>
         <button type="button" (click)="refresh()" class="btn btn-info"><i class="fa fa-refresh"></i></button>
       </form>
@@ -15,13 +15,15 @@
         <th></th>
       </tr>
       <tr *ngFor="let relic of relics">
-        <td style="width: 30%;">{{relic.name}}</td>
-        <td style="width: 40%;">{{relic.title}}</td>
-        <td>
-          <button class="btn btn-sm btn-primary" (click)="loadRelic(relic.id)">
-            <i class="fa fa-eye"></i>
-          </button>
-        </td>
+        <ng-container *ngIf="relic.isApproved == true">
+          <td style="width: 30%;">{{relic.name}}</td>
+          <td style="width: 40%;">{{relic.title}}</td>
+          <td>
+            <button class="btn btn-sm btn-primary" (click)="loadRelic(relic.id)">
+              <i class="fa fa-eye"></i>
+            </button>
+          </td>
+        </ng-container>
       </tr>
     </table>
     <!-- Pagination -->

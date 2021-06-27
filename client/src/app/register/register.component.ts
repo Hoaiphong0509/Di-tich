@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -11,19 +11,19 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  model: any ={};
+  model: any = {};
 
   constructor(
-    public accountService:AccountService, 
+    public accountService: AccountService,
     private router: Router,
-    private fb: FormBuilder ) { }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.setCurrentUser();
     this.initializeForm();
+    // this.setCurrentUser();
   }
 
-  initializeForm(){
+  initializeForm() {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
@@ -35,19 +35,19 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  setCurrentUser(){
+  setCurrentUser() {
     const user: User = JSON.parse(localStorage.getItem('user') ?? '{}');
     this.accountService.setCurrentUser(user);
   }
 
   matchValues(matchTo: string): ValidatorFn {
     return (control: AbstractControl) => {
-      return control?.value === control?.parent?.controls[matchTo].value 
-        ? null : {isMatching: true}
+      return control?.value === control?.parent?.controls[matchTo].value
+        ? null : { isMatching: true }
     }
   }
 
-  register(){
+  register() {
     this.accountService.register(this.registerForm.value).subscribe(() => {
       this.router.navigateByUrl('/')
     }, error => {

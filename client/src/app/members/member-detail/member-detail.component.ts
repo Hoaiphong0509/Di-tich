@@ -23,7 +23,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   relics: Relic[] = [];
   user: User;
-
+  totalRelic: number = 0;
 
   memberParmas: MemberParams;
 
@@ -37,7 +37,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     private accountService: AccountService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.memberParmas = this.memberService.getMemberParams()
+
   }
 
   ngOnDestroy(): void {
@@ -45,17 +45,29 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
-      this.member = data.member;
-    });
-
     this.loadMember();
+    // this.route.data.subscribe(data => {
+    //   this.member = data.member;
+    //   console.log(this.member)
+    // }, error => {
+    //   console.log(error)
+    // });
+
+
   }
 
   loadMember() {
     this.memberService.getMember(this.route.snapshot.paramMap.get('username'))
       .subscribe(member => {
         this.member = member;
+        this.memberParmas = new MemberParams(this.member)
+        this.memberService.setMemberParams(this.memberParmas)
+        this.member.relics.forEach(relic => {
+          if (relic.isApproved) {
+            this.totalRelic++;
+          }
+        });
+
       })
   }
 
