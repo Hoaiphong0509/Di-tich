@@ -104,7 +104,7 @@ export class RelicService {
   getAllRelic(){
     return this.http.get<Relic[]>(this.baseUrl + 'relics/get-relic-approved');
   }
-
+  
   getRelicsByName(name: string){
     var response = this.relicCache.get(Object.values(name));
     if(response){

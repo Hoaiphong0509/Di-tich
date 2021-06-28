@@ -4,6 +4,7 @@ import { Photo } from "./photo";
 export interface Relic {
     id: number;
     name: string;
+    nameUnmark: string;
     title: string;
     content: string;
     view: number;
