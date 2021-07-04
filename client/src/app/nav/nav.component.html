@@ -1,8 +1,15 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-expand{-sm|-md|-lg|-xl} navbar-dark fixed-top bg-dark">
   <div class="container">
-    <a class="navbar-brand p-3" routerLink='/'>Di tích Thủ Đức</a>
-    <ul class="navbar-nav mr-auto p-3">
+    <a class="navbar-brand" routerLink='/'>Di tích Thủ Đức</a>
+    <!-- <div class="toggle">
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    </div> -->
+    <ul class="navbar-nav mr-auto">
       <ng-container *ngIf="(accountService.currentUser$ | async)">
+        <li class="nav-item nav-brand">
+          <a class="nav-link" routerLink='/' routerLinkActive='active'>Trang chủ</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink='/relics/create' routerLinkActive='active'>Tạo bài viết</a>
         </li>

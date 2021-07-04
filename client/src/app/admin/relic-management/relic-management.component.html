@@ -6,7 +6,7 @@
           <th style="width: 30%"></th>
       </tr>
       <tr *ngFor='let relic of relics'>
-          <td>{{relic.name}}</td>
+          <td><a routerLink='/detail/{{relic.id}}'>{{relic.name}}</a></td>
           <td>{{relic.author}}</td>
           <td>
             <button class='btn btn-sm btn-success mr-1' (click)='approveRelic(relic.id)'>Phê duyệt</button>

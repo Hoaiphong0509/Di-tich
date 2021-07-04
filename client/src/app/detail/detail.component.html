@@ -1,14 +1,13 @@
 <div class="container" *ngIf="relic">
   <div class="relic-img">
-    <img src="{{relic.photoUrl}}" style="width: 100%; height: 350px !important; object-fit: cover;">
+    <img src="{{relic.photoUrl}}">
   </div>
   <div class="relic-content">
-    <div class="header mt-5 row">
-      <div class="title col-7">
-        <h1 class="mt-4">{{relic.name}}</h1>
-        <h4 class="ht-4">{{relic.title}}</h4>
+    <div class="header row">
+      <div class="title">
+        <h1>{{relic.name}}</h1>
+        <h4>{{relic.title}}</h4>
       </div>
-
     </div>
     <div class="flexbox-wrapper">
       <div class="regular">

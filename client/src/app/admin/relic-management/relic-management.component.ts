@@ -44,4 +44,5 @@ export class RelicManagementComponent implements OnInit {
       }
     })
   }
+
 }

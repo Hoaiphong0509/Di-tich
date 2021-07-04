@@ -42,6 +42,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [],
@@ -58,6 +59,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     NgDompurifyModule,
     NgxGalleryModule,
     ModalModule.forRoot(),
+    FlexLayoutModule,
     CdkTreeModule,
     MatAutocompleteModule,
     MatButtonModule,
@@ -101,6 +103,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     NgDompurifyModule,
     NgxGalleryModule,
     ModalModule,
+    FlexLayoutModule,
     CdkTreeModule,
     MatAutocompleteModule,
     MatButtonModule,
