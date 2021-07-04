@@ -37,11 +37,13 @@ namespace API.Data
 
             foreach (var user in users)
             {
-                user.Relics.First().IsApproved = true;
+                // user.Relics.First().IsApproved = true;
                 user.UserName = user.UserName.ToLower();
 
                 foreach (var relic in user.Relics)
                 {
+                    relic.IsApproved = true;
+                    relic.IsReject = false;
                     relic.NameUnmark = relic.Name.ConvertToUnSign();
                     relic.IsReject = false;
                 }

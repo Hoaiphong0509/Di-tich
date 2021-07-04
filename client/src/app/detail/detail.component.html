@@ -1,6 +1,6 @@
 <div class="container" *ngIf="relic">
   <div class="relic-img">
-    <img src="{{relic.photoUrl}}">
+    <img src="{{relic.photoUrl || '../../../../assets/images/pic01.jpg'}}">
   </div>
   <div class="relic-content">
     <div class="header row">
